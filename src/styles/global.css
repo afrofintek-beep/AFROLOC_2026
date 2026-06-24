@@ -1,0 +1,153 @@
+@import "./tokens.css";
+
+* {
+  box-sizing: border-box;
+}
+
+html,
+body,
+#root {
+  height: 100%;
+  margin: 0;
+}
+
+body {
+  font-family: var(--afl-font-ui);
+  color: var(--afl-ink);
+  background:
+    radial-gradient(120% 80% at 50% -10%, #2a2520 0%, #161310 60%, #100e0b 100%);
+  -webkit-font-smoothing: antialiased;
+  text-rendering: optimizeLegibility;
+}
+
+/* App workbench — dark stage that frames the phone/web screen previews */
+.afl-stage {
+  min-height: 100%;
+  display: flex;
+}
+
+.afl-rail {
+  width: 252px;
+  flex: none;
+  height: 100vh;
+  position: sticky;
+  top: 0;
+  overflow-y: auto;
+  background: #14110d;
+  border-right: 1px solid var(--afl-hairline-dark);
+  padding: 18px 0 40px;
+}
+
+.afl-rail__brand {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  padding: 6px 18px 16px;
+}
+
+.afl-rail__brand-name {
+  font: 800 18px var(--afl-font-ui);
+  letter-spacing: 0.02em;
+  color: var(--afl-fg-light);
+}
+
+.afl-rail__group {
+  font: 700 10px var(--afl-font-ui);
+  letter-spacing: 0.16em;
+  text-transform: uppercase;
+  color: var(--afl-muted-dark);
+  padding: 16px 18px 6px;
+}
+
+.afl-rail__item {
+  display: block;
+  width: 100%;
+  text-align: left;
+  border: none;
+  background: transparent;
+  color: #9b9384;
+  font: 500 13px var(--afl-font-ui);
+  padding: 7px 18px;
+  cursor: pointer;
+}
+
+.afl-rail__item:hover {
+  color: var(--afl-fg-light);
+  background: #1d1813;
+}
+
+.afl-rail__item.is-active {
+  color: var(--afl-bg-dark);
+  background: var(--afl-grad-glow);
+  font-weight: 700;
+}
+
+.afl-canvas {
+  flex: 1;
+  min-width: 0;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: flex-start;
+  padding: 28px;
+  gap: 14px;
+}
+
+.afl-canvas__bar {
+  width: 100%;
+  max-width: 1180px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  color: var(--afl-muted-dark);
+  font: 500 13px var(--afl-font-ui);
+}
+
+.afl-canvas__id {
+  font: 700 12px var(--afl-font-mono);
+  color: var(--afl-gold-glow);
+  letter-spacing: 0.04em;
+}
+
+.afl-btn-ghost {
+  border: 1px solid var(--afl-hairline-dark-2);
+  background: #1d1813;
+  color: var(--afl-fg-light);
+  font: 600 12px var(--afl-font-ui);
+  border-radius: 9px;
+  padding: 7px 12px;
+  cursor: pointer;
+}
+
+.afl-btn-ghost:disabled {
+  opacity: 0.4;
+  cursor: not-allowed;
+}
+
+/* Dark map tiles (gpsHistory) — invert + tune OSM tiles to a dark theme */
+.afl-dark-tiles {
+  filter: invert(1) hue-rotate(180deg) brightness(0.92) contrast(0.9) saturate(0.6);
+}
+
+/* Inner screen host fills the frame (the screen markup carries its own frame) */
+.afl-screen-host {
+  width: 100%;
+  height: 100%;
+}
+
+.afl-screen-host [data-go],
+.afl-screen-host [data-nav],
+.afl-screen-host [data-next],
+.afl-screen-host [data-back],
+.afl-screen-host button {
+  cursor: pointer;
+}
+
+@media (max-width: 720px) {
+  .afl-rail {
+    display: none;
+  }
+  .afl-canvas {
+    padding: 8px;
+  }
+}

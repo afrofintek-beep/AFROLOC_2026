@@ -1,0 +1,66 @@
+/* AFROLOC Brand Book v2.0 — design tokens.
+   Mapped from the design handoff README. Do not introduce new hues. */
+:root {
+  /* Brand gold system */
+  --afl-gold: #d4a853;
+  --afl-gold-glow: #e8c97a;
+  --afl-amber: #f59e0b;
+  --afl-gradient-end: #e07b2c;
+
+  /* Dark surfaces */
+  --afl-bg-dark: #1a1814;
+  --afl-surface-dark-2: #262019;
+  --afl-hairline-dark: #2e2720;
+  --afl-hairline-dark-2: #3a332d;
+
+  /* Light surfaces */
+  --afl-bg-light: #f8f5f0;
+  --afl-surface-light-alt: #f0eade;
+  --afl-card-white: #fffdf9;
+  --afl-hairline-light: #e6dccc;
+  --afl-hairline-light-2: #eae3d7;
+  --afl-hairline-light-3: #ede4d5;
+
+  /* Text */
+  --afl-fg-on-gold: #2d2519;
+  --afl-ink: #1a1814;
+  --afl-muted: #8a8073;
+  --afl-muted-dark: #a99e8c;
+  --afl-gold-text: #b0831f;
+  --afl-gold-text-2: #b98421;
+  --afl-fg-light: #f5f0e8;
+
+  /* Semantic */
+  --afl-green: #2f7a57;
+  --afl-green-bright: #5bc48e;
+  --afl-green-soft: #7fd3a6;
+  --afl-green-tint: #ebf1ed;
+  --afl-warn: #d99a3a;
+  --afl-warn-label: #b98421;
+  --afl-warn-tint: #f4ead6;
+  --afl-warn-tint-2: #f6e9cf;
+  --afl-danger: #d14b3a;
+  --afl-danger-tint: #fbe3de;
+
+  /* Gradients */
+  --afl-grad-primary: linear-gradient(135deg, #d4a853, #e07b2c);
+  --afl-grad-glow: linear-gradient(135deg, #e8c97a, #d4a853);
+  --afl-grad-warm: linear-gradient(135deg, #d4a853, #f59e0b);
+  --afl-grad-hero: linear-gradient(160deg, #1a1814 0%, #2a2520 55%, #3a2e18 100%);
+
+  /* Typography */
+  --afl-font-display: "Playfair Display", Georgia, serif;
+  --afl-font-ui: "Inter", system-ui, -apple-system, sans-serif;
+  --afl-font-mono: "Space Mono", "SF Mono", ui-monospace, monospace;
+
+  /* Radius */
+  --afl-r-button: 15px;
+  --afl-r-card: 18px;
+  --afl-r-pill: 14px;
+  --afl-phone-radius: 46px;
+
+  /* Shadow */
+  --afl-shadow-button: 0 12px 24px -10px rgba(212, 168, 83, 0.7);
+  --afl-shadow-card: 0 40px 70px -34px rgba(28, 24, 21, 0.5),
+    0 0 0 1px rgba(28, 24, 21, 0.05);
+}
