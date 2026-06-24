@@ -12,3 +12,6 @@ node_modules
 /ios
 .env
 .env.*
+
+# TypeScript build cache
+*.tsbuildinfo
