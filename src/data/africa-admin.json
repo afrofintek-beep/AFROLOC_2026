@@ -1,0 +1,5633 @@
+{
+  "meta": {
+    "fonte": "AfroFinTek — nível 1 + línguas",
+    "aviso": "Nomes/contagens de nível 1 a validar com fonte oficial (GADM/HDX) antes de produção. Profundidade até bairro só em Angola.",
+    "n_paises": 54,
+    "n_unidades_nivel1": 834,
+    "n_bairros_piloto": 80
+  },
+  "paises": [
+    {
+      "iso": "DZ",
+      "pais": "Argélia",
+      "flag": "🇩🇿",
+      "capital": "Argel",
+      "nivel1_tipo": "província (wilaya)",
+      "linguas_oficiais": [
+        "Árabe",
+        "Tamazight"
+      ],
+      "linguas_faladas": [
+        "Árabe argelino (Darija)",
+        "Cabila",
+        "Chaoui",
+        "Mozabita",
+        "Tamacheque",
+        "Francês"
+      ],
+      "nivel1": [
+        {
+          "nome": "Adrar",
+          "nome_norm": "adrar",
+          "codigo": "ADR"
+        },
+        {
+          "nome": "Chlef",
+          "nome_norm": "chlef",
+          "codigo": "CHL"
+        },
+        {
+          "nome": "Laghouat",
+          "nome_norm": "laghouat",
+          "codigo": "LAG"
+        },
+        {
+          "nome": "Oum El Bouaghi",
+          "nome_norm": "oum el bouaghi",
+          "codigo": "OUM"
+        },
+        {
+          "nome": "Batna",
+          "nome_norm": "batna",
+          "codigo": "BAT"
+        },
+        {
+          "nome": "Béjaïa",
+          "nome_norm": "bejaia",
+          "codigo": "BEJ"
+        },
+        {
+          "nome": "Biskra",
+          "nome_norm": "biskra",
+          "codigo": "BIS"
+        },
+        {
+          "nome": "Béchar",
+          "nome_norm": "bechar",
+          "codigo": "BEC"
+        },
+        {
+          "nome": "Blida",
+          "nome_norm": "blida",
+          "codigo": "BLI"
+        },
+        {
+          "nome": "Bouira",
+          "nome_norm": "bouira",
+          "codigo": "BOU"
+        },
+        {
+          "nome": "Tamanrasset",
+          "nome_norm": "tamanrasset",
+          "codigo": "TAM"
+        },
+        {
+          "nome": "Tébessa",
+          "nome_norm": "tebessa",
+          "codigo": "TEB"
+        },
+        {
+          "nome": "Tlemcen",
+          "nome_norm": "tlemcen",
+          "codigo": "TLE"
+        },
+        {
+          "nome": "Tiaret",
+          "nome_norm": "tiaret",
+          "codigo": "TIA"
+        },
+        {
+          "nome": "Tizi Ouzou",
+          "nome_norm": "tizi ouzou",
+          "codigo": "TIZ"
+        },
+        {
+          "nome": "Argel",
+          "nome_norm": "argel",
+          "codigo": "ARG"
+        },
+        {
+          "nome": "Djelfa",
+          "nome_norm": "djelfa",
+          "codigo": "DJE"
+        },
+        {
+          "nome": "Jijel",
+          "nome_norm": "jijel",
+          "codigo": "JIJ"
+        },
+        {
+          "nome": "Sétif",
+          "nome_norm": "setif",
+          "codigo": "SET"
+        },
+        {
+          "nome": "Saïda",
+          "nome_norm": "saida",
+          "codigo": "SAI"
+        },
+        {
+          "nome": "Skikda",
+          "nome_norm": "skikda",
+          "codigo": "SKI"
+        },
+        {
+          "nome": "Sidi Bel Abbès",
+          "nome_norm": "sidi bel abbes",
+          "codigo": "SID"
+        },
+        {
+          "nome": "Annaba",
+          "nome_norm": "annaba",
+          "codigo": "ANN"
+        },
+        {
+          "nome": "Guelma",
+          "nome_norm": "guelma",
+          "codigo": "GUE"
+        },
+        {
+          "nome": "Constantine",
+          "nome_norm": "constantine",
+          "codigo": "CON"
+        },
+        {
+          "nome": "Médéa",
+          "nome_norm": "medea",
+          "codigo": "MED"
+        },
+        {
+          "nome": "Mostaganem",
+          "nome_norm": "mostaganem",
+          "codigo": "MOS"
+        },
+        {
+          "nome": "M'Sila",
+          "nome_norm": "m'sila",
+          "codigo": "MSI"
+        },
+        {
+          "nome": "Mascara",
+          "nome_norm": "mascara",
+          "codigo": "MAS"
+        },
+        {
+          "nome": "Ouargla",
+          "nome_norm": "ouargla",
+          "codigo": "OUA"
+        },
+        {
+          "nome": "Oran",
+          "nome_norm": "oran",
+          "codigo": "ORA"
+        },
+        {
+          "nome": "El Bayadh",
+          "nome_norm": "el bayadh",
+          "codigo": "ELB"
+        },
+        {
+          "nome": "Illizi",
+          "nome_norm": "illizi",
+          "codigo": "ILL"
+        },
+        {
+          "nome": "Bordj Bou Arréridj",
+          "nome_norm": "bordj bou arreridj",
+          "codigo": "BOR"
+        },
+        {
+          "nome": "Boumerdès",
+          "nome_norm": "boumerdes",
+          "codigo": "BOUM"
+        },
+        {
+          "nome": "El Tarf",
+          "nome_norm": "el tarf",
+          "codigo": "ELT"
+        },
+        {
+          "nome": "Tindouf",
+          "nome_norm": "tindouf",
+          "codigo": "TIN"
+        },
+        {
+          "nome": "Tissemsilt",
+          "nome_norm": "tissemsilt",
+          "codigo": "TIS"
+        },
+        {
+          "nome": "El Oued",
+          "nome_norm": "el oued",
+          "codigo": "ELO"
+        },
+        {
+          "nome": "Khenchela",
+          "nome_norm": "khenchela",
+          "codigo": "KHE"
+        },
+        {
+          "nome": "Souk Ahras",
+          "nome_norm": "souk ahras",
+          "codigo": "SOU"
+        },
+        {
+          "nome": "Tipaza",
+          "nome_norm": "tipaza",
+          "codigo": "TIP"
+        },
+        {
+          "nome": "Mila",
+          "nome_norm": "mila",
+          "codigo": "MIL"
+        },
+        {
+          "nome": "Aïn Defla",
+          "nome_norm": "ain defla",
+          "codigo": "AIN"
+        },
+        {
+          "nome": "Naâma",
+          "nome_norm": "naama",
+          "codigo": "NAA"
+        },
+        {
+          "nome": "Aïn Témouchent",
+          "nome_norm": "ain temouchent",
+          "codigo": "AINT"
+        },
+        {
+          "nome": "Ghardaïa",
+          "nome_norm": "ghardaia",
+          "codigo": "GHA"
+        },
+        {
+          "nome": "Relizane",
+          "nome_norm": "relizane",
+          "codigo": "REL"
+        },
+        {
+          "nome": "Timimoun",
+          "nome_norm": "timimoun",
+          "codigo": "TIM"
+        },
+        {
+          "nome": "Bordj Badji Mokhtar",
+          "nome_norm": "bordj badji mokhtar",
+          "codigo": "BORD"
+        },
+        {
+          "nome": "Ouled Djellal",
+          "nome_norm": "ouled djellal",
+          "codigo": "OUL"
+        },
+        {
+          "nome": "Béni Abbès",
+          "nome_norm": "beni abbes",
+          "codigo": "BEN"
+        },
+        {
+          "nome": "In Salah",
+          "nome_norm": "in salah",
+          "codigo": "INS"
+        },
+        {
+          "nome": "In Guezzam",
+          "nome_norm": "in guezzam",
+          "codigo": "ING"
+        },
+        {
+          "nome": "Touggourt",
+          "nome_norm": "touggourt",
+          "codigo": "TOU"
+        },
+        {
+          "nome": "Djanet",
+          "nome_norm": "djanet",
+          "codigo": "DJA"
+        },
+        {
+          "nome": "El M'Ghair",
+          "nome_norm": "el m'ghair",
+          "codigo": "ELM"
+        },
+        {
+          "nome": "El Meniaa",
+          "nome_norm": "el meniaa",
+          "codigo": "ELME"
+        }
+      ]
+    },
+    {
+      "iso": "AO",
+      "pais": "Angola",
+      "flag": "🇦🇴",
+      "capital": "Luanda",
+      "nivel1_tipo": "província",
+      "linguas_oficiais": [
+        "Português"
+      ],
+      "linguas_faladas": [
+        "Umbundu",
+        "Kimbundu",
+        "Kikongo",
+        "Chokwe",
+        "Nganguela",
+        "Kwanyama",
+        "Fiote",
+        "Luvale"
+      ],
+      "nivel1": [
+        {
+          "nome": "Bengo",
+          "nome_norm": "bengo",
+          "codigo": "BEN"
+        },
+        {
+          "nome": "Benguela",
+          "nome_norm": "benguela",
+          "codigo": "BENG"
+        },
+        {
+          "nome": "Bié",
+          "nome_norm": "bie",
+          "codigo": "BIE"
+        },
+        {
+          "nome": "Cabinda",
+          "nome_norm": "cabinda",
+          "codigo": "CAB"
+        },
+        {
+          "nome": "Cuando",
+          "nome_norm": "cuando",
+          "codigo": "CUA"
+        },
+        {
+          "nome": "Cubango",
+          "nome_norm": "cubango",
+          "codigo": "CUB"
+        },
+        {
+          "nome": "Cuanza Norte",
+          "nome_norm": "cuanza norte",
+          "codigo": "CUAN"
+        },
+        {
+          "nome": "Cuanza Sul",
+          "nome_norm": "cuanza sul",
+          "codigo": "CUN"
+        },
+        {
+          "nome": "Cunene",
+          "nome_norm": "cunene",
+          "codigo": "CUNE"
+        },
+        {
+          "nome": "Huambo",
+          "nome_norm": "huambo",
+          "codigo": "HUA"
+        },
+        {
+          "nome": "Huíla",
+          "nome_norm": "huila",
+          "codigo": "HUI"
+        },
+        {
+          "nome": "Icolo e Bengo",
+          "nome_norm": "icolo e bengo",
+          "codigo": "ICO"
+        },
+        {
+          "nome": "Luanda",
+          "nome_norm": "luanda",
+          "codigo": "LUA"
+        },
+        {
+          "nome": "Lunda Norte",
+          "nome_norm": "lunda norte",
+          "codigo": "LUN"
+        },
+        {
+          "nome": "Lunda Sul",
+          "nome_norm": "lunda sul",
+          "codigo": "LUND"
+        },
+        {
+          "nome": "Malanje",
+          "nome_norm": "malanje",
+          "codigo": "MAL"
+        },
+        {
+          "nome": "Moxico",
+          "nome_norm": "moxico",
+          "codigo": "MOX"
+        },
+        {
+          "nome": "Moxico Leste",
+          "nome_norm": "moxico leste",
+          "codigo": "MOXI"
+        },
+        {
+          "nome": "Namibe",
+          "nome_norm": "namibe",
+          "codigo": "NAM"
+        },
+        {
+          "nome": "Uíge",
+          "nome_norm": "uige",
+          "codigo": "UIG"
+        },
+        {
+          "nome": "Zaire",
+          "nome_norm": "zaire",
+          "codigo": "ZAI"
+        }
+      ],
+      "piloto": {
+        "cidade": "Luanda",
+        "pai_n1": "Luanda",
+        "bairros": [
+          {
+            "nome": "Talatona",
+            "nome_norm": "talatona",
+            "codigo": "TAL"
+          },
+          {
+            "nome": "Maianga",
+            "nome_norm": "maianga",
+            "codigo": "MAI"
+          },
+          {
+            "nome": "Ingombota",
+            "nome_norm": "ingombota",
+            "codigo": "ING"
+          },
+          {
+            "nome": "Alvalade",
+            "nome_norm": "alvalade",
+            "codigo": "ALV"
+          },
+          {
+            "nome": "Maculusso",
+            "nome_norm": "maculusso",
+            "codigo": "MAC"
+          },
+          {
+            "nome": "Miramar",
+            "nome_norm": "miramar",
+            "codigo": "MIR"
+          },
+          {
+            "nome": "Samba",
+            "nome_norm": "samba",
+            "codigo": "SAM"
+          },
+          {
+            "nome": "Rangel",
+            "nome_norm": "rangel",
+            "codigo": "RAN"
+          },
+          {
+            "nome": "Sambizanga",
+            "nome_norm": "sambizanga",
+            "codigo": "SAMB"
+          },
+          {
+            "nome": "Kilamba Kiaxi",
+            "nome_norm": "kilamba kiaxi",
+            "codigo": "KIL"
+          },
+          {
+            "nome": "Prenda",
+            "nome_norm": "prenda",
+            "codigo": "PRE"
+          },
+          {
+            "nome": "Viana",
+            "nome_norm": "viana",
+            "codigo": "VIA"
+          },
+          {
+            "nome": "Cazenga",
+            "nome_norm": "cazenga",
+            "codigo": "CAZ"
+          },
+          {
+            "nome": "Cacuaco",
+            "nome_norm": "cacuaco",
+            "codigo": "CAC"
+          },
+          {
+            "nome": "Patriota",
+            "nome_norm": "patriota",
+            "codigo": "PAT"
+          },
+          {
+            "nome": "Benfica",
+            "nome_norm": "benfica",
+            "codigo": "BEN"
+          }
+        ]
+      }
+    },
+    {
+      "iso": "BJ",
+      "pais": "Benim",
+      "flag": "🇧🇯",
+      "capital": "Porto-Novo",
+      "nivel1_tipo": "departamento",
+      "linguas_oficiais": [
+        "Francês"
+      ],
+      "linguas_faladas": [
+        "Fon",
+        "Yoruba",
+        "Bariba",
+        "Dendi",
+        "Adja",
+        "Mina"
+      ],
+      "nivel1": [
+        {
+          "nome": "Alibori",
+          "nome_norm": "alibori",
+          "codigo": "ALI"
+        },
+        {
+          "nome": "Atacora",
+          "nome_norm": "atacora",
+          "codigo": "ATA"
+        },
+        {
+          "nome": "Atlantique",
+          "nome_norm": "atlantique",
+          "codigo": "ATL"
+        },
+        {
+          "nome": "Borgou",
+          "nome_norm": "borgou",
+          "codigo": "BOR"
+        },
+        {
+          "nome": "Collines",
+          "nome_norm": "collines",
+          "codigo": "COL"
+        },
+        {
+          "nome": "Couffo",
+          "nome_norm": "couffo",
+          "codigo": "COU"
+        },
+        {
+          "nome": "Donga",
+          "nome_norm": "donga",
+          "codigo": "DON"
+        },
+        {
+          "nome": "Littoral",
+          "nome_norm": "littoral",
+          "codigo": "LIT"
+        },
+        {
+          "nome": "Mono",
+          "nome_norm": "mono",
+          "codigo": "MON"
+        },
+        {
+          "nome": "Ouémé",
+          "nome_norm": "oueme",
+          "codigo": "OUE"
+        },
+        {
+          "nome": "Plateau",
+          "nome_norm": "plateau",
+          "codigo": "PLA"
+        },
+        {
+          "nome": "Zou",
+          "nome_norm": "zou",
+          "codigo": "ZOU"
+        }
+      ]
+    },
+    {
+      "iso": "BW",
+      "pais": "Botsuana",
+      "flag": "🇧🇼",
+      "capital": "Gaborone",
+      "nivel1_tipo": "distrito",
+      "linguas_oficiais": [
+        "Inglês",
+        "Setswana"
+      ],
+      "linguas_faladas": [
+        "Setswana",
+        "Kalanga",
+        "Kgalagadi",
+        "Herero"
+      ],
+      "nivel1": [
+        {
+          "nome": "Central",
+          "nome_norm": "central",
+          "codigo": "CEN"
+        },
+        {
+          "nome": "Ghanzi",
+          "nome_norm": "ghanzi",
+          "codigo": "GHA"
+        },
+        {
+          "nome": "Kgalagadi",
+          "nome_norm": "kgalagadi",
+          "codigo": "KGA"
+        },
+        {
+          "nome": "Kgatleng",
+          "nome_norm": "kgatleng",
+          "codigo": "KGAT"
+        },
+        {
+          "nome": "Kweneng",
+          "nome_norm": "kweneng",
+          "codigo": "KWE"
+        },
+        {
+          "nome": "North-East",
+          "nome_norm": "north-east",
+          "codigo": "NOR"
+        },
+        {
+          "nome": "North-West",
+          "nome_norm": "north-west",
+          "codigo": "NORT"
+        },
+        {
+          "nome": "South-East",
+          "nome_norm": "south-east",
+          "codigo": "SOU"
+        },
+        {
+          "nome": "Southern",
+          "nome_norm": "southern",
+          "codigo": "SOUT"
+        },
+        {
+          "nome": "Chobe",
+          "nome_norm": "chobe",
+          "codigo": "CHO"
+        }
+      ]
+    },
+    {
+      "iso": "BF",
+      "pais": "Burquina Faso",
+      "flag": "🇧🇫",
+      "capital": "Uagadugu",
+      "nivel1_tipo": "região",
+      "linguas_oficiais": [
+        "Francês"
+      ],
+      "linguas_faladas": [
+        "Mooré",
+        "Dioula (Bambara)",
+        "Fula (Fulfulde)",
+        "Gourmanché"
+      ],
+      "nivel1": [
+        {
+          "nome": "Boucle du Mouhoun",
+          "nome_norm": "boucle du mouhoun",
+          "codigo": "BOU"
+        },
+        {
+          "nome": "Cascades",
+          "nome_norm": "cascades",
+          "codigo": "CAS"
+        },
+        {
+          "nome": "Centre",
+          "nome_norm": "centre",
+          "codigo": "CEN"
+        },
+        {
+          "nome": "Centre-Est",
+          "nome_norm": "centre-est",
+          "codigo": "CENT"
+        },
+        {
+          "nome": "Centre-Nord",
+          "nome_norm": "centre-nord",
+          "codigo": "CET"
+        },
+        {
+          "nome": "Centre-Ouest",
+          "nome_norm": "centre-ouest",
+          "codigo": "CER"
+        },
+        {
+          "nome": "Centre-Sud",
+          "nome_norm": "centre-sud",
+          "codigo": "CEE"
+        },
+        {
+          "nome": "Est",
+          "nome_norm": "est",
+          "codigo": "EST"
+        },
+        {
+          "nome": "Hauts-Bassins",
+          "nome_norm": "hauts-bassins",
+          "codigo": "HAU"
+        },
+        {
+          "nome": "Nord",
+          "nome_norm": "nord",
+          "codigo": "NOR"
+        },
+        {
+          "nome": "Plateau-Central",
+          "nome_norm": "plateau-central",
+          "codigo": "PLA"
+        },
+        {
+          "nome": "Sahel",
+          "nome_norm": "sahel",
+          "codigo": "SAH"
+        },
+        {
+          "nome": "Sud-Ouest",
+          "nome_norm": "sud-ouest",
+          "codigo": "SUD"
+        }
+      ]
+    },
+    {
+      "iso": "BI",
+      "pais": "Burúndi",
+      "flag": "🇧🇮",
+      "capital": "Gitega",
+      "nivel1_tipo": "província",
+      "linguas_oficiais": [
+        "Kirundi",
+        "Francês",
+        "Inglês"
+      ],
+      "linguas_faladas": [
+        "Kirundi",
+        "Suaíli"
+      ],
+      "nivel1": [
+        {
+          "nome": "Bubanza",
+          "nome_norm": "bubanza",
+          "codigo": "BUB"
+        },
+        {
+          "nome": "Bujumbura Mairie",
+          "nome_norm": "bujumbura mairie",
+          "codigo": "BUJ"
+        },
+        {
+          "nome": "Bujumbura Rural",
+          "nome_norm": "bujumbura rural",
+          "codigo": "BUJU"
+        },
+        {
+          "nome": "Bururi",
+          "nome_norm": "bururi",
+          "codigo": "BUR"
+        },
+        {
+          "nome": "Cankuzo",
+          "nome_norm": "cankuzo",
+          "codigo": "CAN"
+        },
+        {
+          "nome": "Cibitoke",
+          "nome_norm": "cibitoke",
+          "codigo": "CIB"
+        },
+        {
+          "nome": "Gitega",
+          "nome_norm": "gitega",
+          "codigo": "GIT"
+        },
+        {
+          "nome": "Karuzi",
+          "nome_norm": "karuzi",
+          "codigo": "KAR"
+        },
+        {
+          "nome": "Kayanza",
+          "nome_norm": "kayanza",
+          "codigo": "KAY"
+        },
+        {
+          "nome": "Kirundo",
+          "nome_norm": "kirundo",
+          "codigo": "KIR"
+        },
+        {
+          "nome": "Makamba",
+          "nome_norm": "makamba",
+          "codigo": "MAK"
+        },
+        {
+          "nome": "Muramvya",
+          "nome_norm": "muramvya",
+          "codigo": "MUR"
+        },
+        {
+          "nome": "Muyinga",
+          "nome_norm": "muyinga",
+          "codigo": "MUY"
+        },
+        {
+          "nome": "Mwaro",
+          "nome_norm": "mwaro",
+          "codigo": "MWA"
+        },
+        {
+          "nome": "Ngozi",
+          "nome_norm": "ngozi",
+          "codigo": "NGO"
+        },
+        {
+          "nome": "Rumonge",
+          "nome_norm": "rumonge",
+          "codigo": "RUM"
+        },
+        {
+          "nome": "Rutana",
+          "nome_norm": "rutana",
+          "codigo": "RUT"
+        },
+        {
+          "nome": "Ruyigi",
+          "nome_norm": "ruyigi",
+          "codigo": "RUY"
+        }
+      ]
+    },
+    {
+      "iso": "CV",
+      "pais": "Cabo Verde",
+      "flag": "🇨🇻",
+      "capital": "Praia",
+      "nivel1_tipo": "concelho (município)",
+      "linguas_oficiais": [
+        "Português"
+      ],
+      "linguas_faladas": [
+        "Crioulo cabo-verdiano (Kriolu)"
+      ],
+      "nivel1": [
+        {
+          "nome": "Boa Vista",
+          "nome_norm": "boa vista",
+          "codigo": "BOA"
+        },
+        {
+          "nome": "Brava",
+          "nome_norm": "brava",
+          "codigo": "BRA"
+        },
+        {
+          "nome": "Maio",
+          "nome_norm": "maio",
+          "codigo": "MAI"
+        },
+        {
+          "nome": "Mosteiros",
+          "nome_norm": "mosteiros",
+          "codigo": "MOS"
+        },
+        {
+          "nome": "Paul",
+          "nome_norm": "paul",
+          "codigo": "PAU"
+        },
+        {
+          "nome": "Porto Novo",
+          "nome_norm": "porto novo",
+          "codigo": "POR"
+        },
+        {
+          "nome": "Praia",
+          "nome_norm": "praia",
+          "codigo": "PRA"
+        },
+        {
+          "nome": "Ribeira Brava",
+          "nome_norm": "ribeira brava",
+          "codigo": "RIB"
+        },
+        {
+          "nome": "Ribeira Grande",
+          "nome_norm": "ribeira grande",
+          "codigo": "RIBE"
+        },
+        {
+          "nome": "Ribeira Grande de Santiago",
+          "nome_norm": "ribeira grande de santiago",
+          "codigo": "RIE"
+        },
+        {
+          "nome": "Sal",
+          "nome_norm": "sal",
+          "codigo": "SAL"
+        },
+        {
+          "nome": "Santa Catarina",
+          "nome_norm": "santa catarina",
+          "codigo": "SAN"
+        },
+        {
+          "nome": "Santa Catarina do Fogo",
+          "nome_norm": "santa catarina do fogo",
+          "codigo": "SANT"
+        },
+        {
+          "nome": "Santa Cruz",
+          "nome_norm": "santa cruz",
+          "codigo": "SAT"
+        },
+        {
+          "nome": "São Domingos",
+          "nome_norm": "sao domingos",
+          "codigo": "SAO"
+        },
+        {
+          "nome": "São Filipe",
+          "nome_norm": "sao filipe",
+          "codigo": "SAOF"
+        },
+        {
+          "nome": "São Lourenço dos Órgãos",
+          "nome_norm": "sao lourenco dos orgaos",
+          "codigo": "SAOL"
+        },
+        {
+          "nome": "São Miguel",
+          "nome_norm": "sao miguel",
+          "codigo": "SAOM"
+        },
+        {
+          "nome": "São Salvador do Mundo",
+          "nome_norm": "sao salvador do mundo",
+          "codigo": "SAOS"
+        },
+        {
+          "nome": "São Vicente",
+          "nome_norm": "sao vicente",
+          "codigo": "SAOV"
+        },
+        {
+          "nome": "Tarrafal",
+          "nome_norm": "tarrafal",
+          "codigo": "TAR"
+        },
+        {
+          "nome": "Tarrafal de São Nicolau",
+          "nome_norm": "tarrafal de sao nicolau",
+          "codigo": "TARR"
+        }
+      ],
+      "piloto": {
+        "cidade": "Praia",
+        "pai_n1": "Praia",
+        "bairros": [
+          {
+            "nome": "Plateau",
+            "nome_norm": "plateau",
+            "codigo": "PLA"
+          },
+          {
+            "nome": "Achada Santo António",
+            "nome_norm": "achada santo antonio",
+            "codigo": "ACH"
+          },
+          {
+            "nome": "Palmarejo",
+            "nome_norm": "palmarejo",
+            "codigo": "PAL"
+          },
+          {
+            "nome": "Prainha",
+            "nome_norm": "prainha",
+            "codigo": "PRA"
+          },
+          {
+            "nome": "Fazenda",
+            "nome_norm": "fazenda",
+            "codigo": "FAZ"
+          },
+          {
+            "nome": "Várzea",
+            "nome_norm": "varzea",
+            "codigo": "VAR"
+          },
+          {
+            "nome": "Terra Branca",
+            "nome_norm": "terra branca",
+            "codigo": "TER"
+          },
+          {
+            "nome": "Tira Chapéu",
+            "nome_norm": "tira chapeu",
+            "codigo": "TIR"
+          },
+          {
+            "nome": "Safende",
+            "nome_norm": "safende",
+            "codigo": "SAF"
+          },
+          {
+            "nome": "Calabaceira",
+            "nome_norm": "calabaceira",
+            "codigo": "CAL"
+          },
+          {
+            "nome": "Ponta d'Água",
+            "nome_norm": "ponta d'agua",
+            "codigo": "PON"
+          },
+          {
+            "nome": "Achadinha",
+            "nome_norm": "achadinha",
+            "codigo": "ACHA"
+          },
+          {
+            "nome": "Bela Vista",
+            "nome_norm": "bela vista",
+            "codigo": "BEL"
+          },
+          {
+            "nome": "Eugénio Lima",
+            "nome_norm": "eugenio lima",
+            "codigo": "EUG"
+          },
+          {
+            "nome": "Achada Grande",
+            "nome_norm": "achada grande",
+            "codigo": "ACA"
+          },
+          {
+            "nome": "Vila Nova",
+            "nome_norm": "vila nova",
+            "codigo": "VIL"
+          }
+        ]
+      }
+    },
+    {
+      "iso": "CM",
+      "pais": "Camarões",
+      "flag": "🇨🇲",
+      "capital": "Iaundé",
+      "nivel1_tipo": "região",
+      "linguas_oficiais": [
+        "Francês",
+        "Inglês"
+      ],
+      "linguas_faladas": [
+        "Fula",
+        "Ewondo",
+        "Duala",
+        "Bamileke",
+        "Pidgin camaronês"
+      ],
+      "nivel1": [
+        {
+          "nome": "Adamaoua",
+          "nome_norm": "adamaoua",
+          "codigo": "ADA"
+        },
+        {
+          "nome": "Centre",
+          "nome_norm": "centre",
+          "codigo": "CEN"
+        },
+        {
+          "nome": "Est",
+          "nome_norm": "est",
+          "codigo": "EST"
+        },
+        {
+          "nome": "Extrême-Nord",
+          "nome_norm": "extreme-nord",
+          "codigo": "EXT"
+        },
+        {
+          "nome": "Littoral",
+          "nome_norm": "littoral",
+          "codigo": "LIT"
+        },
+        {
+          "nome": "Nord",
+          "nome_norm": "nord",
+          "codigo": "NOR"
+        },
+        {
+          "nome": "Nord-Ouest",
+          "nome_norm": "nord-ouest",
+          "codigo": "NORD"
+        },
+        {
+          "nome": "Ouest",
+          "nome_norm": "ouest",
+          "codigo": "OUE"
+        },
+        {
+          "nome": "Sud",
+          "nome_norm": "sud",
+          "codigo": "SUD"
+        },
+        {
+          "nome": "Sud-Ouest",
+          "nome_norm": "sud-ouest",
+          "codigo": "SUDO"
+        }
+      ]
+    },
+    {
+      "iso": "CF",
+      "pais": "República Centro-Africana",
+      "flag": "🇨🇫",
+      "capital": "Bangui",
+      "nivel1_tipo": "prefeitura",
+      "linguas_oficiais": [
+        "Francês",
+        "Sango"
+      ],
+      "linguas_faladas": [
+        "Sango",
+        "Gbaya",
+        "Banda"
+      ],
+      "nivel1": [
+        {
+          "nome": "Bamingui-Bangoran",
+          "nome_norm": "bamingui-bangoran",
+          "codigo": "BAM"
+        },
+        {
+          "nome": "Bangui",
+          "nome_norm": "bangui",
+          "codigo": "BAN"
+        },
+        {
+          "nome": "Basse-Kotto",
+          "nome_norm": "basse-kotto",
+          "codigo": "BAS"
+        },
+        {
+          "nome": "Haute-Kotto",
+          "nome_norm": "haute-kotto",
+          "codigo": "HAU"
+        },
+        {
+          "nome": "Haut-Mbomou",
+          "nome_norm": "haut-mbomou",
+          "codigo": "HAUT"
+        },
+        {
+          "nome": "Kémo",
+          "nome_norm": "kemo",
+          "codigo": "KEM"
+        },
+        {
+          "nome": "Lobaye",
+          "nome_norm": "lobaye",
+          "codigo": "LOB"
+        },
+        {
+          "nome": "Mambéré-Kadéï",
+          "nome_norm": "mambere-kadei",
+          "codigo": "MAM"
+        },
+        {
+          "nome": "Mbomou",
+          "nome_norm": "mbomou",
+          "codigo": "MBO"
+        },
+        {
+          "nome": "Nana-Grébizi",
+          "nome_norm": "nana-grebizi",
+          "codigo": "NAN"
+        },
+        {
+          "nome": "Nana-Mambéré",
+          "nome_norm": "nana-mambere",
+          "codigo": "NANA"
+        },
+        {
+          "nome": "Ombella-M'Poko",
+          "nome_norm": "ombella-m'poko",
+          "codigo": "OMB"
+        },
+        {
+          "nome": "Ouaka",
+          "nome_norm": "ouaka",
+          "codigo": "OUA"
+        },
+        {
+          "nome": "Ouham",
+          "nome_norm": "ouham",
+          "codigo": "OUH"
+        },
+        {
+          "nome": "Ouham-Pendé",
+          "nome_norm": "ouham-pende",
+          "codigo": "OUHA"
+        },
+        {
+          "nome": "Sangha-Mbaéré",
+          "nome_norm": "sangha-mbaere",
+          "codigo": "SAN"
+        },
+        {
+          "nome": "Vakaga",
+          "nome_norm": "vakaga",
+          "codigo": "VAK"
+        }
+      ]
+    },
+    {
+      "iso": "TD",
+      "pais": "Chade",
+      "flag": "🇹🇩",
+      "capital": "N'Djamena",
+      "nivel1_tipo": "província",
+      "linguas_oficiais": [
+        "Francês",
+        "Árabe"
+      ],
+      "linguas_faladas": [
+        "Árabe chadiano",
+        "Sara",
+        "Kanembu",
+        "Maba"
+      ],
+      "nivel1": [
+        {
+          "nome": "Batha",
+          "nome_norm": "batha",
+          "codigo": "BAT"
+        },
+        {
+          "nome": "Borkou",
+          "nome_norm": "borkou",
+          "codigo": "BOR"
+        },
+        {
+          "nome": "Chari-Baguirmi",
+          "nome_norm": "chari-baguirmi",
+          "codigo": "CHA"
+        },
+        {
+          "nome": "Ennedi-Est",
+          "nome_norm": "ennedi-est",
+          "codigo": "ENN"
+        },
+        {
+          "nome": "Ennedi-Ouest",
+          "nome_norm": "ennedi-ouest",
+          "codigo": "ENNE"
+        },
+        {
+          "nome": "Guéra",
+          "nome_norm": "guera",
+          "codigo": "GUE"
+        },
+        {
+          "nome": "Hadjer-Lamis",
+          "nome_norm": "hadjer-lamis",
+          "codigo": "HAD"
+        },
+        {
+          "nome": "Kanem",
+          "nome_norm": "kanem",
+          "codigo": "KAN"
+        },
+        {
+          "nome": "Lac",
+          "nome_norm": "lac",
+          "codigo": "LAC"
+        },
+        {
+          "nome": "Logone Occidental",
+          "nome_norm": "logone occidental",
+          "codigo": "LOG"
+        },
+        {
+          "nome": "Logone Oriental",
+          "nome_norm": "logone oriental",
+          "codigo": "LOGO"
+        },
+        {
+          "nome": "Mandoul",
+          "nome_norm": "mandoul",
+          "codigo": "MAN"
+        },
+        {
+          "nome": "Mayo-Kebbi Est",
+          "nome_norm": "mayo-kebbi est",
+          "codigo": "MAY"
+        },
+        {
+          "nome": "Mayo-Kebbi Ouest",
+          "nome_norm": "mayo-kebbi ouest",
+          "codigo": "MAYO"
+        },
+        {
+          "nome": "Moyen-Chari",
+          "nome_norm": "moyen-chari",
+          "codigo": "MOY"
+        },
+        {
+          "nome": "Ouaddaï",
+          "nome_norm": "ouaddai",
+          "codigo": "OUA"
+        },
+        {
+          "nome": "Salamat",
+          "nome_norm": "salamat",
+          "codigo": "SAL"
+        },
+        {
+          "nome": "Sila",
+          "nome_norm": "sila",
+          "codigo": "SIL"
+        },
+        {
+          "nome": "Tandjilé",
+          "nome_norm": "tandjile",
+          "codigo": "TAN"
+        },
+        {
+          "nome": "Tibesti",
+          "nome_norm": "tibesti",
+          "codigo": "TIB"
+        },
+        {
+          "nome": "N'Djamena",
+          "nome_norm": "n'djamena",
+          "codigo": "NDJ"
+        },
+        {
+          "nome": "Wadi Fira",
+          "nome_norm": "wadi fira",
+          "codigo": "WAD"
+        },
+        {
+          "nome": "Barh-El-Gazel",
+          "nome_norm": "barh-el-gazel",
+          "codigo": "BAR"
+        }
+      ]
+    },
+    {
+      "iso": "KM",
+      "pais": "Comores",
+      "flag": "🇰🇲",
+      "capital": "Moroni",
+      "nivel1_tipo": "ilha",
+      "linguas_oficiais": [
+        "Comoriano",
+        "Árabe",
+        "Francês"
+      ],
+      "linguas_faladas": [
+        "Shikomori"
+      ],
+      "nivel1": [
+        {
+          "nome": "Grande Comore (Ngazidja)",
+          "nome_norm": "grande comore (ngazidja)",
+          "codigo": "GRA"
+        },
+        {
+          "nome": "Anjouan (Ndzuwani)",
+          "nome_norm": "anjouan (ndzuwani)",
+          "codigo": "ANJ"
+        },
+        {
+          "nome": "Mohéli (Mwali)",
+          "nome_norm": "moheli (mwali)",
+          "codigo": "MOH"
+        }
+      ]
+    },
+    {
+      "iso": "CG",
+      "pais": "Congo",
+      "flag": "🇨🇬",
+      "capital": "Brazzaville",
+      "nivel1_tipo": "departamento",
+      "linguas_oficiais": [
+        "Francês"
+      ],
+      "linguas_faladas": [
+        "Lingala",
+        "Kituba (Munukutuba)",
+        "Kongo"
+      ],
+      "nivel1": [
+        {
+          "nome": "Bouenza",
+          "nome_norm": "bouenza",
+          "codigo": "BOU"
+        },
+        {
+          "nome": "Brazzaville",
+          "nome_norm": "brazzaville",
+          "codigo": "BRA"
+        },
+        {
+          "nome": "Cuvette",
+          "nome_norm": "cuvette",
+          "codigo": "CUV"
+        },
+        {
+          "nome": "Cuvette-Ouest",
+          "nome_norm": "cuvette-ouest",
+          "codigo": "CUVE"
+        },
+        {
+          "nome": "Kouilou",
+          "nome_norm": "kouilou",
+          "codigo": "KOU"
+        },
+        {
+          "nome": "Lékoumou",
+          "nome_norm": "lekoumou",
+          "codigo": "LEK"
+        },
+        {
+          "nome": "Likouala",
+          "nome_norm": "likouala",
+          "codigo": "LIK"
+        },
+        {
+          "nome": "Niari",
+          "nome_norm": "niari",
+          "codigo": "NIA"
+        },
+        {
+          "nome": "Plateaux",
+          "nome_norm": "plateaux",
+          "codigo": "PLA"
+        },
+        {
+          "nome": "Pointe-Noire",
+          "nome_norm": "pointe-noire",
+          "codigo": "POI"
+        },
+        {
+          "nome": "Pool",
+          "nome_norm": "pool",
+          "codigo": "POO"
+        },
+        {
+          "nome": "Sangha",
+          "nome_norm": "sangha",
+          "codigo": "SAN"
+        }
+      ]
+    },
+    {
+      "iso": "CD",
+      "pais": "RD Congo",
+      "flag": "🇨🇩",
+      "capital": "Kinshasa",
+      "nivel1_tipo": "província",
+      "linguas_oficiais": [
+        "Francês"
+      ],
+      "linguas_faladas": [
+        "Lingala",
+        "Suaíli",
+        "Kikongo",
+        "Tshiluba"
+      ],
+      "nivel1": [
+        {
+          "nome": "Bas-Uélé",
+          "nome_norm": "bas-uele",
+          "codigo": "BAS"
+        },
+        {
+          "nome": "Équateur",
+          "nome_norm": "equateur",
+          "codigo": "EQU"
+        },
+        {
+          "nome": "Haut-Katanga",
+          "nome_norm": "haut-katanga",
+          "codigo": "HAU"
+        },
+        {
+          "nome": "Haut-Lomami",
+          "nome_norm": "haut-lomami",
+          "codigo": "HAUT"
+        },
+        {
+          "nome": "Haut-Uélé",
+          "nome_norm": "haut-uele",
+          "codigo": "HAT"
+        },
+        {
+          "nome": "Ituri",
+          "nome_norm": "ituri",
+          "codigo": "ITU"
+        },
+        {
+          "nome": "Kasaï",
+          "nome_norm": "kasai",
+          "codigo": "KAS"
+        },
+        {
+          "nome": "Kasaï-Central",
+          "nome_norm": "kasai-central",
+          "codigo": "KASA"
+        },
+        {
+          "nome": "Kasaï-Oriental",
+          "nome_norm": "kasai-oriental",
+          "codigo": "KAA"
+        },
+        {
+          "nome": "Kinshasa",
+          "nome_norm": "kinshasa",
+          "codigo": "KIN"
+        },
+        {
+          "nome": "Kongo Central",
+          "nome_norm": "kongo central",
+          "codigo": "KON"
+        },
+        {
+          "nome": "Kwango",
+          "nome_norm": "kwango",
+          "codigo": "KWA"
+        },
+        {
+          "nome": "Kwilu",
+          "nome_norm": "kwilu",
+          "codigo": "KWI"
+        },
+        {
+          "nome": "Lomami",
+          "nome_norm": "lomami",
+          "codigo": "LOM"
+        },
+        {
+          "nome": "Lualaba",
+          "nome_norm": "lualaba",
+          "codigo": "LUA"
+        },
+        {
+          "nome": "Mai-Ndombe",
+          "nome_norm": "mai-ndombe",
+          "codigo": "MAI"
+        },
+        {
+          "nome": "Maniema",
+          "nome_norm": "maniema",
+          "codigo": "MAN"
+        },
+        {
+          "nome": "Mongala",
+          "nome_norm": "mongala",
+          "codigo": "MON"
+        },
+        {
+          "nome": "Nord-Kivu",
+          "nome_norm": "nord-kivu",
+          "codigo": "NOR"
+        },
+        {
+          "nome": "Nord-Ubangi",
+          "nome_norm": "nord-ubangi",
+          "codigo": "NORD"
+        },
+        {
+          "nome": "Sankuru",
+          "nome_norm": "sankuru",
+          "codigo": "SAN"
+        },
+        {
+          "nome": "Sud-Kivu",
+          "nome_norm": "sud-kivu",
+          "codigo": "SUD"
+        },
+        {
+          "nome": "Sud-Ubangi",
+          "nome_norm": "sud-ubangi",
+          "codigo": "SUDU"
+        },
+        {
+          "nome": "Tanganyika",
+          "nome_norm": "tanganyika",
+          "codigo": "TAN"
+        },
+        {
+          "nome": "Tshopo",
+          "nome_norm": "tshopo",
+          "codigo": "TSH"
+        },
+        {
+          "nome": "Tshuapa",
+          "nome_norm": "tshuapa",
+          "codigo": "TSHU"
+        }
+      ]
+    },
+    {
+      "iso": "CI",
+      "pais": "Costa do Marfim",
+      "flag": "🇨🇮",
+      "capital": "Yamoussoukro",
+      "nivel1_tipo": "distrito",
+      "linguas_oficiais": [
+        "Francês"
+      ],
+      "linguas_faladas": [
+        "Dioula",
+        "Baoulé",
+        "Bété",
+        "Senufo",
+        "Agni"
+      ],
+      "nivel1": [
+        {
+          "nome": "Abidjan",
+          "nome_norm": "abidjan",
+          "codigo": "ABI"
+        },
+        {
+          "nome": "Bas-Sassandra",
+          "nome_norm": "bas-sassandra",
+          "codigo": "BAS"
+        },
+        {
+          "nome": "Comoé",
+          "nome_norm": "comoe",
+          "codigo": "COM"
+        },
+        {
+          "nome": "Denguélé",
+          "nome_norm": "denguele",
+          "codigo": "DEN"
+        },
+        {
+          "nome": "Gôh-Djiboua",
+          "nome_norm": "goh-djiboua",
+          "codigo": "GOH"
+        },
+        {
+          "nome": "Lacs",
+          "nome_norm": "lacs",
+          "codigo": "LAC"
+        },
+        {
+          "nome": "Lagunes",
+          "nome_norm": "lagunes",
+          "codigo": "LAG"
+        },
+        {
+          "nome": "Montagnes",
+          "nome_norm": "montagnes",
+          "codigo": "MON"
+        },
+        {
+          "nome": "Sassandra-Marahoué",
+          "nome_norm": "sassandra-marahoue",
+          "codigo": "SAS"
+        },
+        {
+          "nome": "Savanes",
+          "nome_norm": "savanes",
+          "codigo": "SAV"
+        },
+        {
+          "nome": "Vallée du Bandama",
+          "nome_norm": "vallee du bandama",
+          "codigo": "VAL"
+        },
+        {
+          "nome": "Woroba",
+          "nome_norm": "woroba",
+          "codigo": "WOR"
+        },
+        {
+          "nome": "Yamoussoukro",
+          "nome_norm": "yamoussoukro",
+          "codigo": "YAM"
+        },
+        {
+          "nome": "Zanzan",
+          "nome_norm": "zanzan",
+          "codigo": "ZAN"
+        }
+      ]
+    },
+    {
+      "iso": "DJ",
+      "pais": "Djibuti",
+      "flag": "🇩🇯",
+      "capital": "Djibuti",
+      "nivel1_tipo": "região",
+      "linguas_oficiais": [
+        "Francês",
+        "Árabe"
+      ],
+      "linguas_faladas": [
+        "Somali",
+        "Afar",
+        "Árabe"
+      ],
+      "nivel1": [
+        {
+          "nome": "Ali Sabieh",
+          "nome_norm": "ali sabieh",
+          "codigo": "ALI"
+        },
+        {
+          "nome": "Arta",
+          "nome_norm": "arta",
+          "codigo": "ART"
+        },
+        {
+          "nome": "Dikhil",
+          "nome_norm": "dikhil",
+          "codigo": "DIK"
+        },
+        {
+          "nome": "Djibouti",
+          "nome_norm": "djibouti",
+          "codigo": "DJI"
+        },
+        {
+          "nome": "Obock",
+          "nome_norm": "obock",
+          "codigo": "OBO"
+        },
+        {
+          "nome": "Tadjourah",
+          "nome_norm": "tadjourah",
+          "codigo": "TAD"
+        }
+      ]
+    },
+    {
+      "iso": "EG",
+      "pais": "Egito",
+      "flag": "🇪🇬",
+      "capital": "Cairo",
+      "nivel1_tipo": "governadoria",
+      "linguas_oficiais": [
+        "Árabe"
+      ],
+      "linguas_faladas": [
+        "Árabe egípcio",
+        "Copta (litúrgico)",
+        "Núbio",
+        "Beja",
+        "Siwi"
+      ],
+      "nivel1": [
+        {
+          "nome": "Alexandria",
+          "nome_norm": "alexandria",
+          "codigo": "ALE"
+        },
+        {
+          "nome": "Aswan",
+          "nome_norm": "aswan",
+          "codigo": "ASW"
+        },
+        {
+          "nome": "Asyut",
+          "nome_norm": "asyut",
+          "codigo": "ASY"
+        },
+        {
+          "nome": "Beheira",
+          "nome_norm": "beheira",
+          "codigo": "BEH"
+        },
+        {
+          "nome": "Beni Suef",
+          "nome_norm": "beni suef",
+          "codigo": "BEN"
+        },
+        {
+          "nome": "Cairo",
+          "nome_norm": "cairo",
+          "codigo": "CAI"
+        },
+        {
+          "nome": "Dakahlia",
+          "nome_norm": "dakahlia",
+          "codigo": "DAK"
+        },
+        {
+          "nome": "Damietta",
+          "nome_norm": "damietta",
+          "codigo": "DAM"
+        },
+        {
+          "nome": "Faiyum",
+          "nome_norm": "faiyum",
+          "codigo": "FAI"
+        },
+        {
+          "nome": "Gharbia",
+          "nome_norm": "gharbia",
+          "codigo": "GHA"
+        },
+        {
+          "nome": "Giza",
+          "nome_norm": "giza",
+          "codigo": "GIZ"
+        },
+        {
+          "nome": "Ismailia",
+          "nome_norm": "ismailia",
+          "codigo": "ISM"
+        },
+        {
+          "nome": "Kafr El Sheikh",
+          "nome_norm": "kafr el sheikh",
+          "codigo": "KAF"
+        },
+        {
+          "nome": "Luxor",
+          "nome_norm": "luxor",
+          "codigo": "LUX"
+        },
+        {
+          "nome": "Matrouh",
+          "nome_norm": "matrouh",
+          "codigo": "MAT"
+        },
+        {
+          "nome": "Minya",
+          "nome_norm": "minya",
+          "codigo": "MIN"
+        },
+        {
+          "nome": "Monufia",
+          "nome_norm": "monufia",
+          "codigo": "MON"
+        },
+        {
+          "nome": "New Valley",
+          "nome_norm": "new valley",
+          "codigo": "NEW"
+        },
+        {
+          "nome": "North Sinai",
+          "nome_norm": "north sinai",
+          "codigo": "NOR"
+        },
+        {
+          "nome": "Port Said",
+          "nome_norm": "port said",
+          "codigo": "POR"
+        },
+        {
+          "nome": "Qalyubia",
+          "nome_norm": "qalyubia",
+          "codigo": "QAL"
+        },
+        {
+          "nome": "Qena",
+          "nome_norm": "qena",
+          "codigo": "QEN"
+        },
+        {
+          "nome": "Red Sea",
+          "nome_norm": "red sea",
+          "codigo": "RED"
+        },
+        {
+          "nome": "Sharqia",
+          "nome_norm": "sharqia",
+          "codigo": "SHA"
+        },
+        {
+          "nome": "Sohag",
+          "nome_norm": "sohag",
+          "codigo": "SOH"
+        },
+        {
+          "nome": "South Sinai",
+          "nome_norm": "south sinai",
+          "codigo": "SOU"
+        },
+        {
+          "nome": "Suez",
+          "nome_norm": "suez",
+          "codigo": "SUE"
+        }
+      ]
+    },
+    {
+      "iso": "GQ",
+      "pais": "Guiné Equatorial",
+      "flag": "🇬🇶",
+      "capital": "Malabo",
+      "nivel1_tipo": "província",
+      "linguas_oficiais": [
+        "Espanhol",
+        "Francês",
+        "Português"
+      ],
+      "linguas_faladas": [
+        "Fang",
+        "Bubi",
+        "Pidgin inglês (Pichinglis)"
+      ],
+      "nivel1": [
+        {
+          "nome": "Annobón",
+          "nome_norm": "annobon",
+          "codigo": "ANN"
+        },
+        {
+          "nome": "Bioko Norte",
+          "nome_norm": "bioko norte",
+          "codigo": "BIO"
+        },
+        {
+          "nome": "Bioko Sur",
+          "nome_norm": "bioko sur",
+          "codigo": "BIOK"
+        },
+        {
+          "nome": "Centro Sur",
+          "nome_norm": "centro sur",
+          "codigo": "CEN"
+        },
+        {
+          "nome": "Djibloho",
+          "nome_norm": "djibloho",
+          "codigo": "DJI"
+        },
+        {
+          "nome": "Kié-Ntem",
+          "nome_norm": "kie-ntem",
+          "codigo": "KIE"
+        },
+        {
+          "nome": "Litoral",
+          "nome_norm": "litoral",
+          "codigo": "LIT"
+        },
+        {
+          "nome": "Wele-Nzas",
+          "nome_norm": "wele-nzas",
+          "codigo": "WEL"
+        }
+      ]
+    },
+    {
+      "iso": "ER",
+      "pais": "Eritreia",
+      "flag": "🇪🇷",
+      "capital": "Asmara",
+      "nivel1_tipo": "região (zoba)",
+      "linguas_oficiais": [
+        "Tigrínia",
+        "Árabe",
+        "Inglês"
+      ],
+      "linguas_faladas": [
+        "Tigrínia",
+        "Tigré",
+        "Afar",
+        "Saho",
+        "Bilen",
+        "Kunama"
+      ],
+      "nivel1": [
+        {
+          "nome": "Anseba",
+          "nome_norm": "anseba",
+          "codigo": "ANS"
+        },
+        {
+          "nome": "Debub",
+          "nome_norm": "debub",
+          "codigo": "DEB"
+        },
+        {
+          "nome": "Gash-Barka",
+          "nome_norm": "gash-barka",
+          "codigo": "GAS"
+        },
+        {
+          "nome": "Maekel",
+          "nome_norm": "maekel",
+          "codigo": "MAE"
+        },
+        {
+          "nome": "Northern Red Sea",
+          "nome_norm": "northern red sea",
+          "codigo": "NOR"
+        },
+        {
+          "nome": "Southern Red Sea",
+          "nome_norm": "southern red sea",
+          "codigo": "SOU"
+        }
+      ]
+    },
+    {
+      "iso": "SZ",
+      "pais": "Essuatíni",
+      "flag": "🇸🇿",
+      "capital": "Mbabane",
+      "nivel1_tipo": "região",
+      "linguas_oficiais": [
+        "SiSwati",
+        "Inglês"
+      ],
+      "linguas_faladas": [
+        "SiSwati",
+        "Zulu"
+      ],
+      "nivel1": [
+        {
+          "nome": "Hhohho",
+          "nome_norm": "hhohho",
+          "codigo": "HHO"
+        },
+        {
+          "nome": "Lubombo",
+          "nome_norm": "lubombo",
+          "codigo": "LUB"
+        },
+        {
+          "nome": "Manzini",
+          "nome_norm": "manzini",
+          "codigo": "MAN"
+        },
+        {
+          "nome": "Shiselweni",
+          "nome_norm": "shiselweni",
+          "codigo": "SHI"
+        }
+      ]
+    },
+    {
+      "iso": "ET",
+      "pais": "Etiópia",
+      "flag": "🇪🇹",
+      "capital": "Adis Abeba",
+      "nivel1_tipo": "estado regional",
+      "linguas_oficiais": [
+        "Amárico (federal)"
+      ],
+      "linguas_faladas": [
+        "Oromo",
+        "Amárico",
+        "Somali",
+        "Tigrínia",
+        "Sidama",
+        "Wolaita"
+      ],
+      "nivel1": [
+        {
+          "nome": "Addis Ababa",
+          "nome_norm": "addis ababa",
+          "codigo": "ADD"
+        },
+        {
+          "nome": "Afar",
+          "nome_norm": "afar",
+          "codigo": "AFA"
+        },
+        {
+          "nome": "Amhara",
+          "nome_norm": "amhara",
+          "codigo": "AMH"
+        },
+        {
+          "nome": "Benishangul-Gumuz",
+          "nome_norm": "benishangul-gumuz",
+          "codigo": "BEN"
+        },
+        {
+          "nome": "Central Ethiopia",
+          "nome_norm": "central ethiopia",
+          "codigo": "CEN"
+        },
+        {
+          "nome": "Dire Dawa",
+          "nome_norm": "dire dawa",
+          "codigo": "DIR"
+        },
+        {
+          "nome": "Gambela",
+          "nome_norm": "gambela",
+          "codigo": "GAM"
+        },
+        {
+          "nome": "Harari",
+          "nome_norm": "harari",
+          "codigo": "HAR"
+        },
+        {
+          "nome": "Oromia",
+          "nome_norm": "oromia",
+          "codigo": "ORO"
+        },
+        {
+          "nome": "Sidama",
+          "nome_norm": "sidama",
+          "codigo": "SID"
+        },
+        {
+          "nome": "Somali",
+          "nome_norm": "somali",
+          "codigo": "SOM"
+        },
+        {
+          "nome": "South Ethiopia",
+          "nome_norm": "south ethiopia",
+          "codigo": "SOU"
+        },
+        {
+          "nome": "South West Ethiopia",
+          "nome_norm": "south west ethiopia",
+          "codigo": "SOUT"
+        },
+        {
+          "nome": "Tigray",
+          "nome_norm": "tigray",
+          "codigo": "TIG"
+        }
+      ]
+    },
+    {
+      "iso": "GA",
+      "pais": "Gabão",
+      "flag": "🇬🇦",
+      "capital": "Libreville",
+      "nivel1_tipo": "província",
+      "linguas_oficiais": [
+        "Francês"
+      ],
+      "linguas_faladas": [
+        "Fang",
+        "Myènè",
+        "Punu",
+        "Nzebi"
+      ],
+      "nivel1": [
+        {
+          "nome": "Estuaire",
+          "nome_norm": "estuaire",
+          "codigo": "EST"
+        },
+        {
+          "nome": "Haut-Ogooué",
+          "nome_norm": "haut-ogooue",
+          "codigo": "HAU"
+        },
+        {
+          "nome": "Moyen-Ogooué",
+          "nome_norm": "moyen-ogooue",
+          "codigo": "MOY"
+        },
+        {
+          "nome": "Ngounié",
+          "nome_norm": "ngounie",
+          "codigo": "NGO"
+        },
+        {
+          "nome": "Nyanga",
+          "nome_norm": "nyanga",
+          "codigo": "NYA"
+        },
+        {
+          "nome": "Ogooué-Ivindo",
+          "nome_norm": "ogooue-ivindo",
+          "codigo": "OGO"
+        },
+        {
+          "nome": "Ogooué-Lolo",
+          "nome_norm": "ogooue-lolo",
+          "codigo": "OGOO"
+        },
+        {
+          "nome": "Ogooué-Maritime",
+          "nome_norm": "ogooue-maritime",
+          "codigo": "OGU"
+        },
+        {
+          "nome": "Woleu-Ntem",
+          "nome_norm": "woleu-ntem",
+          "codigo": "WOL"
+        }
+      ]
+    },
+    {
+      "iso": "GM",
+      "pais": "Gâmbia",
+      "flag": "🇬🇲",
+      "capital": "Banjul",
+      "nivel1_tipo": "área de governo local",
+      "linguas_oficiais": [
+        "Inglês"
+      ],
+      "linguas_faladas": [
+        "Mandinga",
+        "Wolof",
+        "Fula",
+        "Jola",
+        "Serer"
+      ],
+      "nivel1": [
+        {
+          "nome": "Banjul",
+          "nome_norm": "banjul",
+          "codigo": "BAN"
+        },
+        {
+          "nome": "Kanifing",
+          "nome_norm": "kanifing",
+          "codigo": "KAN"
+        },
+        {
+          "nome": "Brikama",
+          "nome_norm": "brikama",
+          "codigo": "BRI"
+        },
+        {
+          "nome": "Mansakonko",
+          "nome_norm": "mansakonko",
+          "codigo": "MAN"
+        },
+        {
+          "nome": "Kerewan",
+          "nome_norm": "kerewan",
+          "codigo": "KER"
+        },
+        {
+          "nome": "Kuntaur",
+          "nome_norm": "kuntaur",
+          "codigo": "KUN"
+        },
+        {
+          "nome": "Janjanbureh",
+          "nome_norm": "janjanbureh",
+          "codigo": "JAN"
+        },
+        {
+          "nome": "Basse",
+          "nome_norm": "basse",
+          "codigo": "BAS"
+        }
+      ]
+    },
+    {
+      "iso": "GH",
+      "pais": "Gana",
+      "flag": "🇬🇭",
+      "capital": "Acra",
+      "nivel1_tipo": "região",
+      "linguas_oficiais": [
+        "Inglês"
+      ],
+      "linguas_faladas": [
+        "Akan (Twi/Fante)",
+        "Ewe",
+        "Ga",
+        "Dagbani",
+        "Hausa"
+      ],
+      "nivel1": [
+        {
+          "nome": "Ahafo",
+          "nome_norm": "ahafo",
+          "codigo": "AHA"
+        },
+        {
+          "nome": "Ashanti",
+          "nome_norm": "ashanti",
+          "codigo": "ASH"
+        },
+        {
+          "nome": "Bono",
+          "nome_norm": "bono",
+          "codigo": "BON"
+        },
+        {
+          "nome": "Bono East",
+          "nome_norm": "bono east",
+          "codigo": "BONO"
+        },
+        {
+          "nome": "Central",
+          "nome_norm": "central",
+          "codigo": "CEN"
+        },
+        {
+          "nome": "Eastern",
+          "nome_norm": "eastern",
+          "codigo": "EAS"
+        },
+        {
+          "nome": "Greater Accra",
+          "nome_norm": "greater accra",
+          "codigo": "GRE"
+        },
+        {
+          "nome": "North East",
+          "nome_norm": "north east",
+          "codigo": "NOR"
+        },
+        {
+          "nome": "Northern",
+          "nome_norm": "northern",
+          "codigo": "NORT"
+        },
+        {
+          "nome": "Oti",
+          "nome_norm": "oti",
+          "codigo": "OTI"
+        },
+        {
+          "nome": "Savannah",
+          "nome_norm": "savannah",
+          "codigo": "SAV"
+        },
+        {
+          "nome": "Upper East",
+          "nome_norm": "upper east",
+          "codigo": "UPP"
+        },
+        {
+          "nome": "Upper West",
+          "nome_norm": "upper west",
+          "codigo": "UPPE"
+        },
+        {
+          "nome": "Volta",
+          "nome_norm": "volta",
+          "codigo": "VOL"
+        },
+        {
+          "nome": "Western",
+          "nome_norm": "western",
+          "codigo": "WES"
+        },
+        {
+          "nome": "Western North",
+          "nome_norm": "western north",
+          "codigo": "WEST"
+        }
+      ],
+      "piloto": {
+        "cidade": "Acra",
+        "pai_n1": "Greater Accra",
+        "bairros": [
+          {
+            "nome": "Osu",
+            "nome_norm": "osu",
+            "codigo": "OSU"
+          },
+          {
+            "nome": "La (Labadi)",
+            "nome_norm": "la (labadi)",
+            "codigo": "LAL"
+          },
+          {
+            "nome": "Cantonments",
+            "nome_norm": "cantonments",
+            "codigo": "CAN"
+          },
+          {
+            "nome": "Labone",
+            "nome_norm": "labone",
+            "codigo": "LAB"
+          },
+          {
+            "nome": "Airport Residential",
+            "nome_norm": "airport residential",
+            "codigo": "AIR"
+          },
+          {
+            "nome": "East Legon",
+            "nome_norm": "east legon",
+            "codigo": "EAS"
+          },
+          {
+            "nome": "Dzorwulu",
+            "nome_norm": "dzorwulu",
+            "codigo": "DZO"
+          },
+          {
+            "nome": "Adabraka",
+            "nome_norm": "adabraka",
+            "codigo": "ADA"
+          },
+          {
+            "nome": "Asylum Down",
+            "nome_norm": "asylum down",
+            "codigo": "ASY"
+          },
+          {
+            "nome": "Dansoman",
+            "nome_norm": "dansoman",
+            "codigo": "DAN"
+          },
+          {
+            "nome": "Jamestown",
+            "nome_norm": "jamestown",
+            "codigo": "JAM"
+          },
+          {
+            "nome": "Teshie",
+            "nome_norm": "teshie",
+            "codigo": "TES"
+          },
+          {
+            "nome": "Nungua",
+            "nome_norm": "nungua",
+            "codigo": "NUN"
+          },
+          {
+            "nome": "Madina",
+            "nome_norm": "madina",
+            "codigo": "MAD"
+          },
+          {
+            "nome": "Achimota",
+            "nome_norm": "achimota",
+            "codigo": "ACH"
+          },
+          {
+            "nome": "Kaneshie",
+            "nome_norm": "kaneshie",
+            "codigo": "KAN"
+          }
+        ]
+      }
+    },
+    {
+      "iso": "GN",
+      "pais": "Guiné",
+      "flag": "🇬🇳",
+      "capital": "Conacri",
+      "nivel1_tipo": "região",
+      "linguas_oficiais": [
+        "Francês"
+      ],
+      "linguas_faladas": [
+        "Pular (Fula)",
+        "Maninka (Malinké)",
+        "Susu"
+      ],
+      "nivel1": [
+        {
+          "nome": "Boké",
+          "nome_norm": "boke",
+          "codigo": "BOK"
+        },
+        {
+          "nome": "Conakry",
+          "nome_norm": "conakry",
+          "codigo": "CON"
+        },
+        {
+          "nome": "Faranah",
+          "nome_norm": "faranah",
+          "codigo": "FAR"
+        },
+        {
+          "nome": "Kankan",
+          "nome_norm": "kankan",
+          "codigo": "KAN"
+        },
+        {
+          "nome": "Kindia",
+          "nome_norm": "kindia",
+          "codigo": "KIN"
+        },
+        {
+          "nome": "Labé",
+          "nome_norm": "labe",
+          "codigo": "LAB"
+        },
+        {
+          "nome": "Mamou",
+          "nome_norm": "mamou",
+          "codigo": "MAM"
+        },
+        {
+          "nome": "Nzérékoré",
+          "nome_norm": "nzerekore",
+          "codigo": "NZE"
+        }
+      ]
+    },
+    {
+      "iso": "GW",
+      "pais": "Guiné-Bissau",
+      "flag": "🇬🇼",
+      "capital": "Bissau",
+      "nivel1_tipo": "região",
+      "linguas_oficiais": [
+        "Português"
+      ],
+      "linguas_faladas": [
+        "Crioulo da Guiné-Bissau (Kriol)",
+        "Balanta",
+        "Fula",
+        "Mandinga",
+        "Manjaco"
+      ],
+      "nivel1": [
+        {
+          "nome": "Bafatá",
+          "nome_norm": "bafata",
+          "codigo": "BAF"
+        },
+        {
+          "nome": "Biombo",
+          "nome_norm": "biombo",
+          "codigo": "BIO"
+        },
+        {
+          "nome": "Bissau",
+          "nome_norm": "bissau",
+          "codigo": "BIS"
+        },
+        {
+          "nome": "Bolama",
+          "nome_norm": "bolama",
+          "codigo": "BOL"
+        },
+        {
+          "nome": "Cacheu",
+          "nome_norm": "cacheu",
+          "codigo": "CAC"
+        },
+        {
+          "nome": "Gabú",
+          "nome_norm": "gabu",
+          "codigo": "GAB"
+        },
+        {
+          "nome": "Oio",
+          "nome_norm": "oio",
+          "codigo": "OIO"
+        },
+        {
+          "nome": "Quinara",
+          "nome_norm": "quinara",
+          "codigo": "QUI"
+        },
+        {
+          "nome": "Tombali",
+          "nome_norm": "tombali",
+          "codigo": "TOM"
+        }
+      ]
+    },
+    {
+      "iso": "KE",
+      "pais": "Quénia",
+      "flag": "🇰🇪",
+      "capital": "Nairobi",
+      "nivel1_tipo": "condado",
+      "linguas_oficiais": [
+        "Inglês",
+        "Suaíli"
+      ],
+      "linguas_faladas": [
+        "Kikuyu",
+        "Luhya",
+        "Luo",
+        "Kalenjin",
+        "Kamba",
+        "Suaíli"
+      ],
+      "nivel1": [
+        {
+          "nome": "Mombasa",
+          "nome_norm": "mombasa",
+          "codigo": "MOM"
+        },
+        {
+          "nome": "Kwale",
+          "nome_norm": "kwale",
+          "codigo": "KWA"
+        },
+        {
+          "nome": "Kilifi",
+          "nome_norm": "kilifi",
+          "codigo": "KIL"
+        },
+        {
+          "nome": "Tana River",
+          "nome_norm": "tana river",
+          "codigo": "TAN"
+        },
+        {
+          "nome": "Lamu",
+          "nome_norm": "lamu",
+          "codigo": "LAM"
+        },
+        {
+          "nome": "Taita-Taveta",
+          "nome_norm": "taita-taveta",
+          "codigo": "TAI"
+        },
+        {
+          "nome": "Garissa",
+          "nome_norm": "garissa",
+          "codigo": "GAR"
+        },
+        {
+          "nome": "Wajir",
+          "nome_norm": "wajir",
+          "codigo": "WAJ"
+        },
+        {
+          "nome": "Mandera",
+          "nome_norm": "mandera",
+          "codigo": "MAN"
+        },
+        {
+          "nome": "Marsabit",
+          "nome_norm": "marsabit",
+          "codigo": "MAR"
+        },
+        {
+          "nome": "Isiolo",
+          "nome_norm": "isiolo",
+          "codigo": "ISI"
+        },
+        {
+          "nome": "Meru",
+          "nome_norm": "meru",
+          "codigo": "MER"
+        },
+        {
+          "nome": "Tharaka-Nithi",
+          "nome_norm": "tharaka-nithi",
+          "codigo": "THA"
+        },
+        {
+          "nome": "Embu",
+          "nome_norm": "embu",
+          "codigo": "EMB"
+        },
+        {
+          "nome": "Kitui",
+          "nome_norm": "kitui",
+          "codigo": "KIT"
+        },
+        {
+          "nome": "Machakos",
+          "nome_norm": "machakos",
+          "codigo": "MAC"
+        },
+        {
+          "nome": "Makueni",
+          "nome_norm": "makueni",
+          "codigo": "MAK"
+        },
+        {
+          "nome": "Nyandarua",
+          "nome_norm": "nyandarua",
+          "codigo": "NYA"
+        },
+        {
+          "nome": "Nyeri",
+          "nome_norm": "nyeri",
+          "codigo": "NYE"
+        },
+        {
+          "nome": "Kirinyaga",
+          "nome_norm": "kirinyaga",
+          "codigo": "KIR"
+        },
+        {
+          "nome": "Murang'a",
+          "nome_norm": "murang'a",
+          "codigo": "MUR"
+        },
+        {
+          "nome": "Kiambu",
+          "nome_norm": "kiambu",
+          "codigo": "KIA"
+        },
+        {
+          "nome": "Turkana",
+          "nome_norm": "turkana",
+          "codigo": "TUR"
+        },
+        {
+          "nome": "West Pokot",
+          "nome_norm": "west pokot",
+          "codigo": "WES"
+        },
+        {
+          "nome": "Samburu",
+          "nome_norm": "samburu",
+          "codigo": "SAM"
+        },
+        {
+          "nome": "Trans-Nzoia",
+          "nome_norm": "trans-nzoia",
+          "codigo": "TRA"
+        },
+        {
+          "nome": "Uasin Gishu",
+          "nome_norm": "uasin gishu",
+          "codigo": "UAS"
+        },
+        {
+          "nome": "Elgeyo-Marakwet",
+          "nome_norm": "elgeyo-marakwet",
+          "codigo": "ELG"
+        },
+        {
+          "nome": "Nandi",
+          "nome_norm": "nandi",
+          "codigo": "NAN"
+        },
+        {
+          "nome": "Baringo",
+          "nome_norm": "baringo",
+          "codigo": "BAR"
+        },
+        {
+          "nome": "Laikipia",
+          "nome_norm": "laikipia",
+          "codigo": "LAI"
+        },
+        {
+          "nome": "Nakuru",
+          "nome_norm": "nakuru",
+          "codigo": "NAK"
+        },
+        {
+          "nome": "Narok",
+          "nome_norm": "narok",
+          "codigo": "NAR"
+        },
+        {
+          "nome": "Kajiado",
+          "nome_norm": "kajiado",
+          "codigo": "KAJ"
+        },
+        {
+          "nome": "Kericho",
+          "nome_norm": "kericho",
+          "codigo": "KER"
+        },
+        {
+          "nome": "Bomet",
+          "nome_norm": "bomet",
+          "codigo": "BOM"
+        },
+        {
+          "nome": "Kakamega",
+          "nome_norm": "kakamega",
+          "codigo": "KAK"
+        },
+        {
+          "nome": "Vihiga",
+          "nome_norm": "vihiga",
+          "codigo": "VIH"
+        },
+        {
+          "nome": "Bungoma",
+          "nome_norm": "bungoma",
+          "codigo": "BUN"
+        },
+        {
+          "nome": "Busia",
+          "nome_norm": "busia",
+          "codigo": "BUS"
+        },
+        {
+          "nome": "Siaya",
+          "nome_norm": "siaya",
+          "codigo": "SIA"
+        },
+        {
+          "nome": "Kisumu",
+          "nome_norm": "kisumu",
+          "codigo": "KIS"
+        },
+        {
+          "nome": "Homa Bay",
+          "nome_norm": "homa bay",
+          "codigo": "HOM"
+        },
+        {
+          "nome": "Migori",
+          "nome_norm": "migori",
+          "codigo": "MIG"
+        },
+        {
+          "nome": "Kisii",
+          "nome_norm": "kisii",
+          "codigo": "KISI"
+        },
+        {
+          "nome": "Nyamira",
+          "nome_norm": "nyamira",
+          "codigo": "NYAM"
+        },
+        {
+          "nome": "Nairobi",
+          "nome_norm": "nairobi",
+          "codigo": "NAI"
+        }
+      ],
+      "piloto": {
+        "cidade": "Nairobi",
+        "pai_n1": "Nairobi",
+        "bairros": [
+          {
+            "nome": "CBD",
+            "nome_norm": "cbd",
+            "codigo": "CBD"
+          },
+          {
+            "nome": "Westlands",
+            "nome_norm": "westlands",
+            "codigo": "WES"
+          },
+          {
+            "nome": "Kilimani",
+            "nome_norm": "kilimani",
+            "codigo": "KIL"
+          },
+          {
+            "nome": "Lavington",
+            "nome_norm": "lavington",
+            "codigo": "LAV"
+          },
+          {
+            "nome": "Karen",
+            "nome_norm": "karen",
+            "codigo": "KAR"
+          },
+          {
+            "nome": "Langata",
+            "nome_norm": "langata",
+            "codigo": "LAN"
+          },
+          {
+            "nome": "Kibera",
+            "nome_norm": "kibera",
+            "codigo": "KIB"
+          },
+          {
+            "nome": "Eastleigh",
+            "nome_norm": "eastleigh",
+            "codigo": "EAS"
+          },
+          {
+            "nome": "Parklands",
+            "nome_norm": "parklands",
+            "codigo": "PAR"
+          },
+          {
+            "nome": "South B",
+            "nome_norm": "south b",
+            "codigo": "SOU"
+          },
+          {
+            "nome": "South C",
+            "nome_norm": "south c",
+            "codigo": "SOUT"
+          },
+          {
+            "nome": "Runda",
+            "nome_norm": "runda",
+            "codigo": "RUN"
+          },
+          {
+            "nome": "Gigiri",
+            "nome_norm": "gigiri",
+            "codigo": "GIG"
+          },
+          {
+            "nome": "Ngara",
+            "nome_norm": "ngara",
+            "codigo": "NGA"
+          },
+          {
+            "nome": "Embakasi",
+            "nome_norm": "embakasi",
+            "codigo": "EMB"
+          },
+          {
+            "nome": "Kasarani",
+            "nome_norm": "kasarani",
+            "codigo": "KAS"
+          }
+        ]
+      }
+    },
+    {
+      "iso": "LS",
+      "pais": "Lesoto",
+      "flag": "🇱🇸",
+      "capital": "Maseru",
+      "nivel1_tipo": "distrito",
+      "linguas_oficiais": [
+        "Sesotho",
+        "Inglês"
+      ],
+      "linguas_faladas": [
+        "Sesotho",
+        "Zulu",
+        "Xhosa"
+      ],
+      "nivel1": [
+        {
+          "nome": "Berea",
+          "nome_norm": "berea",
+          "codigo": "BER"
+        },
+        {
+          "nome": "Butha-Buthe",
+          "nome_norm": "butha-buthe",
+          "codigo": "BUT"
+        },
+        {
+          "nome": "Leribe",
+          "nome_norm": "leribe",
+          "codigo": "LER"
+        },
+        {
+          "nome": "Mafeteng",
+          "nome_norm": "mafeteng",
+          "codigo": "MAF"
+        },
+        {
+          "nome": "Maseru",
+          "nome_norm": "maseru",
+          "codigo": "MAS"
+        },
+        {
+          "nome": "Mohale's Hoek",
+          "nome_norm": "mohale's hoek",
+          "codigo": "MOH"
+        },
+        {
+          "nome": "Mokhotlong",
+          "nome_norm": "mokhotlong",
+          "codigo": "MOK"
+        },
+        {
+          "nome": "Qacha's Nek",
+          "nome_norm": "qacha's nek",
+          "codigo": "QAC"
+        },
+        {
+          "nome": "Quthing",
+          "nome_norm": "quthing",
+          "codigo": "QUT"
+        },
+        {
+          "nome": "Thaba-Tseka",
+          "nome_norm": "thaba-tseka",
+          "codigo": "THA"
+        }
+      ]
+    },
+    {
+      "iso": "LR",
+      "pais": "Libéria",
+      "flag": "🇱🇷",
+      "capital": "Monróvia",
+      "nivel1_tipo": "condado",
+      "linguas_oficiais": [
+        "Inglês"
+      ],
+      "linguas_faladas": [
+        "Kpelle",
+        "Bassa",
+        "Inglês liberiano (Kreyol)",
+        "Grebo",
+        "Mano"
+      ],
+      "nivel1": [
+        {
+          "nome": "Bomi",
+          "nome_norm": "bomi",
+          "codigo": "BOM"
+        },
+        {
+          "nome": "Bong",
+          "nome_norm": "bong",
+          "codigo": "BON"
+        },
+        {
+          "nome": "Gbarpolu",
+          "nome_norm": "gbarpolu",
+          "codigo": "GBA"
+        },
+        {
+          "nome": "Grand Bassa",
+          "nome_norm": "grand bassa",
+          "codigo": "GRA"
+        },
+        {
+          "nome": "Grand Cape Mount",
+          "nome_norm": "grand cape mount",
+          "codigo": "GRAN"
+        },
+        {
+          "nome": "Grand Gedeh",
+          "nome_norm": "grand gedeh",
+          "codigo": "GRN"
+        },
+        {
+          "nome": "Grand Kru",
+          "nome_norm": "grand kru",
+          "codigo": "GRD"
+        },
+        {
+          "nome": "Lofa",
+          "nome_norm": "lofa",
+          "codigo": "LOF"
+        },
+        {
+          "nome": "Margibi",
+          "nome_norm": "margibi",
+          "codigo": "MAR"
+        },
+        {
+          "nome": "Maryland",
+          "nome_norm": "maryland",
+          "codigo": "MARY"
+        },
+        {
+          "nome": "Montserrado",
+          "nome_norm": "montserrado",
+          "codigo": "MON"
+        },
+        {
+          "nome": "Nimba",
+          "nome_norm": "nimba",
+          "codigo": "NIM"
+        },
+        {
+          "nome": "River Cess",
+          "nome_norm": "river cess",
+          "codigo": "RIV"
+        },
+        {
+          "nome": "River Gee",
+          "nome_norm": "river gee",
+          "codigo": "RIVE"
+        },
+        {
+          "nome": "Sinoe",
+          "nome_norm": "sinoe",
+          "codigo": "SIN"
+        }
+      ]
+    },
+    {
+      "iso": "LY",
+      "pais": "Líbia",
+      "flag": "🇱🇾",
+      "capital": "Trípoli",
+      "nivel1_tipo": "distrito (shabiyah)",
+      "linguas_oficiais": [
+        "Árabe"
+      ],
+      "linguas_faladas": [
+        "Árabe líbio",
+        "Berbere (Nafusi)",
+        "Tamacheque"
+      ],
+      "nivel1": [
+        {
+          "nome": "Tripoli",
+          "nome_norm": "tripoli",
+          "codigo": "TRI"
+        },
+        {
+          "nome": "Benghazi",
+          "nome_norm": "benghazi",
+          "codigo": "BEN"
+        },
+        {
+          "nome": "Misrata",
+          "nome_norm": "misrata",
+          "codigo": "MIS"
+        },
+        {
+          "nome": "Al Marj",
+          "nome_norm": "al marj",
+          "codigo": "ALM"
+        },
+        {
+          "nome": "Al Jabal al Akhdar",
+          "nome_norm": "al jabal al akhdar",
+          "codigo": "ALJ"
+        },
+        {
+          "nome": "Al Jafara",
+          "nome_norm": "al jafara",
+          "codigo": "ALJA"
+        },
+        {
+          "nome": "Al Jufra",
+          "nome_norm": "al jufra",
+          "codigo": "ALJU"
+        },
+        {
+          "nome": "Al Kufrah",
+          "nome_norm": "al kufrah",
+          "codigo": "ALK"
+        },
+        {
+          "nome": "Al Wahat",
+          "nome_norm": "al wahat",
+          "codigo": "ALW"
+        },
+        {
+          "nome": "An Nuqat al Khams",
+          "nome_norm": "an nuqat al khams",
+          "codigo": "ANN"
+        },
+        {
+          "nome": "Az Zawiyah",
+          "nome_norm": "az zawiyah",
+          "codigo": "AZZ"
+        },
+        {
+          "nome": "Darnah",
+          "nome_norm": "darnah",
+          "codigo": "DAR"
+        },
+        {
+          "nome": "Ghat",
+          "nome_norm": "ghat",
+          "codigo": "GHA"
+        },
+        {
+          "nome": "Murzuq",
+          "nome_norm": "murzuq",
+          "codigo": "MUR"
+        },
+        {
+          "nome": "Nalut",
+          "nome_norm": "nalut",
+          "codigo": "NAL"
+        },
+        {
+          "nome": "Sabha",
+          "nome_norm": "sabha",
+          "codigo": "SAB"
+        },
+        {
+          "nome": "Sirte",
+          "nome_norm": "sirte",
+          "codigo": "SIR"
+        },
+        {
+          "nome": "Wadi al Hayaa",
+          "nome_norm": "wadi al hayaa",
+          "codigo": "WAD"
+        },
+        {
+          "nome": "Wadi al Shatii",
+          "nome_norm": "wadi al shatii",
+          "codigo": "WADI"
+        },
+        {
+          "nome": "Al Butnan",
+          "nome_norm": "al butnan",
+          "codigo": "ALB"
+        },
+        {
+          "nome": "Al Jabal al Gharbi",
+          "nome_norm": "al jabal al gharbi",
+          "codigo": "ALA"
+        },
+        {
+          "nome": "Murqub",
+          "nome_norm": "murqub",
+          "codigo": "MURQ"
+        }
+      ]
+    },
+    {
+      "iso": "MG",
+      "pais": "Madagáscar",
+      "flag": "🇲🇬",
+      "capital": "Antananarivo",
+      "nivel1_tipo": "região",
+      "linguas_oficiais": [
+        "Malgaxe",
+        "Francês"
+      ],
+      "linguas_faladas": [
+        "Malgaxe (dialetos)"
+      ],
+      "nivel1": [
+        {
+          "nome": "Alaotra-Mangoro",
+          "nome_norm": "alaotra-mangoro",
+          "codigo": "ALA"
+        },
+        {
+          "nome": "Amoron'i Mania",
+          "nome_norm": "amoron'i mania",
+          "codigo": "AMO"
+        },
+        {
+          "nome": "Analamanga",
+          "nome_norm": "analamanga",
+          "codigo": "ANA"
+        },
+        {
+          "nome": "Analanjirofo",
+          "nome_norm": "analanjirofo",
+          "codigo": "ANAL"
+        },
+        {
+          "nome": "Androy",
+          "nome_norm": "androy",
+          "codigo": "AND"
+        },
+        {
+          "nome": "Anosy",
+          "nome_norm": "anosy",
+          "codigo": "ANO"
+        },
+        {
+          "nome": "Atsimo-Andrefana",
+          "nome_norm": "atsimo-andrefana",
+          "codigo": "ATS"
+        },
+        {
+          "nome": "Atsimo-Atsinanana",
+          "nome_norm": "atsimo-atsinanana",
+          "codigo": "ATSI"
+        },
+        {
+          "nome": "Atsinanana",
+          "nome_norm": "atsinanana",
+          "codigo": "ATI"
+        },
+        {
+          "nome": "Betsiboka",
+          "nome_norm": "betsiboka",
+          "codigo": "BET"
+        },
+        {
+          "nome": "Boeny",
+          "nome_norm": "boeny",
+          "codigo": "BOE"
+        },
+        {
+          "nome": "Bongolava",
+          "nome_norm": "bongolava",
+          "codigo": "BON"
+        },
+        {
+          "nome": "Diana",
+          "nome_norm": "diana",
+          "codigo": "DIA"
+        },
+        {
+          "nome": "Fitovinany",
+          "nome_norm": "fitovinany",
+          "codigo": "FIT"
+        },
+        {
+          "nome": "Haute Matsiatra",
+          "nome_norm": "haute matsiatra",
+          "codigo": "HAU"
+        },
+        {
+          "nome": "Ihorombe",
+          "nome_norm": "ihorombe",
+          "codigo": "IHO"
+        },
+        {
+          "nome": "Itasy",
+          "nome_norm": "itasy",
+          "codigo": "ITA"
+        },
+        {
+          "nome": "Melaky",
+          "nome_norm": "melaky",
+          "codigo": "MEL"
+        },
+        {
+          "nome": "Menabe",
+          "nome_norm": "menabe",
+          "codigo": "MEN"
+        },
+        {
+          "nome": "Sava",
+          "nome_norm": "sava",
+          "codigo": "SAV"
+        },
+        {
+          "nome": "Sofia",
+          "nome_norm": "sofia",
+          "codigo": "SOF"
+        },
+        {
+          "nome": "Vakinankaratra",
+          "nome_norm": "vakinankaratra",
+          "codigo": "VAK"
+        },
+        {
+          "nome": "Vatovavy",
+          "nome_norm": "vatovavy",
+          "codigo": "VAT"
+        }
+      ]
+    },
+    {
+      "iso": "MW",
+      "pais": "Maláui",
+      "flag": "🇲🇼",
+      "capital": "Lilongwe",
+      "nivel1_tipo": "distrito",
+      "linguas_oficiais": [
+        "Inglês",
+        "Chichewa"
+      ],
+      "linguas_faladas": [
+        "Chichewa",
+        "Chitumbuka",
+        "Yao",
+        "Lomwe"
+      ],
+      "nivel1": [
+        {
+          "nome": "Balaka",
+          "nome_norm": "balaka",
+          "codigo": "BAL"
+        },
+        {
+          "nome": "Blantyre",
+          "nome_norm": "blantyre",
+          "codigo": "BLA"
+        },
+        {
+          "nome": "Chikwawa",
+          "nome_norm": "chikwawa",
+          "codigo": "CHI"
+        },
+        {
+          "nome": "Chiradzulu",
+          "nome_norm": "chiradzulu",
+          "codigo": "CHIR"
+        },
+        {
+          "nome": "Chitipa",
+          "nome_norm": "chitipa",
+          "codigo": "CHIT"
+        },
+        {
+          "nome": "Dedza",
+          "nome_norm": "dedza",
+          "codigo": "DED"
+        },
+        {
+          "nome": "Dowa",
+          "nome_norm": "dowa",
+          "codigo": "DOW"
+        },
+        {
+          "nome": "Karonga",
+          "nome_norm": "karonga",
+          "codigo": "KAR"
+        },
+        {
+          "nome": "Kasungu",
+          "nome_norm": "kasungu",
+          "codigo": "KAS"
+        },
+        {
+          "nome": "Likoma",
+          "nome_norm": "likoma",
+          "codigo": "LIK"
+        },
+        {
+          "nome": "Lilongwe",
+          "nome_norm": "lilongwe",
+          "codigo": "LIL"
+        },
+        {
+          "nome": "Machinga",
+          "nome_norm": "machinga",
+          "codigo": "MAC"
+        },
+        {
+          "nome": "Mangochi",
+          "nome_norm": "mangochi",
+          "codigo": "MAN"
+        },
+        {
+          "nome": "Mchinji",
+          "nome_norm": "mchinji",
+          "codigo": "MCH"
+        },
+        {
+          "nome": "Mulanje",
+          "nome_norm": "mulanje",
+          "codigo": "MUL"
+        },
+        {
+          "nome": "Mwanza",
+          "nome_norm": "mwanza",
+          "codigo": "MWA"
+        },
+        {
+          "nome": "Mzimba",
+          "nome_norm": "mzimba",
+          "codigo": "MZI"
+        },
+        {
+          "nome": "Neno",
+          "nome_norm": "neno",
+          "codigo": "NEN"
+        },
+        {
+          "nome": "Nkhata Bay",
+          "nome_norm": "nkhata bay",
+          "codigo": "NKH"
+        },
+        {
+          "nome": "Nkhotakota",
+          "nome_norm": "nkhotakota",
+          "codigo": "NKHO"
+        },
+        {
+          "nome": "Nsanje",
+          "nome_norm": "nsanje",
+          "codigo": "NSA"
+        },
+        {
+          "nome": "Ntcheu",
+          "nome_norm": "ntcheu",
+          "codigo": "NTC"
+        },
+        {
+          "nome": "Ntchisi",
+          "nome_norm": "ntchisi",
+          "codigo": "NTCH"
+        },
+        {
+          "nome": "Phalombe",
+          "nome_norm": "phalombe",
+          "codigo": "PHA"
+        },
+        {
+          "nome": "Rumphi",
+          "nome_norm": "rumphi",
+          "codigo": "RUM"
+        },
+        {
+          "nome": "Salima",
+          "nome_norm": "salima",
+          "codigo": "SAL"
+        },
+        {
+          "nome": "Thyolo",
+          "nome_norm": "thyolo",
+          "codigo": "THY"
+        },
+        {
+          "nome": "Zomba",
+          "nome_norm": "zomba",
+          "codigo": "ZOM"
+        }
+      ]
+    },
+    {
+      "iso": "ML",
+      "pais": "Mali",
+      "flag": "🇲🇱",
+      "capital": "Bamako",
+      "nivel1_tipo": "região",
+      "linguas_oficiais": [
+        "Bambara (e outras nacionais)"
+      ],
+      "linguas_faladas": [
+        "Bambara",
+        "Fula",
+        "Songhai",
+        "Tamacheque",
+        "Soninké",
+        "Francês"
+      ],
+      "nivel1": [
+        {
+          "nome": "Kayes",
+          "nome_norm": "kayes",
+          "codigo": "KAY"
+        },
+        {
+          "nome": "Koulikoro",
+          "nome_norm": "koulikoro",
+          "codigo": "KOU"
+        },
+        {
+          "nome": "Sikasso",
+          "nome_norm": "sikasso",
+          "codigo": "SIK"
+        },
+        {
+          "nome": "Ségou",
+          "nome_norm": "segou",
+          "codigo": "SEG"
+        },
+        {
+          "nome": "Mopti",
+          "nome_norm": "mopti",
+          "codigo": "MOP"
+        },
+        {
+          "nome": "Tombuctu",
+          "nome_norm": "tombuctu",
+          "codigo": "TOM"
+        },
+        {
+          "nome": "Gao",
+          "nome_norm": "gao",
+          "codigo": "GAO"
+        },
+        {
+          "nome": "Kidal",
+          "nome_norm": "kidal",
+          "codigo": "KID"
+        },
+        {
+          "nome": "Taoudénit",
+          "nome_norm": "taoudenit",
+          "codigo": "TAO"
+        },
+        {
+          "nome": "Ménaka",
+          "nome_norm": "menaka",
+          "codigo": "MEN"
+        },
+        {
+          "nome": "Bamako",
+          "nome_norm": "bamako",
+          "codigo": "BAM"
+        }
+      ]
+    },
+    {
+      "iso": "MR",
+      "pais": "Mauritânia",
+      "flag": "🇲🇷",
+      "capital": "Nuaquechote",
+      "nivel1_tipo": "região (wilaya)",
+      "linguas_oficiais": [
+        "Árabe"
+      ],
+      "linguas_faladas": [
+        "Árabe hassaniya",
+        "Pulaar",
+        "Soninké",
+        "Wolof"
+      ],
+      "nivel1": [
+        {
+          "nome": "Adrar",
+          "nome_norm": "adrar",
+          "codigo": "ADR"
+        },
+        {
+          "nome": "Assaba",
+          "nome_norm": "assaba",
+          "codigo": "ASS"
+        },
+        {
+          "nome": "Brakna",
+          "nome_norm": "brakna",
+          "codigo": "BRA"
+        },
+        {
+          "nome": "Dakhlet Nouadhibou",
+          "nome_norm": "dakhlet nouadhibou",
+          "codigo": "DAK"
+        },
+        {
+          "nome": "Gorgol",
+          "nome_norm": "gorgol",
+          "codigo": "GOR"
+        },
+        {
+          "nome": "Guidimaka",
+          "nome_norm": "guidimaka",
+          "codigo": "GUI"
+        },
+        {
+          "nome": "Hodh Ech Chargui",
+          "nome_norm": "hodh ech chargui",
+          "codigo": "HOD"
+        },
+        {
+          "nome": "Hodh El Gharbi",
+          "nome_norm": "hodh el gharbi",
+          "codigo": "HODH"
+        },
+        {
+          "nome": "Inchiri",
+          "nome_norm": "inchiri",
+          "codigo": "INC"
+        },
+        {
+          "nome": "Nouakchott-Nord",
+          "nome_norm": "nouakchott-nord",
+          "codigo": "NOU"
+        },
+        {
+          "nome": "Nouakchott-Ouest",
+          "nome_norm": "nouakchott-ouest",
+          "codigo": "NOUA"
+        },
+        {
+          "nome": "Nouakchott-Sud",
+          "nome_norm": "nouakchott-sud",
+          "codigo": "NOA"
+        },
+        {
+          "nome": "Tagant",
+          "nome_norm": "tagant",
+          "codigo": "TAG"
+        },
+        {
+          "nome": "Tiris Zemmour",
+          "nome_norm": "tiris zemmour",
+          "codigo": "TIR"
+        },
+        {
+          "nome": "Trarza",
+          "nome_norm": "trarza",
+          "codigo": "TRA"
+        }
+      ]
+    },
+    {
+      "iso": "MU",
+      "pais": "Maurícia",
+      "flag": "🇲🇺",
+      "capital": "Port Louis",
+      "nivel1_tipo": "distrito",
+      "linguas_oficiais": [
+        "Inglês",
+        "Francês"
+      ],
+      "linguas_faladas": [
+        "Crioulo mauriciano",
+        "Francês",
+        "Bhojpuri"
+      ],
+      "nivel1": [
+        {
+          "nome": "Black River",
+          "nome_norm": "black river",
+          "codigo": "BLA"
+        },
+        {
+          "nome": "Flacq",
+          "nome_norm": "flacq",
+          "codigo": "FLA"
+        },
+        {
+          "nome": "Grand Port",
+          "nome_norm": "grand port",
+          "codigo": "GRA"
+        },
+        {
+          "nome": "Moka",
+          "nome_norm": "moka",
+          "codigo": "MOK"
+        },
+        {
+          "nome": "Pamplemousses",
+          "nome_norm": "pamplemousses",
+          "codigo": "PAM"
+        },
+        {
+          "nome": "Plaines Wilhems",
+          "nome_norm": "plaines wilhems",
+          "codigo": "PLA"
+        },
+        {
+          "nome": "Port Louis",
+          "nome_norm": "port louis",
+          "codigo": "POR"
+        },
+        {
+          "nome": "Rivière du Rempart",
+          "nome_norm": "riviere du rempart",
+          "codigo": "RIV"
+        },
+        {
+          "nome": "Savanne",
+          "nome_norm": "savanne",
+          "codigo": "SAV"
+        },
+        {
+          "nome": "Rodrigues",
+          "nome_norm": "rodrigues",
+          "codigo": "ROD"
+        }
+      ]
+    },
+    {
+      "iso": "MA",
+      "pais": "Marrocos",
+      "flag": "🇲🇦",
+      "capital": "Rabat",
+      "nivel1_tipo": "região",
+      "linguas_oficiais": [
+        "Árabe",
+        "Amazigh"
+      ],
+      "linguas_faladas": [
+        "Árabe marroquino (Darija)",
+        "Tachelhit",
+        "Tarifit",
+        "Tamazight central",
+        "Francês"
+      ],
+      "nivel1": [
+        {
+          "nome": "Tânger-Tetuão-Alhucemas",
+          "nome_norm": "tanger-tetuao-alhucemas",
+          "codigo": "TAN"
+        },
+        {
+          "nome": "Oriental",
+          "nome_norm": "oriental",
+          "codigo": "ORI"
+        },
+        {
+          "nome": "Fez-Mequinez",
+          "nome_norm": "fez-mequinez",
+          "codigo": "FEZ"
+        },
+        {
+          "nome": "Rabat-Salé-Quenitra",
+          "nome_norm": "rabat-sale-quenitra",
+          "codigo": "RAB"
+        },
+        {
+          "nome": "Beni Melal-Khenifra",
+          "nome_norm": "beni melal-khenifra",
+          "codigo": "BEN"
+        },
+        {
+          "nome": "Casablanca-Settat",
+          "nome_norm": "casablanca-settat",
+          "codigo": "CAS"
+        },
+        {
+          "nome": "Marraquexe-Safi",
+          "nome_norm": "marraquexe-safi",
+          "codigo": "MAR"
+        },
+        {
+          "nome": "Drâa-Tafilalet",
+          "nome_norm": "draa-tafilalet",
+          "codigo": "DRA"
+        },
+        {
+          "nome": "Souss-Massa",
+          "nome_norm": "souss-massa",
+          "codigo": "SOU"
+        },
+        {
+          "nome": "Guelmim-Oued Noun",
+          "nome_norm": "guelmim-oued noun",
+          "codigo": "GUE"
+        },
+        {
+          "nome": "Laâyoune-Saguia el Hamra",
+          "nome_norm": "laayoune-saguia el hamra",
+          "codigo": "LAA"
+        },
+        {
+          "nome": "Dakhla-Oued Ed-Dahab",
+          "nome_norm": "dakhla-oued ed-dahab",
+          "codigo": "DAK"
+        }
+      ]
+    },
+    {
+      "iso": "MZ",
+      "pais": "Moçambique",
+      "flag": "🇲🇿",
+      "capital": "Maputo",
+      "nivel1_tipo": "província",
+      "linguas_oficiais": [
+        "Português"
+      ],
+      "linguas_faladas": [
+        "Makhuwa",
+        "Changana (Tsonga)",
+        "Sena",
+        "Lomwe",
+        "Ndau",
+        "Tshwa"
+      ],
+      "nivel1": [
+        {
+          "nome": "Cabo Delgado",
+          "nome_norm": "cabo delgado",
+          "codigo": "CAB"
+        },
+        {
+          "nome": "Gaza",
+          "nome_norm": "gaza",
+          "codigo": "GAZ"
+        },
+        {
+          "nome": "Inhambane",
+          "nome_norm": "inhambane",
+          "codigo": "INH"
+        },
+        {
+          "nome": "Manica",
+          "nome_norm": "manica",
+          "codigo": "MAN"
+        },
+        {
+          "nome": "Maputo",
+          "nome_norm": "maputo",
+          "codigo": "MAP"
+        },
+        {
+          "nome": "Maputo Cidade",
+          "nome_norm": "maputo cidade",
+          "codigo": "MAPU"
+        },
+        {
+          "nome": "Nampula",
+          "nome_norm": "nampula",
+          "codigo": "NAM"
+        },
+        {
+          "nome": "Niassa",
+          "nome_norm": "niassa",
+          "codigo": "NIA"
+        },
+        {
+          "nome": "Sofala",
+          "nome_norm": "sofala",
+          "codigo": "SOF"
+        },
+        {
+          "nome": "Tete",
+          "nome_norm": "tete",
+          "codigo": "TET"
+        },
+        {
+          "nome": "Zambézia",
+          "nome_norm": "zambezia",
+          "codigo": "ZAM"
+        }
+      ],
+      "piloto": {
+        "cidade": "Maputo",
+        "pai_n1": "Maputo Cidade",
+        "bairros": [
+          {
+            "nome": "Baixa",
+            "nome_norm": "baixa",
+            "codigo": "BAI"
+          },
+          {
+            "nome": "Polana Cimento",
+            "nome_norm": "polana cimento",
+            "codigo": "POL"
+          },
+          {
+            "nome": "Polana Caniço",
+            "nome_norm": "polana canico",
+            "codigo": "POLA"
+          },
+          {
+            "nome": "Sommerschield",
+            "nome_norm": "sommerschield",
+            "codigo": "SOM"
+          },
+          {
+            "nome": "Alto Maé",
+            "nome_norm": "alto mae",
+            "codigo": "ALT"
+          },
+          {
+            "nome": "Malhangalene",
+            "nome_norm": "malhangalene",
+            "codigo": "MAL"
+          },
+          {
+            "nome": "Maxaquene",
+            "nome_norm": "maxaquene",
+            "codigo": "MAX"
+          },
+          {
+            "nome": "Mafalala",
+            "nome_norm": "mafalala",
+            "codigo": "MAF"
+          },
+          {
+            "nome": "Chamanculo",
+            "nome_norm": "chamanculo",
+            "codigo": "CHA"
+          },
+          {
+            "nome": "Xipamanine",
+            "nome_norm": "xipamanine",
+            "codigo": "XIP"
+          },
+          {
+            "nome": "Coop",
+            "nome_norm": "coop",
+            "codigo": "COO"
+          },
+          {
+            "nome": "Costa do Sol",
+            "nome_norm": "costa do sol",
+            "codigo": "COS"
+          },
+          {
+            "nome": "Triunfo",
+            "nome_norm": "triunfo",
+            "codigo": "TRI"
+          },
+          {
+            "nome": "Laulane",
+            "nome_norm": "laulane",
+            "codigo": "LAU"
+          },
+          {
+            "nome": "Hulene",
+            "nome_norm": "hulene",
+            "codigo": "HUL"
+          },
+          {
+            "nome": "Ferroviário",
+            "nome_norm": "ferroviario",
+            "codigo": "FER"
+          }
+        ]
+      }
+    },
+    {
+      "iso": "NA",
+      "pais": "Namíbia",
+      "flag": "🇳🇦",
+      "capital": "Windhoek",
+      "nivel1_tipo": "região",
+      "linguas_oficiais": [
+        "Inglês"
+      ],
+      "linguas_faladas": [
+        "Oshiwambo",
+        "Khoekhoe (Nama/Damara)",
+        "Afrikaans",
+        "Otjiherero",
+        "RuKavango"
+      ],
+      "nivel1": [
+        {
+          "nome": "Erongo",
+          "nome_norm": "erongo",
+          "codigo": "ERO"
+        },
+        {
+          "nome": "Hardap",
+          "nome_norm": "hardap",
+          "codigo": "HAR"
+        },
+        {
+          "nome": "ǁKaras",
+          "nome_norm": "ǁkaras",
+          "codigo": "KAR"
+        },
+        {
+          "nome": "Kavango East",
+          "nome_norm": "kavango east",
+          "codigo": "KAV"
+        },
+        {
+          "nome": "Kavango West",
+          "nome_norm": "kavango west",
+          "codigo": "KAVA"
+        },
+        {
+          "nome": "Khomas",
+          "nome_norm": "khomas",
+          "codigo": "KHO"
+        },
+        {
+          "nome": "Kunene",
+          "nome_norm": "kunene",
+          "codigo": "KUN"
+        },
+        {
+          "nome": "Ohangwena",
+          "nome_norm": "ohangwena",
+          "codigo": "OHA"
+        },
+        {
+          "nome": "Omaheke",
+          "nome_norm": "omaheke",
+          "codigo": "OMA"
+        },
+        {
+          "nome": "Omusati",
+          "nome_norm": "omusati",
+          "codigo": "OMU"
+        },
+        {
+          "nome": "Oshana",
+          "nome_norm": "oshana",
+          "codigo": "OSH"
+        },
+        {
+          "nome": "Oshikoto",
+          "nome_norm": "oshikoto",
+          "codigo": "OSHI"
+        },
+        {
+          "nome": "Otjozondjupa",
+          "nome_norm": "otjozondjupa",
+          "codigo": "OTJ"
+        },
+        {
+          "nome": "Zambezi",
+          "nome_norm": "zambezi",
+          "codigo": "ZAM"
+        }
+      ]
+    },
+    {
+      "iso": "NE",
+      "pais": "Níger",
+      "flag": "🇳🇪",
+      "capital": "Niamey",
+      "nivel1_tipo": "região",
+      "linguas_oficiais": [
+        "Francês (e línguas nacionais)"
+      ],
+      "linguas_faladas": [
+        "Hausa",
+        "Zarma-Songhai",
+        "Fula",
+        "Tamacheque",
+        "Kanuri"
+      ],
+      "nivel1": [
+        {
+          "nome": "Agadez",
+          "nome_norm": "agadez",
+          "codigo": "AGA"
+        },
+        {
+          "nome": "Diffa",
+          "nome_norm": "diffa",
+          "codigo": "DIF"
+        },
+        {
+          "nome": "Dosso",
+          "nome_norm": "dosso",
+          "codigo": "DOS"
+        },
+        {
+          "nome": "Maradi",
+          "nome_norm": "maradi",
+          "codigo": "MAR"
+        },
+        {
+          "nome": "Tahoua",
+          "nome_norm": "tahoua",
+          "codigo": "TAH"
+        },
+        {
+          "nome": "Tillabéri",
+          "nome_norm": "tillaberi",
+          "codigo": "TIL"
+        },
+        {
+          "nome": "Zinder",
+          "nome_norm": "zinder",
+          "codigo": "ZIN"
+        },
+        {
+          "nome": "Niamey",
+          "nome_norm": "niamey",
+          "codigo": "NIA"
+        }
+      ]
+    },
+    {
+      "iso": "NG",
+      "pais": "Nigéria",
+      "flag": "🇳🇬",
+      "capital": "Abuja",
+      "nivel1_tipo": "estado",
+      "linguas_oficiais": [
+        "Inglês"
+      ],
+      "linguas_faladas": [
+        "Hausa",
+        "Yoruba",
+        "Igbo",
+        "Pidgin nigeriano",
+        "Fula"
+      ],
+      "nivel1": [
+        {
+          "nome": "Abia",
+          "nome_norm": "abia",
+          "codigo": "ABI"
+        },
+        {
+          "nome": "Adamawa",
+          "nome_norm": "adamawa",
+          "codigo": "ADA"
+        },
+        {
+          "nome": "Akwa Ibom",
+          "nome_norm": "akwa ibom",
+          "codigo": "AKW"
+        },
+        {
+          "nome": "Anambra",
+          "nome_norm": "anambra",
+          "codigo": "ANA"
+        },
+        {
+          "nome": "Bauchi",
+          "nome_norm": "bauchi",
+          "codigo": "BAU"
+        },
+        {
+          "nome": "Bayelsa",
+          "nome_norm": "bayelsa",
+          "codigo": "BAY"
+        },
+        {
+          "nome": "Benue",
+          "nome_norm": "benue",
+          "codigo": "BEN"
+        },
+        {
+          "nome": "Borno",
+          "nome_norm": "borno",
+          "codigo": "BOR"
+        },
+        {
+          "nome": "Cross River",
+          "nome_norm": "cross river",
+          "codigo": "CRO"
+        },
+        {
+          "nome": "Delta",
+          "nome_norm": "delta",
+          "codigo": "DEL"
+        },
+        {
+          "nome": "Ebonyi",
+          "nome_norm": "ebonyi",
+          "codigo": "EBO"
+        },
+        {
+          "nome": "Edo",
+          "nome_norm": "edo",
+          "codigo": "EDO"
+        },
+        {
+          "nome": "Ekiti",
+          "nome_norm": "ekiti",
+          "codigo": "EKI"
+        },
+        {
+          "nome": "Enugu",
+          "nome_norm": "enugu",
+          "codigo": "ENU"
+        },
+        {
+          "nome": "Gombe",
+          "nome_norm": "gombe",
+          "codigo": "GOM"
+        },
+        {
+          "nome": "Imo",
+          "nome_norm": "imo",
+          "codigo": "IMO"
+        },
+        {
+          "nome": "Jigawa",
+          "nome_norm": "jigawa",
+          "codigo": "JIG"
+        },
+        {
+          "nome": "Kaduna",
+          "nome_norm": "kaduna",
+          "codigo": "KAD"
+        },
+        {
+          "nome": "Kano",
+          "nome_norm": "kano",
+          "codigo": "KAN"
+        },
+        {
+          "nome": "Katsina",
+          "nome_norm": "katsina",
+          "codigo": "KAT"
+        },
+        {
+          "nome": "Kebbi",
+          "nome_norm": "kebbi",
+          "codigo": "KEB"
+        },
+        {
+          "nome": "Kogi",
+          "nome_norm": "kogi",
+          "codigo": "KOG"
+        },
+        {
+          "nome": "Kwara",
+          "nome_norm": "kwara",
+          "codigo": "KWA"
+        },
+        {
+          "nome": "Lagos",
+          "nome_norm": "lagos",
+          "codigo": "LAG"
+        },
+        {
+          "nome": "Nasarawa",
+          "nome_norm": "nasarawa",
+          "codigo": "NAS"
+        },
+        {
+          "nome": "Niger",
+          "nome_norm": "niger",
+          "codigo": "NIG"
+        },
+        {
+          "nome": "Ogun",
+          "nome_norm": "ogun",
+          "codigo": "OGU"
+        },
+        {
+          "nome": "Ondo",
+          "nome_norm": "ondo",
+          "codigo": "OND"
+        },
+        {
+          "nome": "Osun",
+          "nome_norm": "osun",
+          "codigo": "OSU"
+        },
+        {
+          "nome": "Oyo",
+          "nome_norm": "oyo",
+          "codigo": "OYO"
+        },
+        {
+          "nome": "Plateau",
+          "nome_norm": "plateau",
+          "codigo": "PLA"
+        },
+        {
+          "nome": "Rivers",
+          "nome_norm": "rivers",
+          "codigo": "RIV"
+        },
+        {
+          "nome": "Sokoto",
+          "nome_norm": "sokoto",
+          "codigo": "SOK"
+        },
+        {
+          "nome": "Taraba",
+          "nome_norm": "taraba",
+          "codigo": "TAR"
+        },
+        {
+          "nome": "Yobe",
+          "nome_norm": "yobe",
+          "codigo": "YOB"
+        },
+        {
+          "nome": "Zamfara",
+          "nome_norm": "zamfara",
+          "codigo": "ZAM"
+        },
+        {
+          "nome": "Federal Capital Territory",
+          "nome_norm": "federal capital territory",
+          "codigo": "FED"
+        }
+      ]
+    },
+    {
+      "iso": "RW",
+      "pais": "Ruanda",
+      "flag": "🇷🇼",
+      "capital": "Kigali",
+      "nivel1_tipo": "província",
+      "linguas_oficiais": [
+        "Kinyarwanda",
+        "Inglês",
+        "Francês",
+        "Suaíli"
+      ],
+      "linguas_faladas": [
+        "Kinyarwanda"
+      ],
+      "nivel1": [
+        {
+          "nome": "Kigali",
+          "nome_norm": "kigali",
+          "codigo": "KIG"
+        },
+        {
+          "nome": "Eastern",
+          "nome_norm": "eastern",
+          "codigo": "EAS"
+        },
+        {
+          "nome": "Northern",
+          "nome_norm": "northern",
+          "codigo": "NOR"
+        },
+        {
+          "nome": "Southern",
+          "nome_norm": "southern",
+          "codigo": "SOU"
+        },
+        {
+          "nome": "Western",
+          "nome_norm": "western",
+          "codigo": "WES"
+        }
+      ]
+    },
+    {
+      "iso": "ST",
+      "pais": "São Tomé e Príncipe",
+      "flag": "🇸🇹",
+      "capital": "São Tomé",
+      "nivel1_tipo": "distrito",
+      "linguas_oficiais": [
+        "Português"
+      ],
+      "linguas_faladas": [
+        "Forro",
+        "Angolar",
+        "Principense"
+      ],
+      "nivel1": [
+        {
+          "nome": "Água Grande",
+          "nome_norm": "agua grande",
+          "codigo": "AGU"
+        },
+        {
+          "nome": "Cantagalo",
+          "nome_norm": "cantagalo",
+          "codigo": "CAN"
+        },
+        {
+          "nome": "Caué",
+          "nome_norm": "caue",
+          "codigo": "CAU"
+        },
+        {
+          "nome": "Lembá",
+          "nome_norm": "lemba",
+          "codigo": "LEM"
+        },
+        {
+          "nome": "Lobata",
+          "nome_norm": "lobata",
+          "codigo": "LOB"
+        },
+        {
+          "nome": "Mé-Zóchi",
+          "nome_norm": "me-zochi",
+          "codigo": "MEZ"
+        },
+        {
+          "nome": "Príncipe",
+          "nome_norm": "principe",
+          "codigo": "PRI"
+        }
+      ]
+    },
+    {
+      "iso": "SN",
+      "pais": "Senegal",
+      "flag": "🇸🇳",
+      "capital": "Dacar",
+      "nivel1_tipo": "região",
+      "linguas_oficiais": [
+        "Francês"
+      ],
+      "linguas_faladas": [
+        "Wolof",
+        "Pulaar",
+        "Serer",
+        "Mandinga",
+        "Soninké",
+        "Diola"
+      ],
+      "nivel1": [
+        {
+          "nome": "Dakar",
+          "nome_norm": "dakar",
+          "codigo": "DAK"
+        },
+        {
+          "nome": "Diourbel",
+          "nome_norm": "diourbel",
+          "codigo": "DIO"
+        },
+        {
+          "nome": "Fatick",
+          "nome_norm": "fatick",
+          "codigo": "FAT"
+        },
+        {
+          "nome": "Kaffrine",
+          "nome_norm": "kaffrine",
+          "codigo": "KAF"
+        },
+        {
+          "nome": "Kaolack",
+          "nome_norm": "kaolack",
+          "codigo": "KAO"
+        },
+        {
+          "nome": "Kédougou",
+          "nome_norm": "kedougou",
+          "codigo": "KED"
+        },
+        {
+          "nome": "Kolda",
+          "nome_norm": "kolda",
+          "codigo": "KOL"
+        },
+        {
+          "nome": "Louga",
+          "nome_norm": "louga",
+          "codigo": "LOU"
+        },
+        {
+          "nome": "Matam",
+          "nome_norm": "matam",
+          "codigo": "MAT"
+        },
+        {
+          "nome": "Saint-Louis",
+          "nome_norm": "saint-louis",
+          "codigo": "SAI"
+        },
+        {
+          "nome": "Sédhiou",
+          "nome_norm": "sedhiou",
+          "codigo": "SED"
+        },
+        {
+          "nome": "Tambacounda",
+          "nome_norm": "tambacounda",
+          "codigo": "TAM"
+        },
+        {
+          "nome": "Thiès",
+          "nome_norm": "thies",
+          "codigo": "THI"
+        },
+        {
+          "nome": "Ziguinchor",
+          "nome_norm": "ziguinchor",
+          "codigo": "ZIG"
+        }
+      ]
+    },
+    {
+      "iso": "SC",
+      "pais": "Seicheles",
+      "flag": "🇸🇨",
+      "capital": "Victoria",
+      "nivel1_tipo": "distrito",
+      "linguas_oficiais": [
+        "Crioulo seichelense",
+        "Inglês",
+        "Francês"
+      ],
+      "linguas_faladas": [
+        "Crioulo seichelense (Seselwa)"
+      ],
+      "nivel1": [
+        {
+          "nome": "Anse aux Pins",
+          "nome_norm": "anse aux pins",
+          "codigo": "ANS"
+        },
+        {
+          "nome": "Anse Boileau",
+          "nome_norm": "anse boileau",
+          "codigo": "ANSE"
+        },
+        {
+          "nome": "Anse Étoile",
+          "nome_norm": "anse etoile",
+          "codigo": "ANE"
+        },
+        {
+          "nome": "Au Cap",
+          "nome_norm": "au cap",
+          "codigo": "AUC"
+        },
+        {
+          "nome": "Anse Royale",
+          "nome_norm": "anse royale",
+          "codigo": "ANR"
+        },
+        {
+          "nome": "Baie Lazare",
+          "nome_norm": "baie lazare",
+          "codigo": "BAI"
+        },
+        {
+          "nome": "Baie Sainte Anne",
+          "nome_norm": "baie sainte anne",
+          "codigo": "BAIE"
+        },
+        {
+          "nome": "Beau Vallon",
+          "nome_norm": "beau vallon",
+          "codigo": "BEA"
+        },
+        {
+          "nome": "Bel Air",
+          "nome_norm": "bel air",
+          "codigo": "BEL"
+        },
+        {
+          "nome": "Bel Ombre",
+          "nome_norm": "bel ombre",
+          "codigo": "BELO"
+        },
+        {
+          "nome": "Cascade",
+          "nome_norm": "cascade",
+          "codigo": "CAS"
+        },
+        {
+          "nome": "Glacis",
+          "nome_norm": "glacis",
+          "codigo": "GLA"
+        },
+        {
+          "nome": "Grand Anse Mahé",
+          "nome_norm": "grand anse mahe",
+          "codigo": "GRA"
+        },
+        {
+          "nome": "Grand Anse Praslin",
+          "nome_norm": "grand anse praslin",
+          "codigo": "GRAN"
+        },
+        {
+          "nome": "La Digue",
+          "nome_norm": "la digue",
+          "codigo": "LAD"
+        },
+        {
+          "nome": "La Rivière Anglaise",
+          "nome_norm": "la riviere anglaise",
+          "codigo": "LAR"
+        },
+        {
+          "nome": "Les Mamelles",
+          "nome_norm": "les mamelles",
+          "codigo": "LES"
+        },
+        {
+          "nome": "Mont Buxton",
+          "nome_norm": "mont buxton",
+          "codigo": "MON"
+        },
+        {
+          "nome": "Mont Fleuri",
+          "nome_norm": "mont fleuri",
+          "codigo": "MONT"
+        },
+        {
+          "nome": "Plaisance",
+          "nome_norm": "plaisance",
+          "codigo": "PLA"
+        },
+        {
+          "nome": "Pointe Larue",
+          "nome_norm": "pointe larue",
+          "codigo": "POI"
+        },
+        {
+          "nome": "Port Glaud",
+          "nome_norm": "port glaud",
+          "codigo": "POR"
+        },
+        {
+          "nome": "Roche Caiman",
+          "nome_norm": "roche caiman",
+          "codigo": "ROC"
+        },
+        {
+          "nome": "Saint Louis",
+          "nome_norm": "saint louis",
+          "codigo": "SAI"
+        },
+        {
+          "nome": "Takamaka",
+          "nome_norm": "takamaka",
+          "codigo": "TAK"
+        },
+        {
+          "nome": "English River",
+          "nome_norm": "english river",
+          "codigo": "ENG"
+        },
+        {
+          "nome": "Inner Islands",
+          "nome_norm": "inner islands",
+          "codigo": "INN"
+        }
+      ]
+    },
+    {
+      "iso": "SL",
+      "pais": "Serra Leoa",
+      "flag": "🇸🇱",
+      "capital": "Freetown",
+      "nivel1_tipo": "província",
+      "linguas_oficiais": [
+        "Inglês"
+      ],
+      "linguas_faladas": [
+        "Krio",
+        "Mende",
+        "Temne",
+        "Limba"
+      ],
+      "nivel1": [
+        {
+          "nome": "Eastern",
+          "nome_norm": "eastern",
+          "codigo": "EAS"
+        },
+        {
+          "nome": "Northern",
+          "nome_norm": "northern",
+          "codigo": "NOR"
+        },
+        {
+          "nome": "North West",
+          "nome_norm": "north west",
+          "codigo": "NORT"
+        },
+        {
+          "nome": "Southern",
+          "nome_norm": "southern",
+          "codigo": "SOU"
+        },
+        {
+          "nome": "Western Area",
+          "nome_norm": "western area",
+          "codigo": "WES"
+        }
+      ]
+    },
+    {
+      "iso": "SO",
+      "pais": "Somália",
+      "flag": "🇸🇴",
+      "capital": "Mogadíscio",
+      "nivel1_tipo": "região",
+      "linguas_oficiais": [
+        "Somali",
+        "Árabe"
+      ],
+      "linguas_faladas": [
+        "Somali",
+        "Maay",
+        "Árabe"
+      ],
+      "nivel1": [
+        {
+          "nome": "Awdal",
+          "nome_norm": "awdal",
+          "codigo": "AWD"
+        },
+        {
+          "nome": "Bakool",
+          "nome_norm": "bakool",
+          "codigo": "BAK"
+        },
+        {
+          "nome": "Banaadir",
+          "nome_norm": "banaadir",
+          "codigo": "BAN"
+        },
+        {
+          "nome": "Bari",
+          "nome_norm": "bari",
+          "codigo": "BAR"
+        },
+        {
+          "nome": "Bay",
+          "nome_norm": "bay",
+          "codigo": "BAY"
+        },
+        {
+          "nome": "Galguduud",
+          "nome_norm": "galguduud",
+          "codigo": "GAL"
+        },
+        {
+          "nome": "Gedo",
+          "nome_norm": "gedo",
+          "codigo": "GED"
+        },
+        {
+          "nome": "Hiiraan",
+          "nome_norm": "hiiraan",
+          "codigo": "HII"
+        },
+        {
+          "nome": "Jubbada Dhexe",
+          "nome_norm": "jubbada dhexe",
+          "codigo": "JUB"
+        },
+        {
+          "nome": "Jubbada Hoose",
+          "nome_norm": "jubbada hoose",
+          "codigo": "JUBB"
+        },
+        {
+          "nome": "Mudug",
+          "nome_norm": "mudug",
+          "codigo": "MUD"
+        },
+        {
+          "nome": "Nugaal",
+          "nome_norm": "nugaal",
+          "codigo": "NUG"
+        },
+        {
+          "nome": "Sanaag",
+          "nome_norm": "sanaag",
+          "codigo": "SAN"
+        },
+        {
+          "nome": "Shabeellaha Dhexe",
+          "nome_norm": "shabeellaha dhexe",
+          "codigo": "SHA"
+        },
+        {
+          "nome": "Shabeellaha Hoose",
+          "nome_norm": "shabeellaha hoose",
+          "codigo": "SHAB"
+        },
+        {
+          "nome": "Sool",
+          "nome_norm": "sool",
+          "codigo": "SOO"
+        },
+        {
+          "nome": "Togdheer",
+          "nome_norm": "togdheer",
+          "codigo": "TOG"
+        },
+        {
+          "nome": "Woqooyi Galbeed",
+          "nome_norm": "woqooyi galbeed",
+          "codigo": "WOQ"
+        }
+      ]
+    },
+    {
+      "iso": "ZA",
+      "pais": "África do Sul",
+      "flag": "🇿🇦",
+      "capital": "Pretória",
+      "nivel1_tipo": "província",
+      "linguas_oficiais": [
+        "Zulu",
+        "Xhosa",
+        "Afrikaans",
+        "Inglês",
+        "Sepedi",
+        "Setswana",
+        "Sesotho",
+        "Xitsonga",
+        "SiSwati",
+        "Tshivenda",
+        "isiNdebele",
+        "Língua Gestual SA"
+      ],
+      "linguas_faladas": [
+        "Zulu",
+        "Xhosa",
+        "Afrikaans",
+        "Inglês",
+        "Sepedi"
+      ],
+      "nivel1": [
+        {
+          "nome": "Eastern Cape",
+          "nome_norm": "eastern cape",
+          "codigo": "EAS"
+        },
+        {
+          "nome": "Free State",
+          "nome_norm": "free state",
+          "codigo": "FRE"
+        },
+        {
+          "nome": "Gauteng",
+          "nome_norm": "gauteng",
+          "codigo": "GAU"
+        },
+        {
+          "nome": "KwaZulu-Natal",
+          "nome_norm": "kwazulu-natal",
+          "codigo": "KWA"
+        },
+        {
+          "nome": "Limpopo",
+          "nome_norm": "limpopo",
+          "codigo": "LIM"
+        },
+        {
+          "nome": "Mpumalanga",
+          "nome_norm": "mpumalanga",
+          "codigo": "MPU"
+        },
+        {
+          "nome": "North West",
+          "nome_norm": "north west",
+          "codigo": "NOR"
+        },
+        {
+          "nome": "Northern Cape",
+          "nome_norm": "northern cape",
+          "codigo": "NORT"
+        },
+        {
+          "nome": "Western Cape",
+          "nome_norm": "western cape",
+          "codigo": "WES"
+        }
+      ]
+    },
+    {
+      "iso": "SS",
+      "pais": "Sudão do Sul",
+      "flag": "🇸🇸",
+      "capital": "Juba",
+      "nivel1_tipo": "estado",
+      "linguas_oficiais": [
+        "Inglês"
+      ],
+      "linguas_faladas": [
+        "Dinka",
+        "Nuer",
+        "Bari",
+        "Zande",
+        "Árabe de Juba",
+        "Shilluk"
+      ],
+      "nivel1": [
+        {
+          "nome": "Central Equatoria",
+          "nome_norm": "central equatoria",
+          "codigo": "CEN"
+        },
+        {
+          "nome": "Eastern Equatoria",
+          "nome_norm": "eastern equatoria",
+          "codigo": "EAS"
+        },
+        {
+          "nome": "Jonglei",
+          "nome_norm": "jonglei",
+          "codigo": "JON"
+        },
+        {
+          "nome": "Lakes",
+          "nome_norm": "lakes",
+          "codigo": "LAK"
+        },
+        {
+          "nome": "Northern Bahr el Ghazal",
+          "nome_norm": "northern bahr el ghazal",
+          "codigo": "NOR"
+        },
+        {
+          "nome": "Unity",
+          "nome_norm": "unity",
+          "codigo": "UNI"
+        },
+        {
+          "nome": "Upper Nile",
+          "nome_norm": "upper nile",
+          "codigo": "UPP"
+        },
+        {
+          "nome": "Warrap",
+          "nome_norm": "warrap",
+          "codigo": "WAR"
+        },
+        {
+          "nome": "Western Bahr el Ghazal",
+          "nome_norm": "western bahr el ghazal",
+          "codigo": "WES"
+        },
+        {
+          "nome": "Western Equatoria",
+          "nome_norm": "western equatoria",
+          "codigo": "WEST"
+        }
+      ]
+    },
+    {
+      "iso": "SD",
+      "pais": "Sudão",
+      "flag": "🇸🇩",
+      "capital": "Cartum",
+      "nivel1_tipo": "estado",
+      "linguas_oficiais": [
+        "Árabe",
+        "Inglês"
+      ],
+      "linguas_faladas": [
+        "Árabe sudanês",
+        "Beja",
+        "Núbio",
+        "Fur"
+      ],
+      "nivel1": [
+        {
+          "nome": "Al Jazirah",
+          "nome_norm": "al jazirah",
+          "codigo": "ALJ"
+        },
+        {
+          "nome": "Blue Nile",
+          "nome_norm": "blue nile",
+          "codigo": "BLU"
+        },
+        {
+          "nome": "Central Darfur",
+          "nome_norm": "central darfur",
+          "codigo": "CEN"
+        },
+        {
+          "nome": "East Darfur",
+          "nome_norm": "east darfur",
+          "codigo": "EAS"
+        },
+        {
+          "nome": "Gedaref",
+          "nome_norm": "gedaref",
+          "codigo": "GED"
+        },
+        {
+          "nome": "Kassala",
+          "nome_norm": "kassala",
+          "codigo": "KAS"
+        },
+        {
+          "nome": "Khartoum",
+          "nome_norm": "khartoum",
+          "codigo": "KHA"
+        },
+        {
+          "nome": "North Darfur",
+          "nome_norm": "north darfur",
+          "codigo": "NOR"
+        },
+        {
+          "nome": "North Kordofan",
+          "nome_norm": "north kordofan",
+          "codigo": "NORT"
+        },
+        {
+          "nome": "Northern",
+          "nome_norm": "northern",
+          "codigo": "NOT"
+        },
+        {
+          "nome": "Red Sea",
+          "nome_norm": "red sea",
+          "codigo": "RED"
+        },
+        {
+          "nome": "River Nile",
+          "nome_norm": "river nile",
+          "codigo": "RIV"
+        },
+        {
+          "nome": "Sennar",
+          "nome_norm": "sennar",
+          "codigo": "SEN"
+        },
+        {
+          "nome": "South Darfur",
+          "nome_norm": "south darfur",
+          "codigo": "SOU"
+        },
+        {
+          "nome": "South Kordofan",
+          "nome_norm": "south kordofan",
+          "codigo": "SOUT"
+        },
+        {
+          "nome": "West Darfur",
+          "nome_norm": "west darfur",
+          "codigo": "WES"
+        },
+        {
+          "nome": "West Kordofan",
+          "nome_norm": "west kordofan",
+          "codigo": "WEST"
+        },
+        {
+          "nome": "White Nile",
+          "nome_norm": "white nile",
+          "codigo": "WHI"
+        }
+      ]
+    },
+    {
+      "iso": "TZ",
+      "pais": "Tanzânia",
+      "flag": "🇹🇿",
+      "capital": "Dodoma",
+      "nivel1_tipo": "região",
+      "linguas_oficiais": [
+        "Suaíli"
+      ],
+      "linguas_faladas": [
+        "Suaíli",
+        "Sukuma",
+        "Chagga",
+        "Nyamwezi",
+        "Haya"
+      ],
+      "nivel1": [
+        {
+          "nome": "Arusha",
+          "nome_norm": "arusha",
+          "codigo": "ARU"
+        },
+        {
+          "nome": "Dar es Salaam",
+          "nome_norm": "dar es salaam",
+          "codigo": "DAR"
+        },
+        {
+          "nome": "Dodoma",
+          "nome_norm": "dodoma",
+          "codigo": "DOD"
+        },
+        {
+          "nome": "Geita",
+          "nome_norm": "geita",
+          "codigo": "GEI"
+        },
+        {
+          "nome": "Iringa",
+          "nome_norm": "iringa",
+          "codigo": "IRI"
+        },
+        {
+          "nome": "Kagera",
+          "nome_norm": "kagera",
+          "codigo": "KAG"
+        },
+        {
+          "nome": "Katavi",
+          "nome_norm": "katavi",
+          "codigo": "KAT"
+        },
+        {
+          "nome": "Kigoma",
+          "nome_norm": "kigoma",
+          "codigo": "KIG"
+        },
+        {
+          "nome": "Kilimanjaro",
+          "nome_norm": "kilimanjaro",
+          "codigo": "KIL"
+        },
+        {
+          "nome": "Lindi",
+          "nome_norm": "lindi",
+          "codigo": "LIN"
+        },
+        {
+          "nome": "Manyara",
+          "nome_norm": "manyara",
+          "codigo": "MAN"
+        },
+        {
+          "nome": "Mara",
+          "nome_norm": "mara",
+          "codigo": "MAR"
+        },
+        {
+          "nome": "Mbeya",
+          "nome_norm": "mbeya",
+          "codigo": "MBE"
+        },
+        {
+          "nome": "Morogoro",
+          "nome_norm": "morogoro",
+          "codigo": "MOR"
+        },
+        {
+          "nome": "Mtwara",
+          "nome_norm": "mtwara",
+          "codigo": "MTW"
+        },
+        {
+          "nome": "Mwanza",
+          "nome_norm": "mwanza",
+          "codigo": "MWA"
+        },
+        {
+          "nome": "Njombe",
+          "nome_norm": "njombe",
+          "codigo": "NJO"
+        },
+        {
+          "nome": "Pwani",
+          "nome_norm": "pwani",
+          "codigo": "PWA"
+        },
+        {
+          "nome": "Rukwa",
+          "nome_norm": "rukwa",
+          "codigo": "RUK"
+        },
+        {
+          "nome": "Ruvuma",
+          "nome_norm": "ruvuma",
+          "codigo": "RUV"
+        },
+        {
+          "nome": "Shinyanga",
+          "nome_norm": "shinyanga",
+          "codigo": "SHI"
+        },
+        {
+          "nome": "Simiyu",
+          "nome_norm": "simiyu",
+          "codigo": "SIM"
+        },
+        {
+          "nome": "Singida",
+          "nome_norm": "singida",
+          "codigo": "SIN"
+        },
+        {
+          "nome": "Songwe",
+          "nome_norm": "songwe",
+          "codigo": "SON"
+        },
+        {
+          "nome": "Tabora",
+          "nome_norm": "tabora",
+          "codigo": "TAB"
+        },
+        {
+          "nome": "Tanga",
+          "nome_norm": "tanga",
+          "codigo": "TAN"
+        },
+        {
+          "nome": "Kaskazini Pemba",
+          "nome_norm": "kaskazini pemba",
+          "codigo": "KAS"
+        },
+        {
+          "nome": "Kaskazini Unguja",
+          "nome_norm": "kaskazini unguja",
+          "codigo": "KASK"
+        },
+        {
+          "nome": "Kusini Pemba",
+          "nome_norm": "kusini pemba",
+          "codigo": "KUS"
+        },
+        {
+          "nome": "Kusini Unguja",
+          "nome_norm": "kusini unguja",
+          "codigo": "KUSI"
+        },
+        {
+          "nome": "Mjini Magharibi",
+          "nome_norm": "mjini magharibi",
+          "codigo": "MJI"
+        }
+      ]
+    },
+    {
+      "iso": "TG",
+      "pais": "Togo",
+      "flag": "🇹🇬",
+      "capital": "Lomé",
+      "nivel1_tipo": "região",
+      "linguas_oficiais": [
+        "Francês"
+      ],
+      "linguas_faladas": [
+        "Ewe",
+        "Kabiyè",
+        "Mina",
+        "Tem"
+      ],
+      "nivel1": [
+        {
+          "nome": "Centrale",
+          "nome_norm": "centrale",
+          "codigo": "CEN"
+        },
+        {
+          "nome": "Kara",
+          "nome_norm": "kara",
+          "codigo": "KAR"
+        },
+        {
+          "nome": "Maritime",
+          "nome_norm": "maritime",
+          "codigo": "MAR"
+        },
+        {
+          "nome": "Plateaux",
+          "nome_norm": "plateaux",
+          "codigo": "PLA"
+        },
+        {
+          "nome": "Savanes",
+          "nome_norm": "savanes",
+          "codigo": "SAV"
+        }
+      ]
+    },
+    {
+      "iso": "TN",
+      "pais": "Tunísia",
+      "flag": "🇹🇳",
+      "capital": "Túnis",
+      "nivel1_tipo": "governadoria",
+      "linguas_oficiais": [
+        "Árabe"
+      ],
+      "linguas_faladas": [
+        "Árabe tunisino (Derja)",
+        "Francês",
+        "Berbere"
+      ],
+      "nivel1": [
+        {
+          "nome": "Ariana",
+          "nome_norm": "ariana",
+          "codigo": "ARI"
+        },
+        {
+          "nome": "Béja",
+          "nome_norm": "beja",
+          "codigo": "BEJ"
+        },
+        {
+          "nome": "Ben Arous",
+          "nome_norm": "ben arous",
+          "codigo": "BEN"
+        },
+        {
+          "nome": "Bizerte",
+          "nome_norm": "bizerte",
+          "codigo": "BIZ"
+        },
+        {
+          "nome": "Gabès",
+          "nome_norm": "gabes",
+          "codigo": "GAB"
+        },
+        {
+          "nome": "Gafsa",
+          "nome_norm": "gafsa",
+          "codigo": "GAF"
+        },
+        {
+          "nome": "Jendouba",
+          "nome_norm": "jendouba",
+          "codigo": "JEN"
+        },
+        {
+          "nome": "Kairouan",
+          "nome_norm": "kairouan",
+          "codigo": "KAI"
+        },
+        {
+          "nome": "Kasserine",
+          "nome_norm": "kasserine",
+          "codigo": "KAS"
+        },
+        {
+          "nome": "Kébili",
+          "nome_norm": "kebili",
+          "codigo": "KEB"
+        },
+        {
+          "nome": "Kef",
+          "nome_norm": "kef",
+          "codigo": "KEF"
+        },
+        {
+          "nome": "Mahdia",
+          "nome_norm": "mahdia",
+          "codigo": "MAH"
+        },
+        {
+          "nome": "Manouba",
+          "nome_norm": "manouba",
+          "codigo": "MAN"
+        },
+        {
+          "nome": "Médenine",
+          "nome_norm": "medenine",
+          "codigo": "MED"
+        },
+        {
+          "nome": "Monastir",
+          "nome_norm": "monastir",
+          "codigo": "MON"
+        },
+        {
+          "nome": "Nabeul",
+          "nome_norm": "nabeul",
+          "codigo": "NAB"
+        },
+        {
+          "nome": "Sfax",
+          "nome_norm": "sfax",
+          "codigo": "SFA"
+        },
+        {
+          "nome": "Sidi Bouzid",
+          "nome_norm": "sidi bouzid",
+          "codigo": "SID"
+        },
+        {
+          "nome": "Siliana",
+          "nome_norm": "siliana",
+          "codigo": "SIL"
+        },
+        {
+          "nome": "Sousse",
+          "nome_norm": "sousse",
+          "codigo": "SOU"
+        },
+        {
+          "nome": "Tataouine",
+          "nome_norm": "tataouine",
+          "codigo": "TAT"
+        },
+        {
+          "nome": "Tozeur",
+          "nome_norm": "tozeur",
+          "codigo": "TOZ"
+        },
+        {
+          "nome": "Tunis",
+          "nome_norm": "tunis",
+          "codigo": "TUN"
+        },
+        {
+          "nome": "Zaghouan",
+          "nome_norm": "zaghouan",
+          "codigo": "ZAG"
+        }
+      ]
+    },
+    {
+      "iso": "UG",
+      "pais": "Uganda",
+      "flag": "🇺🇬",
+      "capital": "Campala",
+      "nivel1_tipo": "região",
+      "linguas_oficiais": [
+        "Inglês",
+        "Suaíli"
+      ],
+      "linguas_faladas": [
+        "Luganda",
+        "Suaíli",
+        "Runyankole",
+        "Acholi",
+        "Lango"
+      ],
+      "nivel1": [
+        {
+          "nome": "Central",
+          "nome_norm": "central",
+          "codigo": "CEN"
+        },
+        {
+          "nome": "Eastern",
+          "nome_norm": "eastern",
+          "codigo": "EAS"
+        },
+        {
+          "nome": "Northern",
+          "nome_norm": "northern",
+          "codigo": "NOR"
+        },
+        {
+          "nome": "Western",
+          "nome_norm": "western",
+          "codigo": "WES"
+        }
+      ]
+    },
+    {
+      "iso": "ZM",
+      "pais": "Zâmbia",
+      "flag": "🇿🇲",
+      "capital": "Lusaca",
+      "nivel1_tipo": "província",
+      "linguas_oficiais": [
+        "Inglês"
+      ],
+      "linguas_faladas": [
+        "Bemba",
+        "Nyanja",
+        "Tonga",
+        "Lozi",
+        "Lunda",
+        "Kaonde",
+        "Luvale"
+      ],
+      "nivel1": [
+        {
+          "nome": "Central",
+          "nome_norm": "central",
+          "codigo": "CEN"
+        },
+        {
+          "nome": "Copperbelt",
+          "nome_norm": "copperbelt",
+          "codigo": "COP"
+        },
+        {
+          "nome": "Eastern",
+          "nome_norm": "eastern",
+          "codigo": "EAS"
+        },
+        {
+          "nome": "Luapula",
+          "nome_norm": "luapula",
+          "codigo": "LUA"
+        },
+        {
+          "nome": "Lusaka",
+          "nome_norm": "lusaka",
+          "codigo": "LUS"
+        },
+        {
+          "nome": "Muchinga",
+          "nome_norm": "muchinga",
+          "codigo": "MUC"
+        },
+        {
+          "nome": "Northern",
+          "nome_norm": "northern",
+          "codigo": "NOR"
+        },
+        {
+          "nome": "North-Western",
+          "nome_norm": "north-western",
+          "codigo": "NORT"
+        },
+        {
+          "nome": "Southern",
+          "nome_norm": "southern",
+          "codigo": "SOU"
+        },
+        {
+          "nome": "Western",
+          "nome_norm": "western",
+          "codigo": "WES"
+        }
+      ]
+    },
+    {
+      "iso": "ZW",
+      "pais": "Zimbábue",
+      "flag": "🇿🇼",
+      "capital": "Harare",
+      "nivel1_tipo": "província",
+      "linguas_oficiais": [
+        "Shona",
+        "Ndebele",
+        "Inglês (e 13 outras)"
+      ],
+      "linguas_faladas": [
+        "Shona",
+        "Ndebele",
+        "Inglês"
+      ],
+      "nivel1": [
+        {
+          "nome": "Bulawayo",
+          "nome_norm": "bulawayo",
+          "codigo": "BUL"
+        },
+        {
+          "nome": "Harare",
+          "nome_norm": "harare",
+          "codigo": "HAR"
+        },
+        {
+          "nome": "Manicaland",
+          "nome_norm": "manicaland",
+          "codigo": "MAN"
+        },
+        {
+          "nome": "Mashonaland Central",
+          "nome_norm": "mashonaland central",
+          "codigo": "MAS"
+        },
+        {
+          "nome": "Mashonaland East",
+          "nome_norm": "mashonaland east",
+          "codigo": "MASH"
+        },
+        {
+          "nome": "Mashonaland West",
+          "nome_norm": "mashonaland west",
+          "codigo": "MAH"
+        },
+        {
+          "nome": "Masvingo",
+          "nome_norm": "masvingo",
+          "codigo": "MASV"
+        },
+        {
+          "nome": "Matabeleland North",
+          "nome_norm": "matabeleland north",
+          "codigo": "MAT"
+        },
+        {
+          "nome": "Matabeleland South",
+          "nome_norm": "matabeleland south",
+          "codigo": "MATA"
+        },
+        {
+          "nome": "Midlands",
+          "nome_norm": "midlands",
+          "codigo": "MID"
+        }
+      ]
+    }
+  ]
+}
