@@ -13,14 +13,22 @@ export type Municipios = Record<string, ComunaList>;
 export type ProvinceTree = Record<string, Municipios>;
 
 export const ANGOLA: ProvinceTree = {
+  // Luanda — 13 municípios confirmados (Lei 14/24, reforma 2024). Comunas
+  // best-effort; municípios sem comuna confirmada mostram "Sede" até revisão.
   "Luanda": {
-    "Luanda": ["Ingombota", "Maianga", "Rangel", "Samba", "Sambizanga"],
-    "Belas": ["Benfica", "Ramiros", "Barra do Kwanza", "Mussulo", "Quenguela"],
-    "Cacuaco": ["Cacuaco Sede", "Funda", "Kikolo", "Quicaco"],
-    "Cazenga": ["Cazenga Sede", "Hoji ya Henda", "Tala Hady"],
-    "Viana": ["Viana Sede", "Calumbo", "Zango"],
-    "Kilamba Kiaxi": ["Golfe", "Palanca", "Sapu"],
-    "Talatona": ["Talatona Sede", "Futungo de Belas", "Camama"],
+    "Ingombota": [],
+    "Maianga": [],
+    "Rangel": [],
+    "Samba": [],
+    "Sambizanga": [],
+    "Cacuaco": ["Cacuaco", "Funda", "Kikolo", "Kiluanji"],
+    "Cazenga": ["Cazenga", "Hoji ya Henda", "Tala Hady"],
+    "Viana": ["Viana", "Calumbo", "Zango", "Mbaia"],
+    "Belas": ["Belas", "Benfica", "Ramiros", "Barra do Kwanza", "Quenguela"],
+    "Kilamba Kiaxi": ["Golfe", "Palanca", "Sapu", "Vila Estoril"],
+    "Talatona": ["Talatona", "Futungo de Belas", "Quificas"],
+    "Mussulo": [],
+    "Camama": [],
   },
   "Icolo e Bengo": {
     "Icolo e Bengo": ["Catete", "Bom Jesus", "Cabiri", "Quingenge", "Cassoneca"],
