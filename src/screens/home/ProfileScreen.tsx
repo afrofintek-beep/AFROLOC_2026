@@ -3,12 +3,34 @@ import { useNavigate } from "react-router-dom";
 import { PhoneChrome } from "../../components/ui/PhoneChrome";
 import { TabBar } from "../../components/ui/TabBar";
 import { currentUser } from "../../data/account";
+import { useAuth } from "../../state/auth";
 
 export function ProfileScreen() {
   const navigate = useNavigate();
-  const u = currentUser;
+  const { configured, profile, signOut } = useAuth();
+  // Em modo real usa o perfil da BD; em demo, a "Ana Cardoso".
+  const u = {
+    ...currentUser,
+    name: configured && profile?.name ? profile.name : currentUser.name,
+    phone: configured && profile?.phone ? profile.phone : currentUser.phone,
+    initials: configured && profile?.name ? initialsOf(profile.name) : currentUser.initials,
+    language: configured && profile?.language ? profile.language : currentUser.language,
+    reputationTier: (configured && profile ? profile.reputation_tier : currentUser.reputationTier) as typeof currentUser.reputationTier,
+    reputationScore: configured && profile ? profile.reputation_score : currentUser.reputationScore,
+    testimonials: configured && profile ? profile.testimonials : currentUser.testimonials,
+    frauds: configured && profile ? profile.frauds : currentUser.frauds,
+    level: configured && profile ? profile.level : currentUser.level,
+    levelTitle: configured && profile ? profile.level_title : currentUser.levelTitle,
+    authConfidence: configured && profile ? profile.auth_confidence : currentUser.authConfidence,
+    jurisdiction: configured && profile?.jurisdiction ? profile.jurisdiction : currentUser.jurisdiction,
+  };
   const [biometric, setBiometric] = useState(true);
   const [offline, setOffline] = useState(true);
+
+  async function handleSignOut() {
+    if (configured) await signOut();
+    navigate("/welcome");
+  }
 
   return (
     <PhoneChrome bg="#F0EADE" tabBar={<TabBar active="profile" />}>
@@ -103,12 +125,17 @@ export function ProfileScreen() {
           <NavRow label="Documentos & apoio" onClick={() => navigate("/docs")} />
         </div>
 
-        <button onClick={() => navigate("/welcome")} style={{ border: "1.5px solid #EAE3D7", background: "transparent", borderRadius: 14, padding: "13px", font: "600 14px Inter", color: "#D14B3A", cursor: "pointer" }}>
+        <button onClick={handleSignOut} style={{ border: "1.5px solid #EAE3D7", background: "transparent", borderRadius: 14, padding: "13px", font: "600 14px Inter", color: "#D14B3A", cursor: "pointer" }}>
           Terminar sessão
         </button>
       </div>
     </PhoneChrome>
   );
+}
+
+function initialsOf(name: string): string {
+  const parts = name.trim().split(/\s+/);
+  return ((parts[0]?.[0] ?? "") + (parts.length > 1 ? parts[parts.length - 1][0] : "")).toUpperCase() || "·";
 }
 
 function Row({ label, children }: { label: string; children: React.ReactNode }) {

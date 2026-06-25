@@ -3,7 +3,7 @@ import { CATALOG } from "../data/catalog";
 import { Logo } from "./Logo";
 
 /** Workbench rail: brand + grouped navigation across all 95 screens. */
-export function SideIndex({ current }: { current: string }) {
+export function SideIndex({ current, basePath = "" }: { current: string; basePath?: string }) {
   const navigate = useNavigate();
   return (
     <nav className="afl-rail">
@@ -18,7 +18,7 @@ export function SideIndex({ current }: { current: string }) {
             <button
               key={s.id}
               className={"afl-rail__item" + (s.id === current ? " is-active" : "")}
-              onClick={() => navigate("/" + s.id)}
+              onClick={() => navigate(basePath + "/" + s.id)}
             >
               {s.label}
             </button>

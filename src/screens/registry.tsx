@@ -46,6 +46,7 @@ import { AuthorityDeclarationScreen } from "./foreign/AuthorityDeclarationScreen
 import { TenancyScreen } from "./tenancy/TenancyScreen";
 import { OtpScreen } from "./auth/OtpScreen";
 import { LoginScreen } from "./auth/LoginScreen";
+import { RegisterScreen } from "./auth/RegisterScreen";
 import { PresignupScreen } from "./auth/PresignupScreen";
 import { ForgotPasswordScreen } from "./auth/ForgotPasswordScreen";
 import { HowItWorksScreen } from "./auth/HowItWorksScreen";
@@ -151,6 +152,7 @@ export const IDIOMATIC: Record<string, ComponentType> = {
   countryConfig: CountryConfigScreen,
   otp: OtpScreen,
   login: LoginScreen,
+  register: RegisterScreen,
   presignup: PresignupScreen,
   forgotPassword: ForgotPasswordScreen,
   howitworks: HowItWorksScreen,

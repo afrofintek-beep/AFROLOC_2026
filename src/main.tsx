@@ -3,10 +3,13 @@ import { createRoot } from "react-dom/client";
 import App from "./App";
 import "./styles/global.css";
 import { bootstrapPodp } from "./lib/podp/bootstrap";
+import { AuthProvider } from "./state/auth";
 
 createRoot(document.getElementById("root")!).render(
   <StrictMode>
-    <App />
+    <AuthProvider>
+      <App />
+    </AuthProvider>
   </StrictMode>,
 );
 
