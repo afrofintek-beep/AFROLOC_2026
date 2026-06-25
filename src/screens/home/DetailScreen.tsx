@@ -4,12 +4,15 @@ import { AtsRing } from "../../components/ui/AtsRing";
 import { Qr } from "../../components/ui/Qr";
 import { primaryAddress, addressUrl } from "../../data/account";
 import { useCreateFlow } from "../../state/createFlow";
+import { useCitizenData } from "../../state/citizenData";
+import { rowToPrimary } from "../../lib/afroloc/addressMap";
 import { CERT_LABEL } from "../../lib/afroloc/ats";
 import { describeGpsCode } from "../../lib/afroloc/gps";
 
 export function DetailScreen() {
   const navigate = useNavigate();
-  const a = primaryAddress;
+  const { configured, primary } = useCitizenData();
+  const a = configured && primary ? rowToPrimary(primary) : primaryAddress;
   const { draft } = useCreateFlow();
   const gen = draft.generated;
 

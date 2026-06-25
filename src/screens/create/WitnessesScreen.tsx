@@ -3,6 +3,7 @@ import { useNavigate } from "react-router-dom";
 import { PhoneChrome } from "../../components/ui/PhoneChrome";
 import { FlowHeader, PrimaryButton, Pill } from "../../components/ui/primitives";
 import { useCreateFlow } from "../../state/createFlow";
+import { useCitizenData } from "../../state/citizenData";
 import { requiredWitnesses } from "../../state/types";
 import { createAfrolocAddress } from "../../lib/afroloc/createAddress";
 import { adminCodesFor } from "../../lib/afroloc/admin";
@@ -11,8 +12,10 @@ import { nextStep } from "./flow";
 export function WitnessesScreen() {
   const navigate = useNavigate();
   const { draft, dispatch } = useCreateFlow();
+  const { saveGenerated } = useCitizenData();
   const required = requiredWitnesses(draft.type);
   const [code, setCode] = useState("");
+  const [saving, setSaving] = useState(false);
 
   const added = draft.witnesses.length;
   const canSend = added >= required;
@@ -58,7 +61,14 @@ export function WitnessesScreen() {
       densityCount: 0,
     });
     dispatch({ type: "setGenerated", value: result });
-    navigate("/" + nextStep("witnesses", draft.type));
+    // Grava na conta do cidadão (quando há backend ligado). Em demo é no-op.
+    setSaving(true);
+    saveGenerated(result, draft)
+      .catch(() => { /* p.ex. código duplicado — segue na mesma com o resultado gerado */ })
+      .finally(() => {
+        setSaving(false);
+        navigate("/" + nextStep("witnesses", draft.type));
+      });
   }
 
   return (
@@ -188,8 +198,8 @@ export function WitnessesScreen() {
         </div>
 
         <div style={{ marginTop: "auto", paddingTop: 16, paddingBottom: 6 }}>
-          <PrimaryButton disabled={!canSend} onClick={submit}>
-            Enviar para validação
+          <PrimaryButton disabled={!canSend || saving} onClick={submit}>
+            {saving ? "A guardar…" : "Enviar para validação"}
           </PrimaryButton>
         </div>
       </div>

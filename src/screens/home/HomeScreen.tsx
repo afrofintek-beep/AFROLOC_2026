@@ -4,42 +4,75 @@ import { TabBar } from "../../components/ui/TabBar";
 import { AtsRing } from "../../components/ui/AtsRing";
 import { Qr } from "../../components/ui/Qr";
 import { currentUser, primaryAddress, recentActivity, addressUrl } from "../../data/account";
+import { useAuth } from "../../state/auth";
+import { useCitizenData } from "../../state/citizenData";
+import { rowToPrimary } from "../../lib/afroloc/addressMap";
+
+function initialsOf(name: string): string {
+  const p = name.trim().split(/\s+/);
+  return ((p[0]?.[0] ?? "") + (p.length > 1 ? p[p.length - 1][0] : "")).toUpperCase() || "·";
+}
 
 export function HomeScreen() {
   const navigate = useNavigate();
-  const a = primaryAddress;
+  const { configured, profile } = useAuth();
+  const { primary } = useCitizenData();
+
+  // Identidade: real (perfil da BD) ou demonstração.
+  const name = configured ? profile?.name ?? "Cidadão" : currentUser.name;
+  const level = configured ? profile?.level ?? 1 : currentUser.level;
+  const initials = configured ? initialsOf(name) : currentUser.initials;
+
+  // Morada principal: real, ou demo quando não há backend.
+  const isEmpty = configured && !primary; // conta real ainda sem moradas
+  const a = configured && primary ? rowToPrimary(primary) : primaryAddress;
+  const showActivity = !configured; // atividade é dados de demonstração
+
+  const greeting = (
+    <div style={{ display: "flex", alignItems: "center", justifyContent: "space-between" }}>
+      <div>
+        <div style={{ font: "400 13px Inter", color: "#8A8073" }}>Bem-vindo de volta</div>
+        <div style={{ font: "700 22px Inter", color: "#1A1814", marginTop: 2 }}>{name}</div>
+      </div>
+      <div style={{ display: "flex", alignItems: "center", gap: 10 }}>
+        <div style={{ display: "flex", alignItems: "center", gap: 6, background: "#F1E7D6", borderRadius: 20, padding: "6px 11px" }}>
+          <div style={{ width: 7, height: 7, borderRadius: "50%", background: "#D4A853" }} />
+          <span style={{ font: "700 11px Inter", color: "#7C6A4A", letterSpacing: ".04em" }}>NÍVEL {level}</span>
+        </div>
+        <div style={{ width: 42, height: 42, borderRadius: "50%", background: "linear-gradient(135deg,#D4A853,#E07B2C)", color: "#2D2519", display: "flex", alignItems: "center", justifyContent: "center", font: "700 16px Inter" }}>
+          {initials}
+        </div>
+      </div>
+    </div>
+  );
+
+  // Estado vazio — conta real ainda sem moradas.
+  if (isEmpty) {
+    return (
+      <PhoneChrome bg="#F0EADE" tabBar={<TabBar active="home" />}>
+        <div style={{ padding: "8px 22px 16px", display: "flex", flexDirection: "column", gap: 14 }}>
+          {greeting}
+          <div style={{ marginTop: 18, background: "#FFFDF9", border: "1.5px solid #EAE3D7", borderRadius: 22, padding: "30px 22px", textAlign: "center", display: "flex", flexDirection: "column", alignItems: "center", gap: 6 }}>
+            <div style={{ width: 64, height: 64, borderRadius: 18, background: "#F4EAD6", display: "flex", alignItems: "center", justifyContent: "center" }}>
+              <svg width="30" height="30" viewBox="0 0 24 24" fill="none" stroke="#B0831F" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round"><path d="M12 21s7-6.5 7-12a7 7 0 1 0-14 0c0 5.5 7 12 7 12z" /><circle cx="12" cy="9" r="2.5" /></svg>
+            </div>
+            <h3 style={{ font: "700 19px Inter", color: "#1A1814", margin: "12px 0 0" }}>Ainda não tem moradas</h3>
+            <p style={{ font: "400 14px Inter", color: "#8A8073", margin: "6px 0 0", lineHeight: 1.5 }}>
+              Crie a sua primeira AFROLOC — um endereço digital georreferenciado, mesmo sem rua ou número.
+            </p>
+            <button onClick={() => navigate("/type")} style={{ marginTop: 18, border: "none", background: "var(--afl-grad-glow)", color: "#2D2519", font: "700 15px Inter", borderRadius: 15, padding: "14px 24px", cursor: "pointer", width: "100%" }}>
+              Criar a minha primeira AFROLOC
+            </button>
+          </div>
+        </div>
+      </PhoneChrome>
+    );
+  }
 
   return (
     <PhoneChrome bg="#F0EADE" tabBar={<TabBar active="home" />}>
       <div style={{ padding: "8px 22px 16px", display: "flex", flexDirection: "column", gap: 14 }}>
-        {/* greeting */}
-        <div style={{ display: "flex", alignItems: "center", justifyContent: "space-between" }}>
-          <div>
-            <div style={{ font: "400 13px Inter", color: "#8A8073" }}>Bem-vinda de volta</div>
-            <div style={{ font: "700 22px Inter", color: "#1A1814", marginTop: 2 }}>{currentUser.name}</div>
-          </div>
-          <div style={{ display: "flex", alignItems: "center", gap: 10 }}>
-            <div style={{ display: "flex", alignItems: "center", gap: 6, background: "#F1E7D6", borderRadius: 20, padding: "6px 11px" }}>
-              <div style={{ width: 7, height: 7, borderRadius: "50%", background: "#D4A853" }} />
-              <span style={{ font: "700 11px Inter", color: "#7C6A4A", letterSpacing: ".04em" }}>NÍVEL {currentUser.level}</span>
-            </div>
-            <div
-              style={{
-                width: 42,
-                height: 42,
-                borderRadius: "50%",
-                background: "linear-gradient(135deg,#D4A853,#E07B2C)",
-                color: "#2D2519",
-                display: "flex",
-                alignItems: "center",
-                justifyContent: "center",
-                font: "700 16px Inter",
-              }}
-            >
-              {currentUser.initials}
-            </div>
-          </div>
-        </div>
+        {greeting}
 
         {/* hero AFROLOC card → detail */}
         <button
@@ -96,7 +129,8 @@ export function HomeScreen() {
           <Action label="Nova" onClick={() => navigate("/type")} icon={<PlusIcon />} />
         </div>
 
-        {/* recent activity */}
+        {/* recent activity (demo) */}
+        {showActivity && (
         <div>
           <div style={{ font: "700 14px Inter", color: "#1A1814", marginBottom: 8 }}>Actividade recente</div>
           <div style={{ display: "flex", flexDirection: "column", gap: 8 }}>
@@ -126,6 +160,7 @@ export function HomeScreen() {
             ))}
           </div>
         </div>
+        )}
       </div>
     </PhoneChrome>
   );

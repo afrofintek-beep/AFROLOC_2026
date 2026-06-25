@@ -3,6 +3,8 @@ import { useNavigate } from "react-router-dom";
 import { PhoneChrome } from "../../components/ui/PhoneChrome";
 import { TabBar } from "../../components/ui/TabBar";
 import { ADDRESSES, STATUS_COLOR, type AddressStatus, type AddressSummary } from "../../data/addresses";
+import { useCitizenData } from "../../state/citizenData";
+import { rowToSummary } from "../../lib/afroloc/addressMap";
 
 type Filter = "todas" | "activas" | "pendentes";
 
@@ -14,18 +16,25 @@ const STATUS_TONE: Record<AddressStatus, { bg: string; fg: string }> = {
 
 export function AddressesScreen() {
   const navigate = useNavigate();
+  const { configured, addresses: rows } = useCitizenData();
   const [filter, setFilter] = useState<Filter>("todas");
 
-  const items = useMemo(() => {
-    if (filter === "activas") return ADDRESSES.filter((a) => a.status === "ACTIVO");
-    if (filter === "pendentes") return ADDRESSES.filter((a) => a.status === "PENDENTE");
-    return ADDRESSES;
-  }, [filter]);
+  // Lista real do cidadão, ou dados de demonstração sem backend.
+  const all = useMemo<AddressSummary[]>(
+    () => (configured ? rows.map(rowToSummary) : ADDRESSES),
+    [configured, rows]
+  );
 
-  const drafts = ADDRESSES.filter((a) => a.status === "RASCUNHO").length;
+  const items = useMemo(() => {
+    if (filter === "activas") return all.filter((a) => a.status === "ACTIVO");
+    if (filter === "pendentes") return all.filter((a) => a.status === "PENDENTE");
+    return all;
+  }, [filter, all]);
+
+  const drafts = all.filter((a) => a.status === "RASCUNHO").length;
 
   const chips: { id: Filter; label: string }[] = [
-    { id: "todas", label: `Todas · ${ADDRESSES.length}` },
+    { id: "todas", label: `Todas · ${all.length}` },
     { id: "activas", label: "Activas" },
     { id: "pendentes", label: "Pendentes" },
   ];
@@ -69,9 +78,26 @@ export function AddressesScreen() {
 
         {/* cards */}
         <div style={{ display: "flex", flexDirection: "column", gap: 11 }}>
-          {items.map((a) => (
-            <AddressCard key={a.id} a={a} onOpen={() => navigate(a.status === "RASCUNHO" ? "/type" : "/detail")} />
-          ))}
+          {items.length === 0 ? (
+            <div style={{ textAlign: "center", padding: "34px 18px", display: "flex", flexDirection: "column", alignItems: "center", gap: 6 }}>
+              <div style={{ width: 56, height: 56, borderRadius: 16, background: "#F4EAD6", display: "flex", alignItems: "center", justifyContent: "center" }}>
+                <svg width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="#B0831F" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round"><path d="M12 21s7-6.5 7-12a7 7 0 1 0-14 0c0 5.5 7 12 7 12z" /><circle cx="12" cy="9" r="2.5" /></svg>
+              </div>
+              <div style={{ font: "700 16px Inter", color: "#1A1814", marginTop: 8 }}>
+                {filter === "todas" ? "Ainda não tem moradas" : "Nenhuma morada neste filtro"}
+              </div>
+              <div style={{ font: "400 13px Inter", color: "#8A8073", lineHeight: 1.45 }}>
+                {filter === "todas" ? "Toque em + para criar a sua primeira AFROLOC." : "Experimente outro filtro."}
+              </div>
+              {filter === "todas" && (
+                <button onClick={() => navigate("/type")} style={{ marginTop: 14, border: "none", background: "var(--afl-grad-glow)", color: "#2D2519", font: "700 14px Inter", borderRadius: 14, padding: "12px 22px", cursor: "pointer" }}>Criar morada</button>
+              )}
+            </div>
+          ) : (
+            items.map((a) => (
+              <AddressCard key={a.id} a={a} onOpen={() => navigate(a.status === "RASCUNHO" ? "/type" : "/detail")} />
+            ))
+          )}
         </div>
 
         {/* offline sync note */}
