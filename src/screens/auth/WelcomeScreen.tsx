@@ -19,8 +19,8 @@ export function WelcomeScreen() {
         </p>
 
         <div style={{ marginTop: "auto", paddingBottom: 14, display: "flex", flexDirection: "column", gap: 11 }}>
-          <PrimaryButton onClick={() => navigate("/type")}>Criar a minha AFROLOC</PrimaryButton>
-          <GhostButton onClick={() => navigate("/otp")}>Já tenho conta · Entrar</GhostButton>
+          <PrimaryButton onClick={() => navigate("/register")}>Criar a minha AFROLOC</PrimaryButton>
+          <GhostButton onClick={() => navigate("/login")}>Já tenho conta · Entrar</GhostButton>
         </div>
       </div>
     </PhoneChrome>

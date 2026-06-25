@@ -67,7 +67,7 @@ export function PresignupScreen() {
         </label>
 
         <div style={{ marginTop: "auto", paddingTop: 16, paddingBottom: 6 }}>
-          <PrimaryButton disabled={!accepted} onClick={() => navigate("/otp")}>Continuar</PrimaryButton>
+          <PrimaryButton disabled={!accepted} onClick={() => navigate(method === "email" ? "/register" : "/otp")}>Continuar</PrimaryButton>
         </div>
       </div>
     </PhoneChrome>

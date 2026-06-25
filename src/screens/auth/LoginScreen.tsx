@@ -3,13 +3,34 @@ import { useNavigate } from "react-router-dom";
 import { PhoneChrome } from "../../components/ui/PhoneChrome";
 import { PrimaryButton } from "../../components/ui/primitives";
 import { Logo } from "../../components/Logo";
+import { useAuth } from "../../state/auth";
 
 export function LoginScreen() {
   const navigate = useNavigate();
-  const [email, setEmail] = useState("ana.cardoso@email.ao");
-  const [pw, setPw] = useState("12345678");
+  const { configured, signInEmail } = useAuth();
+  const [email, setEmail] = useState(configured ? "" : "ana.cardoso@email.ao");
+  const [pw, setPw] = useState(configured ? "" : "12345678");
   const [show, setShow] = useState(false);
+  const [busy, setBusy] = useState(false);
+  const [error, setError] = useState<string | null>(null);
   const valid = /.+@.+\..+/.test(email) && pw.length >= 6;
+
+  async function handleLogin() {
+    setError(null);
+    if (!configured) {
+      navigate("/home"); // modo demo
+      return;
+    }
+    setBusy(true);
+    try {
+      await signInEmail(email.trim(), pw);
+      navigate("/home");
+    } catch (e) {
+      setError(traduzErro(e));
+    } finally {
+      setBusy(false);
+    }
+  }
 
   return (
     <PhoneChrome>
@@ -39,8 +60,12 @@ export function LoginScreen() {
 
         <button onClick={() => navigate("/forgotPassword")} style={{ all: "unset", cursor: "pointer", alignSelf: "flex-end", marginTop: 12, font: "600 13px Inter", color: "#B0831F" }}>Esqueci a palavra-passe</button>
 
+        {error && (
+          <div style={{ marginTop: 14, padding: "11px 13px", borderRadius: 12, background: "#FBEAE7", border: "1px solid #F0C9C1", font: "500 12.5px Inter", color: "#B23A2A", lineHeight: 1.4 }}>{error}</div>
+        )}
+
         <div style={{ marginTop: 22 }}>
-          <PrimaryButton disabled={!valid} onClick={() => navigate("/home")}>Entrar</PrimaryButton>
+          <PrimaryButton disabled={!valid || busy} onClick={handleLogin}>{busy ? "A entrar…" : "Entrar"}</PrimaryButton>
         </div>
 
         <div style={{ display: "flex", alignItems: "center", gap: 12, margin: "20px 0" }}>
@@ -56,11 +81,23 @@ export function LoginScreen() {
 
         <div style={{ marginTop: "auto", paddingTop: 16, paddingBottom: 8, textAlign: "center", font: "500 13px Inter", color: "#8A8073" }}>
           Não tem conta?{" "}
-          <button onClick={() => navigate("/presignup")} style={{ all: "unset", cursor: "pointer", font: "700 13px Inter", color: "#B0831F" }}>Criar conta</button>
+          <button onClick={() => navigate("/register")} style={{ all: "unset", cursor: "pointer", font: "700 13px Inter", color: "#B0831F" }}>Criar conta</button>
         </div>
       </div>
     </PhoneChrome>
   );
+}
+
+/** Mensagens de erro do Supabase em português simples. */
+export function traduzErro(e: unknown): string {
+  const msg = (e instanceof Error ? e.message : String(e)).toLowerCase();
+  if (msg.includes("invalid login")) return "Email ou palavra-passe incorretos.";
+  if (msg.includes("email not confirmed")) return "Confirme o seu email antes de entrar (verifique a caixa de entrada).";
+  if (msg.includes("already registered") || msg.includes("already been registered")) return "Já existe uma conta com este email. Tente entrar.";
+  if (msg.includes("password") && msg.includes("6")) return "A palavra-passe deve ter pelo menos 6 caracteres.";
+  if (msg.includes("rate limit") || msg.includes("too many")) return "Demasiadas tentativas. Aguarde um momento.";
+  if (msg.includes("network") || msg.includes("fetch")) return "Sem ligação ao servidor. Verifique a internet.";
+  return "Ocorreu um erro. Tente novamente.";
 }
 
 function Field({ label, children }: { label: string; children: React.ReactNode }) {
