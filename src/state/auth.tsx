@@ -11,8 +11,8 @@ interface AuthState {
   user: User | null;
   profile: ProfileRow | null;
   refreshProfile: () => Promise<void>;
-  // email
-  signUpEmail: (email: string, password: string, name?: string) => Promise<void>;
+  // email — devolve se a conta precisa de confirmação por email antes de entrar
+  signUpEmail: (email: string, password: string, name?: string) => Promise<{ needsConfirmation: boolean }>;
   signInEmail: (email: string, password: string) => Promise<void>;
   // telefone / OTP
   sendPhoneOtp: (phone: string) => Promise<void>;
@@ -63,12 +63,14 @@ export function AuthProvider({ children }: { children: ReactNode }) {
     profile,
     refreshProfile: () => loadProfile(session?.user.id),
     async signUpEmail(email, password, name) {
-      const { error } = await supabase.auth.signUp({
+      const { data, error } = await supabase.auth.signUp({
         email,
         password,
         options: { data: name ? { name } : undefined },
       });
       if (error) throw error;
+      // Sem sessão => o Supabase exige confirmação por email antes de entrar.
+      return { needsConfirmation: !data.session };
     },
     async signInEmail(email, password) {
       const { error } = await supabase.auth.signInWithPassword({ email, password });

@@ -15,7 +15,7 @@ export function RegisterScreen() {
   const [accepted, setAccepted] = useState(false);
   const [busy, setBusy] = useState(false);
   const [error, setError] = useState<string | null>(null);
-  const [sent, setSent] = useState(false);
+  const [confirm, setConfirm] = useState(false); // criou mas precisa de confirmar email
 
   const valid = name.trim().length >= 2 && /.+@.+\..+/.test(email) && pw.length >= 6 && accepted;
 
@@ -27,11 +27,12 @@ export function RegisterScreen() {
     }
     setBusy(true);
     try {
-      await signUpEmail(email.trim(), pw, name.trim());
-      // Se a confirmação de email estiver desligada, a sessão já existe → início.
-      // Caso contrário, mostramos o aviso para confirmar o email.
-      setSent(true);
-      setTimeout(() => navigate("/home"), 400);
+      const { needsConfirmation } = await signUpEmail(email.trim(), pw, name.trim());
+      if (needsConfirmation) {
+        setConfirm(true); // mostra o aviso para confirmar o email
+      } else {
+        navigate("/home"); // sessão criada — entra já
+      }
     } catch (e) {
       setError(traduzErro(e));
     } finally {
@@ -39,17 +40,18 @@ export function RegisterScreen() {
     }
   }
 
-  if (sent) {
+  if (confirm) {
     return (
       <PhoneChrome>
         <div style={{ flex: 1, display: "flex", flexDirection: "column", alignItems: "center", justifyContent: "center", padding: "0 34px", textAlign: "center" }}>
-          <div style={{ width: 64, height: 64, borderRadius: 18, background: "#EBF1ED", display: "flex", alignItems: "center", justifyContent: "center" }}>
-            <svg width="30" height="30" viewBox="0 0 24 24" fill="none" stroke="#2F7A57" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><path d="M5 12l5 5L20 7" /></svg>
+          <div style={{ width: 64, height: 64, borderRadius: 18, background: "#F4EAD6", display: "flex", alignItems: "center", justifyContent: "center" }}>
+            <svg width="30" height="30" viewBox="0 0 24 24" fill="none" stroke="#B0831F" strokeWidth="1.9" strokeLinecap="round" strokeLinejoin="round"><rect x="3" y="5" width="18" height="14" rx="2" /><path d="M3 7l9 6 9-6" /></svg>
           </div>
-          <h2 style={{ font: "700 23px Inter", color: "#1A1814", margin: "20px 0 0" }}>Conta criada</h2>
+          <h2 style={{ font: "700 23px Inter", color: "#1A1814", margin: "20px 0 0" }}>Confirme o seu email</h2>
           <p style={{ font: "400 14px Inter", color: "#8A8073", margin: "10px 0 0", lineHeight: 1.5 }}>
-            Se for pedida confirmação, verifique o seu email. A iniciar a sua AFROLOC…
+            Enviámos um link para <strong style={{ color: "#1A1814" }}>{email}</strong>. Abra-o para ativar a conta e depois entre.
           </p>
+          <button onClick={() => navigate("/login")} style={{ marginTop: 26, border: "none", background: "var(--afl-grad-glow)", color: "#2D2519", font: "700 14px Inter", borderRadius: 14, padding: "13px 26px", cursor: "pointer" }}>Ir para o login</button>
         </div>
       </PhoneChrome>
     );
