@@ -5,6 +5,7 @@ import { FlowHeader, PrimaryButton, Pill, CellPlate } from "../../components/ui/
 import { LiveMap } from "../../components/ui/LiveMap";
 import { useCreateFlow } from "../../state/createFlow";
 import { countryByIso } from "../../data/africaAdmin";
+import { provinces as angolaProvinces, municipiosOf, comunasOf } from "../../data/angolaDivisions";
 import { useGeolocation } from "../../lib/useGeolocation";
 import { cellForCoords } from "../../lib/qgsq";
 import { adminCodesFor } from "../../lib/afroloc/admin";
@@ -16,8 +17,14 @@ export function LocationScreen() {
   const navigate = useNavigate();
   const { draft, dispatch } = useCreateFlow();
   const country = countryByIso(draft.division.countryIso);
-  const provinces = country?.nivel1 ?? [];
   const { status, fix, error, locate } = useGeolocation();
+
+  // Cascata administrativa. Para Angola usamos a árvore completa
+  // (província → município → comuna); para outros países, só nível 1.
+  const isAngola = draft.division.countryIso === "AO";
+  const provinceOptions = isAngola ? angolaProvinces() : (country?.nivel1 ?? []).map((p) => p.nome);
+  const municipioOptions = isAngola ? municipiosOf(draft.division.province) : [];
+  const comunaOptions = isAngola ? comunasOf(draft.division.province, draft.division.municipio) : [];
 
   // Capture real GPS on mount.
   useEffect(() => {
@@ -123,21 +130,21 @@ export function LocationScreen() {
             label={cap(draft.division.level1Type)}
             value={draft.division.province ?? ""}
             placeholder="Seleccionar"
-            options={provinces.map((p) => p.nome)}
-            onChange={(v) => dispatch({ type: "setDivision", value: { province: v } })}
+            options={provinceOptions}
+            onChange={(v) => dispatch({ type: "setDivision", value: { province: v, municipio: undefined, comuna: undefined } })}
           />
           <SelectField
             label="Município"
             value={draft.division.municipio ?? ""}
-            placeholder="Seleccionar"
-            options={["Belas", "Cazenga", "Viana", "Talatona", "Cacuaco"]}
-            onChange={(v) => dispatch({ type: "setDivision", value: { municipio: v } })}
+            placeholder={draft.division.province ? "Seleccionar" : "Escolha a província"}
+            options={municipioOptions}
+            onChange={(v) => dispatch({ type: "setDivision", value: { municipio: v, comuna: undefined } })}
           />
           <SelectField
             label="Comuna"
             value={draft.division.comuna ?? ""}
-            placeholder="Seleccionar"
-            options={["Ramiros", "Benfica", "Futungo", "Mussulo"]}
+            placeholder={draft.division.municipio ? "Seleccionar" : "Escolha o município"}
+            options={comunaOptions}
             onChange={(v) => dispatch({ type: "setDivision", value: { comuna: v } })}
           />
         </div>
