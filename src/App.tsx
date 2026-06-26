@@ -11,14 +11,14 @@ import { Logo } from "./components/Logo";
 
 // Ecrãs acessíveis sem sessão iniciada (fluxo de entrada + marketing/ajuda).
 const PUBLIC_SCREENS = new Set([
-  "welcome", "login", "register", "presignup", "otp", "forgotPassword", "howitworks",
+  "welcome", "login", "register", "phoneLogin", "presignup", "otp", "forgotPassword", "howitworks",
   // páginas web públicas
   "landing", "pricing", "about", "faq", "contact", "install", "appDownload",
   "sourceDownload", "manualDownload", "publicLookup",
 ]);
 
 // Mal autenticado, estes ecrãs de entrada reencaminham para o início.
-const ENTRY_SCREENS = new Set(["welcome", "login", "register", "presignup", "otp"]);
+const ENTRY_SCREENS = new Set(["welcome", "login", "register", "phoneLogin", "presignup", "otp"]);
 
 function renderScreen(screenId: string) {
   const screen = SCREENS[screenId];

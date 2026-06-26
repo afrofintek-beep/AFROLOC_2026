@@ -11,6 +11,8 @@ interface AuthState {
   user: User | null;
   profile: ProfileRow | null;
   refreshProfile: () => Promise<void>;
+  /** Número (E.164) a aguardar verificação OTP, definido por sendPhoneOtp. */
+  pendingPhone: string | null;
   // email — devolve se a conta precisa de confirmação por email antes de entrar
   signUpEmail: (email: string, password: string, name?: string) => Promise<{ needsConfirmation: boolean }>;
   signInEmail: (email: string, password: string) => Promise<void>;
@@ -26,6 +28,7 @@ export function AuthProvider({ children }: { children: ReactNode }) {
   const [ready, setReady] = useState(false);
   const [session, setSession] = useState<Session | null>(null);
   const [profile, setProfile] = useState<ProfileRow | null>(null);
+  const [pendingPhone, setPendingPhone] = useState<string | null>(null);
 
   const loadProfile = async (uid: string | undefined) => {
     if (!uid || !isSupabaseConfigured) {
@@ -62,6 +65,7 @@ export function AuthProvider({ children }: { children: ReactNode }) {
     user: session?.user ?? null,
     profile,
     refreshProfile: () => loadProfile(session?.user.id),
+    pendingPhone,
     async signUpEmail(email, password, name) {
       const { data, error } = await supabase.auth.signUp({
         email,
@@ -79,10 +83,12 @@ export function AuthProvider({ children }: { children: ReactNode }) {
     async sendPhoneOtp(phone) {
       const { error } = await supabase.auth.signInWithOtp({ phone });
       if (error) throw error;
+      setPendingPhone(phone);
     },
     async verifyPhoneOtp(phone, token) {
       const { error } = await supabase.auth.verifyOtp({ phone, token, type: "sms" });
       if (error) throw error;
+      setPendingPhone(null);
     },
     async signOut() {
       await supabase.auth.signOut();
