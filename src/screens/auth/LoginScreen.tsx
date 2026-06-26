@@ -74,7 +74,7 @@ export function LoginScreen() {
           <span style={{ flex: 1, height: 1, background: "#E6DCCC" }} />
         </div>
 
-        <button onClick={() => navigate("/otp")} style={{ border: "1.5px solid #E2D8C8", background: "transparent", borderRadius: 16, height: 54, font: "600 14px Inter", color: "#1A1814", cursor: "pointer", display: "flex", alignItems: "center", justifyContent: "center", gap: 9 }}>
+        <button onClick={() => navigate("/phoneLogin")} style={{ border: "1.5px solid #E2D8C8", background: "transparent", borderRadius: 16, height: 54, font: "600 14px Inter", color: "#1A1814", cursor: "pointer", display: "flex", alignItems: "center", justifyContent: "center", gap: 9 }}>
           <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#1A1814" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round"><rect x="6" y="2" width="12" height="20" rx="3" /><path d="M11 18h2" /></svg>
           Entrar com telefone (SMS)
         </button>
