@@ -143,7 +143,7 @@ export function LocationScreen() {
           <SelectField
             label="Comuna"
             value={draft.division.comuna ?? ""}
-            placeholder={draft.division.municipio ? "Seleccionar" : "Escolha o município"}
+            placeholder={!draft.division.municipio ? "Escolha o município" : comunaOptions.length ? "Seleccionar" : "Sem comunas"}
             options={comunaOptions}
             onChange={(v) => dispatch({ type: "setDivision", value: { comuna: v } })}
           />

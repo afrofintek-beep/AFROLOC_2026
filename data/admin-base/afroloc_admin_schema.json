@@ -1,0 +1,93 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "title": "AFROLOC Administrative Unit",
+  "type": "object",
+  "required": [
+    "unit_id",
+    "country_code_iso2",
+    "admin_level",
+    "official_name",
+    "unit_type",
+    "status",
+    "source_url"
+  ],
+  "properties": {
+    "unit_id": {
+      "type": "string",
+      "description": "Stable AFROLOC internal ID, not necessarily official state code."
+    },
+    "parent_unit_id": {
+      "type": [
+        "string",
+        "null"
+      ],
+      "description": "Parent unit_id; empty/null for country-level records."
+    },
+    "country_code_iso2": {
+      "type": "string",
+      "pattern": "^[A-Z]{2}$"
+    },
+    "admin_level": {
+      "type": "integer",
+      "minimum": 0,
+      "description": "0 country, 1 province/state, 2 municipality/county, 3 commune, 4 district/locality, 5 village/neighbourhood, 6 AFROLOC grid cell."
+    },
+    "official_name": {
+      "type": "string"
+    },
+    "normalized_name": {
+      "type": "string"
+    },
+    "unit_type": {
+      "enum": [
+        "country",
+        "province",
+        "state",
+        "region",
+        "municipality",
+        "county",
+        "district",
+        "commune",
+        "locality",
+        "neighbourhood",
+        "village",
+        "afroloc_cell"
+      ]
+    },
+    "has_communes": {
+      "type": [
+        "boolean",
+        "string",
+        "null"
+      ]
+    },
+    "districts_or_localities": {
+      "type": [
+        "string",
+        "null"
+      ],
+      "description": "Raw official listing for districts/localities; split into child units only after source validation."
+    },
+    "status": {
+      "enum": [
+        "verified_official_portal",
+        "verified_legal",
+        "pending_mat_ine_confirmation",
+        "legacy_to_review",
+        "deprecated"
+      ]
+    },
+    "source_url": {
+      "type": "string"
+    },
+    "source_date_checked": {
+      "type": "string"
+    },
+    "notes": {
+      "type": [
+        "string",
+        "null"
+      ]
+    }
+  }
+}

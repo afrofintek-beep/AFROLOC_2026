@@ -1,33 +1,41 @@
 // AFROLOC — Divisão administrativa de Angola (província → município → comuna).
 //
-// ⚠️ DADOS PARA VERIFICAÇÃO. Carregados em best-effort, alinhados com a nova
-// Divisão Político-Administrativa (21 províncias). Os MUNICÍPIOS estão sólidos;
-// alguns COMUNAS podem precisar de correção. Edita livremente este ficheiro —
-// a app lê daqui e os menus em cascata atualizam-se automaticamente.
+// FONTES:
+// - LUANDA: OFICIAL — Portal do Governo de Angola (governo.gov.ao), verificado
+//   2026-06-26. 16 municípios; comunas só onde a fonte confirma. Base completa
+//   (com proveniência e estados) em data/admin-base/admin_units.csv.
+// - RESTANTES 20 PROVÍNCIAS: ainda legacy/best-effort (pré-reforma) — a migrar
+//   para os dados oficiais à medida que forem verificados (mesma fonte oficial).
 //
 // Estrutura: { "Província": { "Município": ["Comuna", ...] } }
-// Se um município não tiver comunas conhecidas, usa-se ["Sede"] como omissão.
+// Lista de comunas vazia = município sem comunas (NÃO se inventam comunas; os
+// distritos/localidades são uma camada separada — ver validation_rules.md).
 
 export type ComunaList = string[];
 export type Municipios = Record<string, ComunaList>;
 export type ProvinceTree = Record<string, Municipios>;
 
 export const ANGOLA: ProvinceTree = {
-  // Luanda — 13 municípios confirmados (Lei 14/24, reforma 2024). Comunas
-  // best-effort; municípios sem comuna confirmada mostram "Sede" até revisão.
+  // Luanda — OFICIAL (Portal do Governo de Angola · governo.gov.ao · 2026-06-26):
+  // 16 municípios. Comunas só onde a fonte oficial confirma; municípios "Sem
+  // comunas" ficam sem comuna (os seus distritos/localidades são camada à parte,
+  // não comunas). Dados em data/admin-base/admin_units.csv.
   "Luanda": {
+    "Luanda": [],
     "Ingombota": [],
     "Maianga": [],
     "Rangel": [],
     "Samba": [],
     "Sambizanga": [],
-    "Cacuaco": ["Cacuaco", "Funda", "Kikolo", "Kiluanji"],
-    "Cazenga": ["Cazenga", "Hoji ya Henda", "Tala Hady"],
-    "Viana": ["Viana", "Calumbo", "Zango", "Mbaia"],
-    "Belas": ["Belas", "Benfica", "Ramiros", "Barra do Kwanza", "Quenguela"],
-    "Kilamba Kiaxi": ["Golfe", "Palanca", "Sapu", "Vila Estoril"],
-    "Talatona": ["Talatona", "Futungo de Belas", "Quificas"],
+    "Hoji Ya Henda": [],
+    "Cacuaco": ["Cacuaco", "Kikolo"],
+    "Cazenga": ["Cazenga", "Kima Kieza"],
+    "Viana": ["Calumbo"],
+    "Belas": ["Benfica", "Cabolombo", "Barra do Cuanza", "Ramiros"],
+    "Talatona": ["Mussulo"],
+    "Kilamba": ["Kilamba", "Vila Flôr"],
     "Mussulo": [],
+    "Mulenvos": [],
     "Camama": [],
   },
   "Icolo e Bengo": {
@@ -239,9 +247,9 @@ export function municipiosOf(province: string | undefined): string[] {
   return Object.keys(ANGOLA[province]).sort((a, b) => a.localeCompare(b, "pt"));
 }
 
-/** Comunas de um município (ordenadas); ["Sede"] como omissão. */
+/** Comunas de um município (ordenadas). Vazio = município sem comunas (não se
+ *  inventam comunas; ver validation_rules.md). Nesse caso o campo é opcional. */
 export function comunasOf(province: string | undefined, municipio: string | undefined): string[] {
   if (!province || !municipio || !ANGOLA[province]?.[municipio]) return [];
-  const list = ANGOLA[province][municipio];
-  return list.length ? [...list].sort((a, b) => a.localeCompare(b, "pt")) : ["Sede"];
+  return [...ANGOLA[province][municipio]].sort((a, b) => a.localeCompare(b, "pt"));
 }
