@@ -138,6 +138,33 @@ export function cycleStateFor(progressPct: number): CycleState {
   return "verified";
 }
 
+export interface CyclePosition {
+  progressPct: number;
+  state: CycleState;
+  daysRemaining: number;
+}
+
+/** Posição no ciclo a partir da próxima verificação e da duração (documento §5–§6). */
+export function cyclePosition(cycleMonths: number, nextVerifyAtIso: string | null): CyclePosition | null {
+  if (!nextVerifyAtIso || !cycleMonths) return null;
+  const end = new Date(nextVerifyAtIso);
+  const start = new Date(nextVerifyAtIso);
+  start.setMonth(start.getMonth() - cycleMonths);
+  const total = end.getTime() - start.getTime();
+  const now = Date.now();
+  const progressPct = total > 0 ? Math.max(0, Math.min(200, ((now - start.getTime()) / total) * 100)) : 0;
+  const daysRemaining = Math.max(0, Math.ceil((end.getTime() - now) / 86_400_000));
+  return { progressPct, state: cycleStateFor(progressPct), daysRemaining };
+}
+
+/** Rótulo, cor e ação por estado do ciclo (documento §6). */
+export const CYCLE_STATE_META: Record<CycleState, { label: string; color: string; bg: string; action: string }> = {
+  verified: { label: "Em dia", color: "#2F7A57", bg: "#EBF1ED", action: "Dentro do prazo" },
+  upcoming: { label: "Aproxima-se", color: "#B0831F", bg: "#F4EAD6", action: "Agendar visita preventiva" },
+  urgent: { label: "Urgente", color: "#C2410C", bg: "#FBE8DD", action: "Visita prioritária esta semana" },
+  overdue: { label: "Em atraso", color: "#D14B3A", bg: "#FBEAE7", action: "Reverificar para manter o certificado" },
+};
+
 export const RISK_LABEL: Record<RiskLevel, string> = {
   very_low: "Muito Baixo",
   low: "Baixo",
