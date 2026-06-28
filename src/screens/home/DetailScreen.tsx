@@ -6,6 +6,7 @@ import { primaryAddress, addressUrl } from "../../data/account";
 import { useCreateFlow } from "../../state/createFlow";
 import { useCitizenData } from "../../state/citizenData";
 import { rowToPrimary } from "../../lib/afroloc/addressMap";
+import { cyclePosition, CYCLE_STATE_META } from "../../lib/afroloc/risk";
 import { CERT_LABEL } from "../../lib/afroloc/ats";
 import { describeGpsCode } from "../../lib/afroloc/gps";
 
@@ -15,6 +16,9 @@ export function DetailScreen() {
   const a = configured && primary ? rowToPrimary(primary) : primaryAddress;
   const { draft } = useCreateFlow();
   const gen = draft.generated;
+  // Posição no ciclo de verificação (documento Score de Risco §5–§6).
+  const cycle = configured && primary ? cyclePosition(primary.cycle_months, primary.next_verify_at) : null;
+  const cycleMeta = cycle ? CYCLE_STATE_META[cycle.state] : null;
 
   return (
     <PhoneChrome bg="#F0EADE">
@@ -117,18 +121,35 @@ export function DetailScreen() {
           </div>
         </div>
 
-        {/* verification cycle */}
-        <div style={{ display: "flex", alignItems: "center", gap: 13, background: "#FFFDF9", borderRadius: 16, padding: "14px 16px", border: "1px solid #EAE3D7" }}>
-          <span style={{ width: 40, height: 40, borderRadius: 11, background: "#F4EAD6", display: "flex", alignItems: "center", justifyContent: "center", flex: "none" }}>
-            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#B98421" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round">
-              <circle cx="12" cy="12" r="8.5" />
-              <path d="M12 7.5V12l3 2" />
-            </svg>
-          </span>
-          <div>
-            <div style={{ font: "700 13.5px Inter", color: "#1A1814" }}>Ciclo de verificação · {a.cycleMonths} meses</div>
-            <div style={{ font: "400 12px Inter", color: "#8A8073", marginTop: 2 }}>Endereço completo · próxima a {a.nextVerifyDate}</div>
+        {/* verification cycle + estado (Score de Risco §5–§6) */}
+        <div style={{ background: "#FFFDF9", borderRadius: 16, padding: "14px 16px", border: "1px solid #EAE3D7" }}>
+          <div style={{ display: "flex", alignItems: "center", gap: 13 }}>
+            <span style={{ width: 40, height: 40, borderRadius: 11, background: cycleMeta?.bg ?? "#F4EAD6", display: "flex", alignItems: "center", justifyContent: "center", flex: "none" }}>
+              <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke={cycleMeta?.color ?? "#B98421"} strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round">
+                <circle cx="12" cy="12" r="8.5" />
+                <path d="M12 7.5V12l3 2" />
+              </svg>
+            </span>
+            <div style={{ flex: 1 }}>
+              <div style={{ font: "700 13.5px Inter", color: "#1A1814" }}>Ciclo de verificação · {a.cycleMonths} meses</div>
+              <div style={{ font: "400 12px Inter", color: "#8A8073", marginTop: 2 }}>
+                {cycle ? `${cycle.daysRemaining} dias até à próxima · ${a.nextVerifyDate}` : `Próxima a ${a.nextVerifyDate}`}
+              </div>
+            </div>
+            {cycleMeta && (
+              <span style={{ font: "700 10px Inter", letterSpacing: ".04em", color: cycleMeta.color, background: cycleMeta.bg, borderRadius: 8, padding: "5px 9px", flex: "none" }}>
+                {cycleMeta.label.toUpperCase()}
+              </span>
+            )}
           </div>
+          {cycle && (
+            <>
+              <div style={{ height: 7, borderRadius: 4, background: "#EFE7DA", overflow: "hidden", marginTop: 12 }}>
+                <div style={{ height: "100%", width: `${Math.min(100, cycle.progressPct)}%`, borderRadius: 4, background: cycleMeta!.color }} />
+              </div>
+              <div style={{ font: "400 11.5px Inter", color: cycleMeta!.color, marginTop: 7 }}>{cycleMeta!.action}</div>
+            </>
+          )}
         </div>
 
         {/* authority validated badge */}
