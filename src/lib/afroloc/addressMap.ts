@@ -7,6 +7,35 @@ import type { AddressSummary, AddressStatus } from "../../data/addresses";
 import type { CreateAddressResult } from "./createAddress";
 import type { AddressDraft } from "../../state/types";
 import { CERT_LABEL } from "./ats";
+import { computeRisk, type AddressRiskInput, type PropertyType } from "./risk";
+
+/** Sinais de risco a partir do rascunho + ATS (documento Score de Risco). */
+export function riskInputFromDraft(draft: AddressDraft, atsTotal: number): AddressRiskInput {
+  const propertyType: PropertyType =
+    draft.type === "informal" ? "informal" : draft.type === "digital" ? "informal" : "residencia";
+  const confirmed = draft.witnesses.filter((w) => w.status === "confirmed").length;
+  return {
+    hasStreetName: draft.type === "formal" && !!draft.building,
+    hasNumber: draft.type === "formal" && !draft.noNumber,
+    hasStreetCode: false,
+    isDigitalOnly: draft.type !== "formal",
+    propertyType,
+    hasGps: draft.coords.lat != null && draft.coords.lng != null,
+    gpsAuthorityValidated: false, // ainda não validado por autoridade na criação
+    exifDiscrepant: false,
+    witnessCount: draft.witnesses.length,
+    confirmedWitnessCount: confirmed,
+    atsScore: atsTotal,
+    lastVerifiedAt: null, // recém-criada
+  };
+}
+
+/** Soma meses a uma data e devolve ISO. */
+function addMonthsIso(months: number, from = new Date()): string {
+  const d = new Date(from);
+  d.setMonth(d.getMonth() + months);
+  return d.toISOString();
+}
 
 function daysBetween(iso: string, now = Date.now()): number {
   return Math.round((now - new Date(iso).getTime()) / 86_400_000);
@@ -80,6 +109,8 @@ export function generatedToInsert(
     value: f.weight ? Math.round((f.value / f.weight) * 100) : f.value,
     tone: f.weight && f.value / f.weight >= 0.7 ? "green" : "gold",
   }));
+  // Ciclo de verificação DINÂMICO por Score de Risco (documento AFROFINTEK).
+  const risk = computeRisk(riskInputFromDraft(draft, result.ats?.total ?? 0));
   return {
     owner_id: ownerId,
     label,
@@ -102,9 +133,9 @@ export function generatedToInsert(
     ats_label: result.ats ? CERT_LABEL[result.ats.certificationLevel] : null,
     ats_factors: factors,
     validator: null,
-    cycle_months: 6,
+    cycle_months: risk.cycleMonths, // 12/6/4/3/2 conforme o nível de risco
     verified_at: null,
-    next_verify_at: null,
+    next_verify_at: addMonthsIso(risk.cycleMonths),
     issued_at: null,
   };
 }
