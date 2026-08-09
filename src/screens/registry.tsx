@@ -19,7 +19,8 @@ import { DocsSupportScreen } from "./home/DocsSupportScreen";
 import { CertificateScreen } from "./home/CertificateScreen";
 import { AddressesScreen } from "./home/AddressesScreen";
 import { ProfileScreen } from "./home/ProfileScreen";
-import { WayfindingScreen } from "./home/WayfindingScreen";
+import { ServicesScreen } from "./home/ServicesScreen";
+import { MyWitnessesScreen } from "./home/MyWitnessesScreen";
 import { ShareScreen } from "./home/ShareScreen";
 import { WitnessRepScreen } from "./home/WitnessRepScreen";
 import { ReverifyScreen } from "./risk/ReverifyScreen";
@@ -31,6 +32,7 @@ import { WitnessProximityScreen } from "./risk/WitnessProximityScreen";
 import { HouseholdScreen } from "./household/HouseholdScreen";
 import { HouseholdCensusScreen } from "./household/HouseholdCensusScreen";
 import { AddMemberScreen } from "./household/AddMemberScreen";
+import { ResidentDocsScreen } from "./household/ResidentDocsScreen";
 import { DeceasedScreen } from "./household/DeceasedScreen";
 import { OperatorScreen } from "./field/OperatorScreen";
 import { OfflineScreen } from "./field/OfflineScreen";
@@ -41,6 +43,7 @@ import { ValidationsDashboardScreen } from "./validator/ValidationsDashboardScre
 import { AuthorityGpsScreen } from "./validator/AuthorityGpsScreen";
 import { ConfirmWitnessScreen } from "./validator/ConfirmWitnessScreen";
 import { ForeignerScreen } from "./foreign/ForeignerScreen";
+import { RadarPreviewScreen } from "./RadarPreviewScreen";
 import { LeaseScreen } from "./foreign/LeaseScreen";
 import { AuthorityDeclarationScreen } from "./foreign/AuthorityDeclarationScreen";
 import { TenancyScreen } from "./tenancy/TenancyScreen";
@@ -125,7 +128,8 @@ export const IDIOMATIC: Record<string, ComponentType> = {
   certificate: CertificateScreen,
   addresses: AddressesScreen,
   profile: ProfileScreen,
-  wayfinding: WayfindingScreen,
+  services: ServicesScreen,
+  myWitnesses: MyWitnessesScreen,
   share: ShareScreen,
   witnessRep: WitnessRepScreen,
   reverify: ReverifyScreen,
@@ -137,6 +141,7 @@ export const IDIOMATIC: Record<string, ComponentType> = {
   household: HouseholdScreen,
   householdCensus: HouseholdCensusScreen,
   addMember: AddMemberScreen,
+  residentDocs: ResidentDocsScreen,
   deceased: DeceasedScreen,
   operator: OperatorScreen,
   offline: OfflineScreen,
@@ -147,6 +152,7 @@ export const IDIOMATIC: Record<string, ComponentType> = {
   authorityGps: AuthorityGpsScreen,
   confirmWitness: ConfirmWitnessScreen,
   foreigner: ForeignerScreen,
+  radarPreview: RadarPreviewScreen,
   lease: LeaseScreen,
   authorityDeclaration: AuthorityDeclarationScreen,
   tenancy: TenancyScreen,

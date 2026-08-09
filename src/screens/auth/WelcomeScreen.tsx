@@ -19,8 +19,10 @@ export function WelcomeScreen() {
         </p>
 
         <div style={{ marginTop: "auto", paddingBottom: 14, display: "flex", flexDirection: "column", gap: 11 }}>
-          <PrimaryButton onClick={() => navigate("/phoneLogin")}>Continuar com telemóvel</PrimaryButton>
-          <GhostButton onClick={() => navigate("/login")}>Entrar com email</GhostButton>
+          {/* Email é o método principal de entrada (o SMS está desativado neste
+              backend). */}
+          <PrimaryButton onClick={() => navigate("/login")}>Entrar com email</PrimaryButton>
+          <GhostButton onClick={() => navigate("/register")}>Criar conta</GhostButton>
         </div>
       </div>
     </PhoneChrome>

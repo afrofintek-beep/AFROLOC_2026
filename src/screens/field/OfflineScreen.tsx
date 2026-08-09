@@ -29,7 +29,7 @@ export function OfflineScreen() {
         <div style={{ font: "700 30px 'Space Mono'", color: "#E8C97A", marginTop: 4 }}>3 na fila</div>
 
         <div style={{ display: "flex", flexDirection: "column", gap: 10, width: "100%", marginTop: 18 }}>
-          <StatusRow label="GPS ±6m capturado" />
+          <StatusRow label="Ponto ±6m capturado" />
           <StatusRow label="EXIF metadados ok" />
         </div>
 

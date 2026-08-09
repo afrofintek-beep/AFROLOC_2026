@@ -156,7 +156,7 @@ export function InformalScreen() {
                 Ajuda testemunhas e estafetas a reconhecer a casa.
               </span>
             </span>
-            <span style={{ font: "700 10px 'Space Mono'", color: "#2F7A57", whiteSpace: "nowrap" }}>GPS + EXIF</span>
+            <span style={{ font: "700 10px 'Space Mono'", color: "#2F7A57", whiteSpace: "nowrap" }}>Local + EXIF</span>
           </button>
         </Field>
 

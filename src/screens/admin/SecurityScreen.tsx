@@ -3,7 +3,7 @@ import { PhoneChrome } from "../../components/ui/PhoneChrome";
 import { AdminTabBar, DARK, SEV, StatGrid } from "./adminUi";
 
 const EVENTS = [
-  { title: "GPS spoofing · /address-create", sev: "CRÍTICO" as const, meta: "AO-LUA-4F2X · IP 197.149.x · há 22 min", to: "/fraudFlags" },
+  { title: "Manipulação de ponto · /address-create", sev: "CRÍTICO" as const, meta: "AO-LUA-4F2X · IP 197.149.x · há 22 min", to: "/fraudFlags" },
   { title: "OTP máx. tentativas", sev: "ELEVADO" as const, meta: "+244 92x · 3 tentativas · há 1h", to: "/securityAudit" },
   { title: "Limite de taxa · send-signup-otp", sev: "MÉDIO" as const, meta: "10/hora excedido · há 3h", to: "/securityAudit" },
 ];
@@ -15,7 +15,7 @@ export function SecurityScreen() {
       <div style={{ padding: "8px 22px 18px", display: "flex", flexDirection: "column", gap: 14, color: DARK.fg }}>
         <div style={{ font: "700 20px Inter", color: DARK.fg }}>Segurança &amp; fraude</div>
 
-        <StatGrid items={[{ v: "6", l: "GPS spoofing detectado", tone: "danger" }, { v: "23", l: "OTP máx. tentativas", tone: "warn" }, { v: "148", l: "Limites de taxa", tone: "gold" }, { v: "99.6%", l: "Moradas íntegras", tone: "green" }]} />
+        <StatGrid items={[{ v: "6", l: "Manipulação de ponto detectada", tone: "danger" }, { v: "23", l: "OTP máx. tentativas", tone: "warn" }, { v: "148", l: "Limites de taxa", tone: "gold" }, { v: "99.6%", l: "Moradas íntegras", tone: "green" }]} />
 
         <div style={{ font: "700 14px Inter", color: DARK.fg }}>Eventos por resolver</div>
         <div style={{ display: "flex", flexDirection: "column", gap: 9 }}>

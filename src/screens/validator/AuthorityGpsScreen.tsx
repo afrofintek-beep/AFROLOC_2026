@@ -18,7 +18,7 @@ export function AuthorityGpsScreen() {
             <path d="M15 18l-6-6 6-6" stroke="#1A1814" strokeWidth="2.2" strokeLinecap="round" strokeLinejoin="round" />
           </svg>
         </button>
-        <span style={{ font: "700 16px Inter", color: "#1A1814" }}>GPS da autoridade</span>
+        <span style={{ font: "700 16px Inter", color: "#1A1814" }}>Ponto da autoridade</span>
         <span style={{ width: 38 }} />
       </div>
 

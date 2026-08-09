@@ -31,7 +31,7 @@ const OPTIONS: Option[] = [
   {
     value: "digital",
     title: "Digital",
-    desc: "Apenas coordenadas e código AFROLOC.",
+    desc: "Apenas o código AFROLOC.",
     meta: "2 testemunhas · ciclo por risco",
     icon: <PinIcon />,
   },

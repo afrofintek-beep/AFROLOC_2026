@@ -5,7 +5,7 @@ import { DARK, DarkBackHeader, StatGrid } from "../admin/adminUi";
 const CRITERIA = [
   { label: "Cobertura nacional", pct: 72, threshold: 75 },
   { label: "Taxa de verificação no prazo", pct: 94, threshold: 80 },
-  { label: "Precisão GPS (≤10m)", pct: 88, threshold: 80 },
+  { label: "Precisão do ponto (≤10m)", pct: 88, threshold: 80 },
   { label: "Validação comunitária", pct: 91, threshold: 85 },
   { label: "Resolução de fraude", pct: 97, threshold: 90 },
 ];

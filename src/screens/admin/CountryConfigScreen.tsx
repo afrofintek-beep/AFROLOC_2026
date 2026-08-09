@@ -118,7 +118,7 @@ export function CountryConfigScreen() {
                 <NumRow label="Raio rural (m)" value={podp.toleranceRadiusRuralM} min={25} max={5000} onChange={(v) => { setPodp({ toleranceRadiusRuralM: v }); setSaved(false); }} />
                 <NumRow label="Horas mínimas/dia" value={podp.minHoursPerDay} min={0} max={24} step={0.5} onChange={(v) => { setPodp({ minHoursPerDay: v }); setSaved(false); }} />
                 <NumRow label="Duração do ciclo (dias)" value={podp.cycleLengthDays} min={1} max={365} onChange={(v) => { setPodp({ cycleLengthDays: v }); setSaved(false); }} />
-                <NumRow label="Precisão GPS máx. (m)" value={podp.maxGpsAccuracyM} min={5} max={1000} onChange={(v) => { setPodp({ maxGpsAccuracyM: v }); setSaved(false); }} />
+                <NumRow label="Precisão máx. do ponto (m)" value={podp.maxGpsAccuracyM} min={5} max={1000} onChange={(v) => { setPodp({ maxGpsAccuracyM: v }); setSaved(false); }} />
               </div>
 
               {/* live KPI preview from a demo cycle */}
@@ -138,7 +138,7 @@ export function CountryConfigScreen() {
                 </div>
               </div>
               <p style={{ font: "400 10.5px Inter", color: DARK.muted, lineHeight: 1.45, margin: "10px 0 0" }}>
-                Amostragem GPS silenciosa (sem UI ao titular), offline-first, anti-spoofing. Amostras e rollups só visíveis a admin nível ≥ 4.
+                Amostragem de ponto silenciosa (sem UI ao titular), offline-first, anti-manipulação. Amostras e rollups só visíveis a admin nível ≥ 4.
               </p>
             </>
           )}

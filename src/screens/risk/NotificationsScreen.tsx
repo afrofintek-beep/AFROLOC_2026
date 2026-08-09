@@ -1,6 +1,8 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { PhoneChrome } from "../../components/ui/PhoneChrome";
+import { useAuth } from "../../state/auth";
+import { listMyAlerts, relativeTime } from "../../lib/supabase/notifications";
 
 type Tone = "amber" | "green" | "gold";
 
@@ -26,9 +28,36 @@ const TONE = {
   gold: { bg: "#FBF2DC", fg: "#B0831F" },
 } as const;
 
+function toneForScore(score: number): Tone {
+  if (score >= 70) return "amber";
+  if (score >= 40) return "gold";
+  return "green";
+}
+
 export function NotificationsScreen() {
   const navigate = useNavigate();
-  const [items, setItems] = useState(INITIAL);
+  const { configured } = useAuth();
+  const [items, setItems] = useState<Notif[]>(configured ? [] : INITIAL);
+  const [loaded, setLoaded] = useState(!configured);
+
+  // Com sessão, lê as notificações reais (risk_alerts_log); senão, demonstração.
+  useEffect(() => {
+    if (!configured) return;
+    listMyAlerts()
+      .then((rows) =>
+        setItems(
+          rows.map((r) => ({
+            id: r.id,
+            title: r.message,
+            meta: relativeTime(r.sent_at),
+            tone: toneForScore(r.risk_score),
+            to: "/riskAlerts",
+            unread: Date.now() - new Date(r.sent_at).getTime() < 48 * 3600 * 1000,
+          }))
+        )
+      )
+      .finally(() => setLoaded(true));
+  }, [configured]);
 
   return (
     <PhoneChrome bg="#F0EADE">
@@ -77,6 +106,11 @@ export function NotificationsScreen() {
             </button>
           );
         })}
+        {loaded && items.length === 0 && (
+          <div style={{ marginTop: 8, background: "#FFFDF9", border: "1.5px solid #EAE3D7", borderRadius: 18, padding: "26px 20px", textAlign: "center", font: "400 14px Inter", color: "#8A8073", lineHeight: 1.5 }}>
+            Sem notificações. Os avisos de verificação e risco aparecem aqui.
+          </div>
+        )}
       </div>
     </PhoneChrome>
   );

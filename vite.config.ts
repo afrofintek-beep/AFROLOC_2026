@@ -33,6 +33,9 @@ export default defineConfig({
       },
       workbox: {
         globPatterns: ["**/*.{js,css,html,svg,png,woff2,json}"],
+        // O bundle inclui o mapbox-gl (mapa de navegação) → passa dos 2 MiB
+        // por defeito; sobe o limite para precache do service worker.
+        maximumFileSizeToCacheInBytes: 6 * 1024 * 1024,
       },
       // Allow installing/testing the PWA during `npm run dev` too.
       devOptions: { enabled: true, type: "module" },

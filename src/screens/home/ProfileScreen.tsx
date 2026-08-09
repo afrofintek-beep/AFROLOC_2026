@@ -1,13 +1,15 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
+import { biometricAvailable, biometricEnabled, enableBiometric, disableBiometric } from "../../lib/biometric";
 import { useNavigate } from "react-router-dom";
 import { PhoneChrome } from "../../components/ui/PhoneChrome";
 import { TabBar } from "../../components/ui/TabBar";
 import { currentUser } from "../../data/account";
 import { useAuth } from "../../state/auth";
+import { uploadAvatar } from "../../lib/supabase/avatar";
 
 export function ProfileScreen() {
   const navigate = useNavigate();
-  const { configured, profile, signOut } = useAuth();
+  const { configured, profile, signOut, user, refreshProfile } = useAuth();
   // Em modo real usa o perfil da BD; em demo, a "Ana Cardoso".
   const u = {
     ...currentUser,
@@ -24,8 +26,48 @@ export function ProfileScreen() {
     authConfidence: configured && profile ? profile.auth_confidence : currentUser.authConfidence,
     jurisdiction: configured && profile?.jurisdiction ? profile.jurisdiction : currentUser.jurisdiction,
   };
-  const [biometric, setBiometric] = useState(true);
-  const [offline, setOffline] = useState(true);
+  const [biometric, setBiometric] = useState(false);
+  const [bioAvail, setBioAvail] = useState(false);
+  const [bioErr, setBioErr] = useState<string | null>(null);
+  const [offline, setOffline] = useState<boolean>(() => { try { return localStorage.getItem("afl.offlineMode") !== "0"; } catch { return true; } });
+  const [online, setOnline] = useState<boolean>(() => (typeof navigator !== "undefined" ? navigator.onLine : true));
+  useEffect(() => { setBiometric(biometricEnabled()); void biometricAvailable().then(setBioAvail); }, []);
+  useEffect(() => {
+    const on = () => setOnline(navigator.onLine);
+    window.addEventListener("online", on);
+    window.addEventListener("offline", on);
+    return () => { window.removeEventListener("online", on); window.removeEventListener("offline", on); };
+  }, []);
+  async function toggleBiometric() {
+    setBioErr(null);
+    if (biometric) { disableBiometric(); setBiometric(false); return; }
+    if (!user) { setBioErr("Inicia sessão primeiro."); return; }
+    if (!bioAvail) { setBioErr("Este dispositivo não tem biometria disponível."); return; }
+    const ok = await enableBiometric(user.id, profile?.name || user.email || "AFROLOC");
+    if (ok) setBiometric(true); else setBioErr("Não foi possível ativar a biometria.");
+  }
+  function toggleOffline() {
+    setOffline((v) => { const nv = !v; try { localStorage.setItem("afl.offlineMode", nv ? "1" : "0"); } catch { /* */ } return nv; });
+  }
+  const [uploading, setUploading] = useState(false);
+  const [avatarErr, setAvatarErr] = useState<string | null>(null);
+  const avatarUrl = configured ? profile?.avatar_url ?? null : null;
+  const canUpload = configured && !!user;
+  async function onPickAvatar(e: React.ChangeEvent<HTMLInputElement>) {
+    const f = e.target.files?.[0];
+    e.target.value = "";
+    if (!f || !user) return;
+    setUploading(true);
+    setAvatarErr(null);
+    try {
+      await uploadAvatar(user.id, f);
+      await refreshProfile();
+    } catch {
+      setAvatarErr("Não foi possível carregar a foto.");
+    } finally {
+      setUploading(false);
+    }
+  }
 
   async function handleSignOut() {
     if (configured) await signOut();
@@ -37,25 +79,25 @@ export function ProfileScreen() {
       <div style={{ padding: "8px 22px 18px", display: "flex", flexDirection: "column", gap: 14 }}>
         {/* identity */}
         <div style={{ display: "flex", alignItems: "center", gap: 14 }}>
-          <div
-            style={{
-              width: 56,
-              height: 56,
-              borderRadius: "50%",
-              background: "linear-gradient(135deg,#D4A853,#E07B2C)",
-              color: "#2D2519",
-              display: "flex",
-              alignItems: "center",
-              justifyContent: "center",
-              font: "700 20px Inter",
-              flex: "none",
-            }}
-          >
-            {u.initials}
-          </div>
+          <label style={{ position: "relative", width: 56, height: 56, flex: "none", cursor: canUpload ? "pointer" : "default", opacity: uploading ? 0.6 : 1 }}>
+            {avatarUrl ? (
+              <img src={avatarUrl} alt="Foto de perfil" style={{ width: 56, height: 56, borderRadius: "50%", objectFit: "cover", display: "block" }} />
+            ) : (
+              <div style={{ width: 56, height: 56, borderRadius: "50%", background: "linear-gradient(135deg,#D4A853,#E07B2C)", color: "#2D2519", display: "flex", alignItems: "center", justifyContent: "center", font: "700 20px Inter" }}>
+                {u.initials}
+              </div>
+            )}
+            {canUpload && (
+              <span style={{ position: "absolute", right: -2, bottom: -2, width: 22, height: 22, borderRadius: "50%", background: "#1A1814", border: "2px solid #F0EADE", display: "flex", alignItems: "center", justifyContent: "center" }}>
+                <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="#E8C97A" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><path d="M23 19a2 2 0 0 1-2 2H3a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h4l2-3h6l2 3h4a2 2 0 0 1 2 2z" /><circle cx="12" cy="13" r="4" /></svg>
+              </span>
+            )}
+            {canUpload && <input type="file" accept="image/*" onChange={onPickAvatar} style={{ display: "none" }} />}
+          </label>
           <div>
             <div style={{ font: "700 20px Inter", color: "#1A1814" }}>{u.name}</div>
             <div style={{ font: "500 13px 'Space Mono'", color: "#8A8073", marginTop: 2 }}>{u.phone}</div>
+            {avatarErr && <div style={{ font: "600 11px Inter", color: "#B23A2A", marginTop: 3 }}>{avatarErr}</div>}
           </div>
         </div>
 
@@ -63,7 +105,9 @@ export function ProfileScreen() {
         <div style={{ background: "#1A1814", borderRadius: 20, padding: 18, color: "#F8F5F0" }}>
           <div style={{ display: "flex", justifyContent: "space-between", alignItems: "center" }}>
             <span style={{ font: "700 10px Inter", letterSpacing: ".16em", color: "#A99E8C" }}>NÍVEL DE AUTORIZAÇÃO</span>
-            <span style={{ font: "700 11px 'Space Mono'", color: "#E8C97A" }}>Confiança {u.authConfidence}/100</span>
+            {!configured && (
+              <span style={{ font: "700 11px 'Space Mono'", color: "#E8C97A" }}>Confiança {u.authConfidence}/100</span>
+            )}
           </div>
           <div style={{ font: "700 18px Inter", marginTop: 10 }}>
             Nível {u.level} · {u.levelTitle}
@@ -103,6 +147,22 @@ export function ProfileScreen() {
           <span style={{ font: "700 20px 'Space Mono'", color: "#B98421" }}>{u.reputationScore}</span>
         </button>
 
+        {/* hub "Mais serviços" — acesso a tudo o que está associado à morada */}
+        <button onClick={() => navigate("/services")} style={{ all: "unset", cursor: "pointer", display: "flex", alignItems: "center", gap: 13, background: "#FFFDF9", border: "1px solid #EAE3D7", borderRadius: 16, padding: "14px 16px" }}>
+          <span style={{ width: 40, height: 40, borderRadius: 11, background: "#F4EAD6", display: "flex", alignItems: "center", justifyContent: "center", flex: "none" }}>
+            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#B98421" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round">
+              <rect x="3.5" y="3.5" width="7" height="7" rx="1.6" /><rect x="13.5" y="3.5" width="7" height="7" rx="1.6" /><rect x="3.5" y="13.5" width="7" height="7" rx="1.6" /><rect x="13.5" y="13.5" width="7" height="7" rx="1.6" />
+            </svg>
+          </span>
+          <div style={{ flex: 1 }}>
+            <div style={{ font: "700 14px Inter", color: "#1A1814" }}>Mais serviços</div>
+            <div style={{ font: "400 12px Inter", color: "#8A8073", marginTop: 2 }}>
+              Certificado · Agregado · Partilhar · Reverificar…
+            </div>
+          </div>
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#A99E8C" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><path d="M9 6l6 6-6 6" /></svg>
+        </button>
+
         {/* settings */}
         <div style={{ background: "#FFFDF9", border: "1px solid #EAE3D7", borderRadius: 16, overflow: "hidden" }}>
           <button onClick={() => navigate("/language")} style={{ all: "unset", cursor: "pointer", display: "flex", alignItems: "center", justifyContent: "space-between", padding: "14px 16px", width: "100%", boxSizing: "border-box" }}>
@@ -111,11 +171,12 @@ export function ProfileScreen() {
           </button>
           <Divider />
           <Row label="Entrada biométrica">
-            <Switch on={biometric} onClick={() => setBiometric((v) => !v)} />
+            <Switch on={biometric} onClick={toggleBiometric} />
           </Row>
+          {bioErr && <div style={{ font: "500 11px Inter", color: "#B98421", padding: "0 16px 8px" }}>{bioErr}</div>}
           <Divider />
-          <Row label="Modo offline">
-            <Switch on={offline} onClick={() => setOffline((v) => !v)} />
+          <Row label={`Modo offline · ${online ? "ligado" : "sem ligação"}`}>
+            <Switch on={offline} onClick={toggleOffline} />
           </Row>
           <Divider />
           <NavRow label="Mudar número" onClick={() => navigate("/changePhone")} />

@@ -2,9 +2,11 @@ import { createContext, useContext, useMemo, useReducer, type ReactNode } from "
 import type {
   AddressDraft,
   AddressType,
+  PropertyType,
   BuildingInfo,
   Coords,
   Division,
+  ForeignerInfo,
   Landmark,
   QgsqCell,
   Witness,
@@ -53,6 +55,7 @@ const initialDraft: AddressDraft = {
 
 type Action =
   | { type: "setType"; value: AddressType }
+  | { type: "setPropertyType"; value: PropertyType }
   | { type: "setDivision"; value: Partial<Division> }
   | { type: "setCoords"; value: Partial<Coords> }
   | { type: "setCell"; value: Partial<QgsqCell> }
@@ -66,12 +69,20 @@ type Action =
   | { type: "confirmWitness"; id: string }
   | { type: "removeWitness"; id: string }
   | { type: "setTenancy"; value: Partial<Tenancy> }
+  | { type: "setForeigner"; value: Partial<ForeignerInfo> }
   | { type: "setGenerated"; value: CreateAddressResult };
+
+const EMPTY_FOREIGNER: ForeignerInfo = {
+  nationality: "", passportNumber: "", passportExpiry: "",
+  permitType: "", permitNumber: "", permitValidUntil: "",
+};
 
 function reducer(state: AddressDraft, action: Action): AddressDraft {
   switch (action.type) {
     case "setType":
       return { ...state, type: action.value };
+    case "setPropertyType":
+      return { ...state, propertyType: action.value };
     case "setDivision":
       return { ...state, division: { ...state.division, ...action.value } };
     case "setCoords":
@@ -103,6 +114,8 @@ function reducer(state: AddressDraft, action: Action): AddressDraft {
       return { ...state, witnesses: state.witnesses.filter((w) => w.id !== action.id) };
     case "setTenancy":
       return { ...state, tenancy: { ...state.tenancy, ...action.value } };
+    case "setForeigner":
+      return { ...state, foreigner: { ...(state.foreigner ?? EMPTY_FOREIGNER), ...action.value } };
     case "setGenerated":
       return { ...state, generated: action.value };
     default:

@@ -1,4 +1,6 @@
 import { HashRouter, Routes, Route, Navigate, useParams, useNavigate } from "react-router-dom";
+import { useState, type ReactNode } from "react";
+import { biometricEnabled, unlockBiometric, disableBiometric } from "./lib/biometric";
 import { SCREENS, SCREEN_ORDER } from "./data/screens";
 import { SideIndex } from "./components/SideIndex";
 import { PhoneFrame } from "./components/PhoneFrame";
@@ -8,17 +10,8 @@ import { CreateFlowProvider } from "./state/createFlow";
 import { JurisdictionConfigProvider } from "./state/jurisdictionConfig";
 import { useAuth } from "./state/auth";
 import { Logo } from "./components/Logo";
-
-// Ecrãs acessíveis sem sessão iniciada (fluxo de entrada + marketing/ajuda).
-const PUBLIC_SCREENS = new Set([
-  "welcome", "login", "register", "phoneLogin", "presignup", "otp", "forgotPassword", "howitworks",
-  // páginas web públicas
-  "landing", "pricing", "about", "faq", "contact", "install", "appDownload",
-  "sourceDownload", "manualDownload", "publicLookup",
-]);
-
-// Mal autenticado, estes ecrãs de entrada reencaminham para o início.
-const ENTRY_SCREENS = new Set(["welcome", "login", "register", "phoneLogin", "presignup", "otp"]);
+import { PUBLIC_SCREENS, ENTRY_SCREENS, APP_SCREENS } from "./data/appScreens";
+import { usePhoneMode } from "./lib/usePhoneMode";
 
 function renderScreen(screenId: string) {
   const screen = SCREENS[screenId];
@@ -42,9 +35,16 @@ function Splash() {
 function AppScreen() {
   const { screenId = "welcome" } = useParams();
   const { ready, configured, user } = useAuth();
+  const phone = usePhoneMode();
 
   // Enquanto a sessão inicial não resolve (só quando há Supabase ligado).
   if (configured && !ready) return <Splash />;
+
+  // App de uso individual: ecrãs institucionais (validador, admin, campo,
+  // telecom/grelha, métricas, API, docs/PI) não fazem parte do percurso do
+  // cidadão — ficam disponíveis apenas em /gallery. Aqui, reencaminham para o
+  // início. (O welcome cobre o caso de sessão ainda não iniciada.)
+  if (!APP_SCREENS.has(screenId)) return <Navigate to="/home" replace />;
 
   if (configured) {
     const isPublic = PUBLIC_SCREENS.has(screenId);
@@ -53,7 +53,9 @@ function AppScreen() {
   }
 
   return (
-    <div style={{ minHeight: "100dvh", display: "flex", alignItems: "flex-start", justifyContent: "center", padding: "16px 8px", background: "#15120F" }}>
+    <div style={phone
+      ? { minHeight: "100dvh", background: "#15120F" }
+      : { minHeight: "100dvh", display: "flex", alignItems: "flex-start", justifyContent: "center", padding: "16px 8px", background: "#15120F" }}>
       {renderScreen(screenId)}
     </div>
   );
@@ -105,11 +107,53 @@ function GalleryView() {
   );
 }
 
+/** Portão de bloqueio biométrico (Face ID/digital) — só quando ativo e com sessão. */
+function BiometricGate({ children }: { children: ReactNode }) {
+  const { user, ready, configured, signOut } = useAuth();
+  const [unlocked, setUnlocked] = useState(false);
+  const [busy, setBusy] = useState(false);
+  const [err, setErr] = useState<string | null>(null);
+
+  if (configured && !ready) return <Splash />;
+  if (!biometricEnabled() || !user || unlocked) return <>{children}</>;
+
+  const unlock = async () => {
+    setBusy(true);
+    setErr(null);
+    const ok = await unlockBiometric();
+    setBusy(false);
+    if (ok) setUnlocked(true);
+    else setErr("Não reconhecido. Tenta novamente.");
+  };
+  const escape = async () => {
+    if (configured) await signOut();
+    disableBiometric();
+    setUnlocked(true);
+    window.location.hash = "#/welcome";
+  };
+
+  return (
+    <div style={{ minHeight: "100dvh", display: "flex", flexDirection: "column", alignItems: "center", justifyContent: "center", gap: 22, background: "#15120F", color: "#F8F5F0", padding: 24 }}>
+      <Logo size={56} />
+      <div style={{ textAlign: "center" }}>
+        <div style={{ font: "700 18px Inter" }}>AFROLOC bloqueada</div>
+        <div style={{ font: "400 13px Inter", color: "#A99E8C", marginTop: 6 }}>Desbloqueia com Face ID ou impressão digital.</div>
+      </div>
+      <button onClick={unlock} disabled={busy} style={{ border: "none", background: "var(--afl-grad-glow)", color: "#2D2519", font: "700 15px Inter", borderRadius: 14, padding: "14px 28px", cursor: busy ? "default" : "pointer", opacity: busy ? 0.6 : 1 }}>
+        {busy ? "A verificar…" : "Desbloquear"}
+      </button>
+      {err && <div style={{ font: "600 12px Inter", color: "#E8927E" }}>{err}</div>}
+      <button onClick={escape} style={{ all: "unset", cursor: "pointer", font: "600 12px Inter", color: "#8A8073" }}>Terminar sessão</button>
+    </div>
+  );
+}
+
 export default function App() {
   return (
     <CreateFlowProvider>
       <JurisdictionConfigProvider>
         <HashRouter>
+          <BiometricGate>
           <Routes>
             <Route path="/" element={<RootRedirect />} />
             {/* Galeria de programador */}
@@ -119,6 +163,7 @@ export default function App() {
             <Route path="/:screenId" element={<AppScreen />} />
             <Route path="*" element={<Navigate to="/" replace />} />
           </Routes>
+          </BiometricGate>
         </HashRouter>
       </JurisdictionConfigProvider>
     </CreateFlowProvider>

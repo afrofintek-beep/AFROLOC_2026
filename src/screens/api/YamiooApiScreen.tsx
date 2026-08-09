@@ -4,7 +4,7 @@ import { PhoneChrome } from "../../components/ui/PhoneChrome";
 import { DARK, DarkBackHeader } from "../admin/adminUi";
 
 const PERMISSIONS = [
-  "Resolver código → coordenadas",
+  "Resolver código → ponto",
   "Receber pontos de referência",
   "Aceder a dados do titular",
 ];

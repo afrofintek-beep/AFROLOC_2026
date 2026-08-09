@@ -1,7 +1,7 @@
 import { createContext, useContext, useEffect, useState, useCallback, type ReactNode } from "react";
 import { useAuth } from "./auth";
-import { listMyAddresses, insertAddress } from "../lib/supabase/addresses";
-import { generatedToInsert } from "../lib/afroloc/addressMap";
+import { listMyAfrolocRecords, recordToAddressRow } from "../lib/supabase/afrolocRecords";
+import { createRealAddress } from "../lib/supabase/createReal";
 import type { AddressRow } from "../lib/supabase/types";
 import type { CreateAddressResult } from "../lib/afroloc/createAddress";
 import type { AddressDraft } from "./types";
@@ -31,7 +31,10 @@ export function CitizenDataProvider({ children }: { children: ReactNode }) {
     }
     setLoading(true);
     try {
-      setAddresses(await listMyAddresses());
+      // Backend REAL do AFROLOC: lê `afroloc_records` e converte para o modelo
+      // dos ecrãs. (Ver lib/supabase/afrolocRecords.)
+      const records = await listMyAfrolocRecords();
+      setAddresses(records.map(recordToAddressRow));
     } catch {
       setAddresses([]);
     } finally {
@@ -44,9 +47,13 @@ export function CitizenDataProvider({ children }: { children: ReactNode }) {
   }, [refresh]);
 
   const saveGenerated = useCallback<CitizenData["saveGenerated"]>(
-    async (result, draft, label) => {
-      if (!configured || !user || !result.success || !result.afrolocCode) return null;
-      const row = await insertAddress(generatedToInsert(result, draft, user.id, label));
+    async (_result, draft, label) => {
+      if (!configured || !user) return null;
+      // Cria a morada REAL no backend de produção (código válido via qg-engine
+      // + gravação em afroloc_records). O `result` da pipeline ilustrativa do
+      // demo já não é usado — a fonte de verdade é o backend.
+      const rec = await createRealAddress(draft, label);
+      const row = recordToAddressRow(rec);
       setAddresses((prev) => [row, ...prev.filter((a) => a.id !== row.id)]);
       return row;
     },

@@ -4,6 +4,7 @@ export interface ProfileRow {
   id: string;
   name: string | null;
   phone: string | null;
+  avatar_url: string | null;
   language: string;
   level: number;
   level_title: string;

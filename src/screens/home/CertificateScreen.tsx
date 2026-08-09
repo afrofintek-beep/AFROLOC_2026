@@ -6,10 +6,17 @@ import { Qr } from "../../components/ui/Qr";
 import { Logo } from "../../components/Logo";
 import { currentUser, primaryAddress, addressUrl } from "../../data/account";
 import { generateCertificatePdf } from "../../lib/certificatePdf";
+import { useAuth } from "../../state/auth";
+import { useCitizenData } from "../../state/citizenData";
+import { rowToPrimary } from "../../lib/afroloc/addressMap";
 
 export function CertificateScreen() {
   const navigate = useNavigate();
-  const a = primaryAddress;
+  const { configured, profile } = useAuth();
+  const { primary } = useCitizenData();
+  // Morada e titular reais quando há sessão; senão, exemplo de demonstração.
+  const a = configured && primary ? rowToPrimary(primary) : primaryAddress;
+  const titular = configured ? profile?.name ?? "Cidadão" : currentUser.name;
   const verifyUrl = addressUrl(a.code);
   const [busy, setBusy] = useState(false);
   const [done, setDone] = useState<string | null>(null);
@@ -20,7 +27,7 @@ export function CertificateScreen() {
     try {
       const file = await generateCertificatePdf({
         code: a.code,
-        titular: currentUser.name,
+        titular: titular,
         morada: a.addressLine,
         qgsqCell: a.qgsqCell,
         validator: a.validator,
@@ -35,7 +42,7 @@ export function CertificateScreen() {
   }
 
   async function share() {
-    const text = `AFROLOC ${a.code} — ${currentUser.name}, ${a.addressLine}. Verificar: ${verifyUrl}`;
+    const text = `AFROLOC ${a.code} — ${titular}, ${a.addressLine}. Verificar: ${verifyUrl}`;
     if (navigator.share) {
       try {
         await navigator.share({ title: "Certificado AFROLOC", text, url: verifyUrl });
@@ -87,7 +94,7 @@ export function CertificateScreen() {
           <div style={{ height: 1, background: "#EDE4D5", margin: "18px 0" }} />
 
           <div style={{ display: "flex", flexDirection: "column", gap: 13 }}>
-            <Field label="Titular" value={currentUser.name} />
+            <Field label="Titular" value={titular} />
             <Field label="Morada" value={a.addressLine} />
             <Field label="Célula QGSQ" value={a.qgsqCell} mono />
             <Field label="Validado por" value={a.validator} />

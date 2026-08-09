@@ -68,17 +68,6 @@ export function LoginScreen() {
           <PrimaryButton disabled={!valid || busy} onClick={handleLogin}>{busy ? "A entrar…" : "Entrar"}</PrimaryButton>
         </div>
 
-        <div style={{ display: "flex", alignItems: "center", gap: 12, margin: "20px 0" }}>
-          <span style={{ flex: 1, height: 1, background: "#E6DCCC" }} />
-          <span style={{ font: "500 12px Inter", color: "#A99E8C" }}>ou</span>
-          <span style={{ flex: 1, height: 1, background: "#E6DCCC" }} />
-        </div>
-
-        <button onClick={() => navigate("/phoneLogin")} style={{ border: "1.5px solid #E2D8C8", background: "transparent", borderRadius: 16, height: 54, font: "600 14px Inter", color: "#1A1814", cursor: "pointer", display: "flex", alignItems: "center", justifyContent: "center", gap: 9 }}>
-          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#1A1814" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round"><rect x="6" y="2" width="12" height="20" rx="3" /><path d="M11 18h2" /></svg>
-          Entrar com telefone (SMS)
-        </button>
-
         <div style={{ marginTop: "auto", paddingTop: 16, paddingBottom: 8, textAlign: "center", font: "500 13px Inter", color: "#8A8073" }}>
           Não tem conta?{" "}
           <button onClick={() => navigate("/register")} style={{ all: "unset", cursor: "pointer", font: "700 13px Inter", color: "#B0831F" }}>Criar conta</button>

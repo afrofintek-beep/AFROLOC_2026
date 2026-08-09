@@ -1,4 +1,5 @@
 import type { CSSProperties, ReactNode } from "react";
+import { usePhoneMode } from "../../lib/usePhoneMode";
 
 /** iOS-style status bar (9:41, signal, 5G, battery) as in the design mocks. */
 export function StatusBar({
@@ -71,44 +72,66 @@ export function PhoneChrome({
   /** Optional fixed bottom tab bar, rendered above the home indicator. */
   tabBar?: ReactNode;
 }) {
-  const frame: CSSProperties = {
-    width: 390,
-    height: 844,
-    borderRadius: 46,
-    background: bg,
-    position: "relative",
-    overflow: "hidden",
-    boxShadow: "0 40px 70px -34px rgba(28,24,21,.5), 0 0 0 1px rgba(28,24,21,.05)",
-    display: "flex",
-    flexDirection: "column",
-  };
+  const phone = usePhoneMode();
+  const frame: CSSProperties = phone
+    ? {
+        // Instalada / ecrã de telemóvel: preenche o ecrã, sem moldura.
+        width: "100%",
+        height: "100dvh",
+        background: bg,
+        position: "relative",
+        overflow: "hidden",
+        display: "flex",
+        flexDirection: "column",
+      }
+    : {
+        // Desktop (handoff): moldura de telemóvel decorativa.
+        width: 390,
+        height: 844,
+        borderRadius: 46,
+        background: bg,
+        position: "relative",
+        overflow: "hidden",
+        boxShadow: "0 40px 70px -34px rgba(28,24,21,.5), 0 0 0 1px rgba(28,24,21,.05)",
+        display: "flex",
+        flexDirection: "column",
+      };
   return (
     <div style={frame}>
-      <StatusBar dark={dark} offline={offline} offlineLabel={offlineLabel} />
+      {phone ? (
+        // Espaço para a barra de estado REAL do sistema (notch/ilha).
+        <div style={{ height: "max(env(safe-area-inset-top), 10px)", flex: "none" }} />
+      ) : (
+        <StatusBar dark={dark} offline={offline} offlineLabel={offlineLabel} />
+      )}
       <div style={{ flex: 1, minHeight: 0, display: "flex", flexDirection: "column", overflowY: "auto" }}>
         {children}
       </div>
       {tabBar}
-      <div
-        style={{
-          height: 26,
-          flex: "none",
-          display: "flex",
-          alignItems: "flex-end",
-          justifyContent: "center",
-          paddingBottom: 9,
-        }}
-      >
+      {phone ? (
+        <div style={{ height: "max(env(safe-area-inset-bottom), 8px)", flex: "none" }} />
+      ) : (
         <div
           style={{
-            width: 134,
-            height: 5,
-            borderRadius: 3,
-            background: dark ? "#F5F0E8" : "#1A1814",
-            opacity: 0.85,
+            height: 26,
+            flex: "none",
+            display: "flex",
+            alignItems: "flex-end",
+            justifyContent: "center",
+            paddingBottom: 9,
           }}
-        />
-      </div>
+        >
+          <div
+            style={{
+              width: 134,
+              height: 5,
+              borderRadius: 3,
+              background: dark ? "#F5F0E8" : "#1A1814",
+              opacity: 0.85,
+            }}
+          />
+        </div>
+      )}
     </div>
   );
 }

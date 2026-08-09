@@ -72,7 +72,7 @@ export function computeAts(i: AtsInput): AtsResult {
   const validatorScore = (i.authorityGps ? 1 : i.validatorConfirmed ? 1 : 0) * 10;
 
   const factors: AtsFactorScore[] = [
-    { key: "gps", label: "Precisão GPS", weight: 25, value: gpsScore },
+    { key: "gps", label: "Precisão do ponto", weight: 25, value: gpsScore },
     { key: "exif", label: "EXIF coerente", weight: 15, value: exifScore },
     { key: "photo", label: "Fotografia da propriedade", weight: 10, value: photoScore },
     { key: "admin", label: "Hierarquia administrativa", weight: 20, value: adminScore },

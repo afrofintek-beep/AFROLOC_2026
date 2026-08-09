@@ -17,7 +17,7 @@ interface Read {
 
 const READS: Read[] = [
   { id: "r1", title: "Verificação no terreno · ±4 m", coords: "-8.8990, 13.2050", date: "24 Out", lat: -8.899, lng: 13.205, ok: true },
-  { id: "r2", title: "Leitura rejeitada · spoofing", coords: "-8.8401, 13.2890", date: "18 Out", lat: -8.8401, lng: 13.289, ok: false },
+  { id: "r2", title: "Leitura rejeitada · manipulação", coords: "-8.8401, 13.2890", date: "18 Out", lat: -8.8401, lng: 13.289, ok: false },
   { id: "r3", title: "Registo inicial · ±5 m", coords: "-8.8991, 13.2049", date: "02 Mai", lat: -8.8991, lng: 13.2049, ok: true },
 ];
 
@@ -52,7 +52,7 @@ export function GpsHistoryScreen() {
             <path d="M15 18l-6-6 6-6" stroke="#1A1814" strokeWidth="2.2" strokeLinecap="round" strokeLinejoin="round" />
           </svg>
         </button>
-        <span style={{ font: "700 16px Inter", color: "#1A1814" }}>Histórico de GPS</span>
+        <span style={{ font: "700 16px Inter", color: "#1A1814" }}>Histórico de localização</span>
         <span style={{ width: 38 }} />
       </div>
 
@@ -64,7 +64,7 @@ export function GpsHistoryScreen() {
             <path d="M12 10v4M12 17.5v.5" />
           </svg>
           <span style={{ font: "500 12.5px Inter", color: "#9c3a2d", lineHeight: 1.45 }}>
-            1 leitura suspeita — possível GPS spoofing a <strong>3,2 km</strong> do padrão.
+            1 leitura suspeita — possível manipulação a <strong>3,2 km</strong> do padrão.
           </span>
         </div>
 

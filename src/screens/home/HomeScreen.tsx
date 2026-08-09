@@ -1,4 +1,7 @@
+import { useState } from "react";
 import { useNavigate } from "react-router-dom";
+import AfrolocRadar from "../../shared/AfrolocRadar";
+import { MAPBOX_TOKEN } from "../../lib/mapbox";
 import { PhoneChrome } from "../../components/ui/PhoneChrome";
 import { TabBar } from "../../components/ui/TabBar";
 import { AtsRing } from "../../components/ui/AtsRing";
@@ -27,6 +30,11 @@ export function HomeScreen() {
   const isEmpty = configured && !primary; // conta real ainda sem moradas
   const a = configured && primary ? rowToPrimary(primary) : primaryAddress;
   const showActivity = !configured; // atividade é dados de demonstração
+  const [radar, setRadar] = useState(false);
+  // Destino do Radar: coordenadas reais da morada do titular (recurso: referência).
+  const radarTarget = configured && primary && primary.latitude != null && primary.longitude != null
+    ? { lat: primary.latitude, lng: primary.longitude }
+    : { lat: -8.899, lng: 13.205 };
 
   const greeting = (
     <div style={{ display: "flex", alignItems: "center", justifyContent: "space-between" }}>
@@ -123,11 +131,23 @@ export function HomeScreen() {
 
         {/* quick actions */}
         <div style={{ display: "flex", gap: 10 }}>
-          <Action label="Testemunha" onClick={() => navigate("/witnesses")} icon={<WitnessIcon />} />
+          <Action label="Testemunha" onClick={() => navigate(configured ? "/myWitnesses" : "/witnesses")} icon={<WitnessIcon />} />
           <Action label="No mapa" onClick={() => navigate("/identitiesMap")} icon={<MapPinIcon />} />
           <Action label="Partilhar" onClick={() => navigate("/share")} icon={<ShareIcon />} />
           <Action label="Nova" onClick={() => navigate("/type")} icon={<PlusIcon />} />
         </div>
+
+        {/* como chegar — a morada AFROLOC não tem rua nem número: o Radar guia até ao ponto */}
+        <button onClick={() => setRadar(true)} style={{ all: "unset", cursor: "pointer", display: "flex", alignItems: "center", gap: 12, background: "#1A1814", borderRadius: 18, padding: "14px 16px" }}>
+          <span style={{ width: 38, height: 38, borderRadius: 11, background: "#D4A85322", display: "flex", alignItems: "center", justifyContent: "center", flex: "none" }}>
+            <svg width="19" height="19" viewBox="0 0 24 24" fill="none" stroke="#E8C97A" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><circle cx="12" cy="12" r="9" /><circle cx="12" cy="12" r="2.4" fill="#E8C97A" stroke="none" /><path d="M12 3v3M12 18v3M3 12h3M18 12h3" /></svg>
+          </span>
+          <div style={{ flex: 1 }}>
+            <div style={{ font: "700 13.5px Inter", color: "#F8F5F0" }}>Como chegar à minha morada</div>
+            <div style={{ font: "400 12px Inter", color: "#A99E8C", marginTop: 2 }}>Radar · RA · Mapa — sem rua nem número</div>
+          </div>
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#A99E8C" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><path d="M9 6l6 6-6 6" /></svg>
+        </button>
 
         {/* recent activity (demo) */}
         {showActivity && (
@@ -162,6 +182,19 @@ export function HomeScreen() {
         </div>
         )}
       </div>
+
+      {/* Radar (Radar · RA · Mapa) — distância real e meio de locomoção */}
+      {radar && (
+        <div style={{ position: "fixed", inset: 0, zIndex: 60, background: "#0C0B0A", display: "flex", flexDirection: "column" }}>
+          <AfrolocRadar
+            target={radarTarget}
+            title={a.code}
+            subtitle={a.label}
+            onClose={() => setRadar(false)}
+            mapboxToken={MAPBOX_TOKEN}
+          />
+        </div>
+      )}
     </PhoneChrome>
   );
 }

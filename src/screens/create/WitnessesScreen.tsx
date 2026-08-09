@@ -4,6 +4,7 @@ import { PhoneChrome } from "../../components/ui/PhoneChrome";
 import { FlowHeader, PrimaryButton, Pill } from "../../components/ui/primitives";
 import { useCreateFlow } from "../../state/createFlow";
 import { useCitizenData } from "../../state/citizenData";
+import { useAuth } from "../../state/auth";
 import { requiredWitnesses } from "../../state/types";
 import { createAfrolocAddress } from "../../lib/afroloc/createAddress";
 import { adminCodesFor } from "../../lib/afroloc/admin";
@@ -13,12 +14,15 @@ export function WitnessesScreen() {
   const navigate = useNavigate();
   const { draft, dispatch } = useCreateFlow();
   const { saveGenerated } = useCitizenData();
+  const { configured } = useAuth();
   const required = requiredWitnesses(draft.type);
   const [code, setCode] = useState("");
   const [saving, setSaving] = useState(false);
 
   const added = draft.witnesses.length;
-  const canSend = added >= required;
+  // Em modo real, a morada cria-se já (estado rascunho, como no app oficial) e
+  // as testemunhas reais adicionam-se depois no detalhe — não são exigidas aqui.
+  const canSend = configured || added >= required;
 
   function addWitness() {
     const suffix = code.trim().toUpperCase();
@@ -81,9 +85,24 @@ export function WitnessesScreen() {
           Testemunhas
         </h2>
         <p style={{ font: "400 14px Inter", color: "#8A8073", margin: "8px 0 0", lineHeight: 1.45 }}>
-          Adicione {required} vizinhos com AFROLOC activa, a menos de 1&nbsp;km, para validar a sua morada.
+          {configured
+            ? "A sua morada é criada agora. Depois pode adicionar testemunhas reais — vizinhos com AFROLOC — no detalhe da morada."
+            : `Adicione ${required} vizinhos com AFROLOC activa, a menos de 1 km, para validar a sua morada.`}
         </p>
 
+        {configured && (
+          <div style={{ marginTop: 18, background: "#F4EAD6", borderRadius: 16, padding: "16px 16px", display: "flex", gap: 12, alignItems: "flex-start" }}>
+            <span style={{ width: 38, height: 38, borderRadius: 11, background: "#FBF2DC", display: "flex", alignItems: "center", justifyContent: "center", flex: "none" }}>
+              <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#B98421" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round"><circle cx="9" cy="8" r="3.2" /><path d="M3.5 19c0-3 2.5-5 5.5-5s5.5 2 5.5 5" /><path d="M16 8l2 2 4-4" /></svg>
+            </span>
+            <div style={{ font: "400 13px Inter", color: "#7C6A4A", lineHeight: 1.5 }}>
+              As testemunhas juntam-se <strong>depois</strong> de a morada existir, com vizinhos reais e confirmação por OTP. Aqui, basta criar.
+            </div>
+          </div>
+        )}
+
+        {!configured && (
+        <>
         <div
           style={{
             display: "flex",
@@ -196,10 +215,12 @@ export function WitnessesScreen() {
         >
           {Math.min(added, required)} de {required} mínimas. Mais testemunhas aumentam o seu ATS.
         </div>
+        </>
+        )}
 
         <div style={{ marginTop: "auto", paddingTop: 16, paddingBottom: 6 }}>
           <PrimaryButton disabled={!canSend || saving} onClick={submit}>
-            {saving ? "A guardar…" : "Enviar para validação"}
+            {saving ? "A criar…" : configured ? "Criar morada" : "Enviar para validação"}
           </PrimaryButton>
         </div>
       </div>

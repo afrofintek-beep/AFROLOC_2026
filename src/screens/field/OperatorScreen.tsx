@@ -4,7 +4,7 @@ import { PhoneChrome } from "../../components/ui/PhoneChrome";
 const CAPTURED = [
   { code: "AO-ZU-G10-X6AUR-Y49HV", detail: "Informal · 3 fotos", ok: true },
   { code: "AO-ZU-G10-X6AUS-Y49HV", detail: "Informal · 2 fotos", ok: true },
-  { code: "AO-ZU-G10-X6AUT-Y49HV", detail: "Digital · GPS ±5m", ok: true },
+  { code: "AO-ZU-G10-X6AUT-Y49HV", detail: "Digital · ±5m", ok: true },
 ];
 
 const DONE = 42;

@@ -1,9 +1,32 @@
 import { useNavigate } from "react-router-dom";
 import { PhoneChrome } from "../../components/ui/PhoneChrome";
 import { PrimaryButton, GhostButton } from "../../components/ui/primitives";
+import { useAuth } from "../../state/auth";
+import { useCitizenData } from "../../state/citizenData";
+import { useCreateFlow } from "../../state/createFlow";
+import { OCCUPANCY_LABEL, hasLandlord } from "../../data/tenancy";
+
+function fmtDate(iso?: string | null): string {
+  if (!iso) return "—";
+  const d = new Date(iso.length <= 7 ? `${iso}-01` : iso);
+  if (Number.isNaN(d.getTime())) return iso;
+  return new Intl.DateTimeFormat("pt-PT", { day: "2-digit", month: "short", year: "numeric" }).format(d);
+}
 
 export function AuthorityDeclarationScreen() {
   const navigate = useNavigate();
+  const { profile } = useAuth();
+  const { primary } = useCitizenData();
+  const { draft } = useCreateFlow();
+  const f = draft.foreigner;
+  const t = draft.tenancy;
+
+  const titular = [profile?.name, f?.nationality].filter(Boolean).join(" · ") || "Titular";
+  const code = primary?.code ?? draft.generated?.afrolocCode ?? "—";
+  const vinculo = hasLandlord(t.occupancy)
+    ? `${OCCUPANCY_LABEL[t.occupancy]}${t.contractNumber ? ` · ${t.contractNumber}` : ""}`
+    : OCCUPANCY_LABEL[t.occupancy];
+  const today = new Intl.DateTimeFormat("pt-PT", { day: "2-digit", month: "short", year: "numeric" }).format(new Date());
 
   return (
     <PhoneChrome bg="#F0EADE">
@@ -18,43 +41,53 @@ export function AuthorityDeclarationScreen() {
       </div>
 
       <div style={{ padding: "14px 22px 18px", display: "flex", flexDirection: "column", gap: 14 }}>
-        {/* protocol plate (dark) */}
+        {/* plate (dark) — comprovativo gerado pela AFROLOC (não é emissão oficial) */}
         <div style={{ background: "#1A1814", borderRadius: 20, padding: 20, color: "#F8F5F0" }}>
           <div style={{ display: "flex", justifyContent: "space-between", alignItems: "flex-start", gap: 12 }}>
             <span style={{ font: "700 10px Inter", letterSpacing: ".14em", color: "#A99E8C", lineHeight: 1.4 }}>
-              SERVIÇO DE MIGRAÇÃO
-              <br />E ESTRANGEIROS
+              DECLARAÇÃO DE RESIDÊNCIA
+              <br />COMPROVATIVO DE MORADA · AFROLOC
             </span>
-            <span style={{ font: "700 10px Inter", letterSpacing: ".08em", color: "#7FD3A6", background: "#2F7A5733", border: "1px solid #2F7A5766", borderRadius: 8, padding: "4px 9px" }}>DECLARADO</span>
+            <span style={{ font: "700 10px Inter", letterSpacing: ".08em", color: "#E8C97A", background: "#D4A85322", border: "1px solid #D4A85366", borderRadius: 8, padding: "4px 9px" }}>RASCUNHO</span>
           </div>
-          <div style={{ font: "700 20px 'Space Mono'", color: "#E8C97A", marginTop: 14 }}>PROT. SME-2026-09813</div>
-          <div style={{ font: "400 12px Inter", color: "#A99E8C", marginTop: 6 }}>Declarado em 24 Out 2026</div>
+          <div style={{ font: "700 14px 'Space Mono'", color: "#E8C97A", marginTop: 14, wordBreak: "break-all" }}>{code}</div>
+          <div style={{ font: "400 12px Inter", color: "#A99E8C", marginTop: 6 }}>Gerado em {today}</div>
         </div>
 
-        {/* fields */}
+        {/* fields (dados reais do fluxo) */}
         <div style={{ background: "#FFFDF9", border: "1px solid #EAE3D7", borderRadius: 16, padding: "6px 16px" }}>
-          <Row label="Titular" value="Maria Silva · PRT" />
+          <Row label="Titular" value={titular} />
           <Divider />
-          <Row label="Morada (AFROLOC)" value="AO-LUA-BEL-RAM-GEN-G10-X6AUQ-Y49HV-0001" mono />
+          <Row label="Morada (AFROLOC)" value={code} mono />
           <Divider />
-          <Row label="Vínculo" value="Arrendamento · ARR-2026-1184" />
-          <Divider />
-          <Row label="Senhorio" value="João Bunga" />
+          <Row label="Vínculo" value={vinculo} />
+          {hasLandlord(t.occupancy) && (
+            <>
+              <Divider />
+              <Row label="Senhorio" value={t.landlord?.name || "—"} />
+            </>
+          )}
         </div>
 
-        {/* renewal reminder */}
-        <div style={{ display: "flex", gap: 11, alignItems: "flex-start", background: "#F4EAD6", borderRadius: 14, padding: "13px 15px" }}>
-          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#B98421" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round" style={{ flex: "none", marginTop: 1 }}>
-            <circle cx="12" cy="12" r="8.5" /><path d="M12 7.5V12l3 2" />
-          </svg>
-          <span style={{ font: "500 12.5px Inter", color: "#7C6A4A", lineHeight: 1.45 }}>
-            Renovar a declaração antes de <strong style={{ color: "#B0831F" }}>12 Jan 2027</strong> (validade da autorização de residência).
-          </span>
-        </div>
+        {/* renewal reminder — validade a seguir a autorização de residência */}
+        {f?.permitValidUntil && (
+          <div style={{ display: "flex", gap: 11, alignItems: "flex-start", background: "#F4EAD6", borderRadius: 14, padding: "13px 15px" }}>
+            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#B98421" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round" style={{ flex: "none", marginTop: 1 }}>
+              <circle cx="12" cy="12" r="8.5" /><path d="M12 7.5V12l3 2" />
+            </svg>
+            <span style={{ font: "500 12.5px Inter", color: "#7C6A4A", lineHeight: 1.45 }}>
+              Renovar antes de <strong style={{ color: "#B0831F" }}>{fmtDate(f.permitValidUntil)}</strong> (validade da autorização de residência).
+            </span>
+          </div>
+        )}
+
+        <p style={{ font: "400 11.5px Inter", color: "#8A8073", lineHeight: 1.45, margin: 0 }}>
+          Documento gerado pela AFROLOC como comprovativo de morada. A validação oficial cabe à autoridade competente.
+        </p>
 
         <div style={{ display: "flex", gap: 10 }}>
           <div style={{ flex: 1 }}>
-            <GhostButton onClick={() => navigator.share?.({ title: "Declaração SME", text: "PROT. SME-2026-09813 · AFROLOC AO-LUA-BEL-RAM-GEN-G10-X6AUQ-Y49HV-0001" })}>Partilhar</GhostButton>
+            <GhostButton onClick={() => navigator.share?.({ title: "Declaração de residência AFROLOC", text: `${titular} · ${code}` })}>Partilhar</GhostButton>
           </div>
           <div style={{ flex: 1.3 }}>
             <PrimaryButton onClick={() => navigate("/share")}>Descarregar</PrimaryButton>
@@ -69,7 +102,7 @@ function Row({ label, value, mono }: { label: string; value: string; mono?: bool
   return (
     <div style={{ display: "flex", justifyContent: "space-between", alignItems: "baseline", padding: "12px 0", gap: 12 }}>
       <span style={{ font: "500 11px Inter", color: "#8A8073", textTransform: "uppercase", letterSpacing: ".04em", flex: "none" }}>{label}</span>
-      <span style={{ font: `700 13.5px ${mono ? "'Space Mono'" : "Inter"}`, color: "#1A1814", textAlign: "right" }}>{value}</span>
+      <span style={{ font: `700 13.5px ${mono ? "'Space Mono'" : "Inter"}`, color: "#1A1814", textAlign: "right", wordBreak: mono ? "break-all" : "normal" }}>{value}</span>
     </div>
   );
 }

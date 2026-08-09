@@ -4,7 +4,7 @@ import { PhoneChrome } from "../../components/ui/PhoneChrome";
 import { DARK, DarkBackHeader, SEV, StatGrid } from "./adminUi";
 
 const FLAGS = [
-  { id: "f1", code: "AO-LUA-LDA-MAI-CEN-G10-X6B14-Y49J3-0001", sev: "CRÍTICO" as const, reason: "GPS spoofing · posição a 3,2 km das antenas" },
+  { id: "f1", code: "AO-LUA-LDA-MAI-CEN-G10-X6B14-Y49J3-0001", sev: "CRÍTICO" as const, reason: "Manipulação de ponto · posição a 3,2 km das antenas" },
   { id: "f2", code: "AO-LUA-VIA-ZAN-GEN-G10-X6D17-Y49Q8-0001", sev: "CRÍTICO" as const, reason: "Mesma testemunha em 14 moradas" },
   { id: "f3", code: "AO-BEN-LBT-GEN-COM-G10-X5K45-Y48U2-0001", sev: "MÉDIO" as const, reason: "Foto reutilizada noutro registo" },
 ];

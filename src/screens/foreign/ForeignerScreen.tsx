@@ -1,9 +1,31 @@
 import { useNavigate } from "react-router-dom";
 import { PhoneChrome } from "../../components/ui/PhoneChrome";
 import { FlowHeader, PrimaryButton } from "../../components/ui/primitives";
+import { useCreateFlow } from "../../state/createFlow";
+
+// Nacionalidades mais comuns entre residentes estrangeiros em Angola (+ "Outra").
+const NATIONALITIES = [
+  "Portuguesa", "Brasileira", "Chinesa", "Cubana", "Congolesa (RDC)", "Congolesa (Rep.)",
+  "Sul-africana", "Namibiana", "Zambiana", "Nigeriana", "Guineense (Guiné-Bissau)",
+  "Cabo-verdiana", "São-tomense", "Moçambicana", "Francesa", "Espanhola", "Italiana",
+  "Britânica", "Alemã", "Libanesa", "Indiana", "Norte-americana", "Outra",
+];
+
+const PERMIT_TYPES = [
+  "Visto de trabalho", "Visto de residência", "Cartão de residente",
+  "Autorização de residência", "Visto de estudante", "Outro",
+];
 
 export function ForeignerScreen() {
   const navigate = useNavigate();
+  const { draft, dispatch } = useCreateFlow();
+  const f = draft.foreigner;
+  const set = (value: Partial<NonNullable<typeof f>>) => dispatch({ type: "setForeigner", value });
+
+  const complete = !!(
+    f?.nationality && f?.passportNumber?.trim() && f?.passportExpiry &&
+    f?.permitType && f?.permitNumber?.trim() && f?.permitValidUntil
+  );
 
   return (
     <PhoneChrome bg="#F8F5F0">
@@ -18,34 +40,59 @@ export function ForeignerScreen() {
         </p>
 
         <Field label="Nacionalidade">
-          <div style={fieldBox}>
-            <span style={{ font: "700 14px Inter", color: "#1A1814" }}>🇵🇹 Portuguesa</span>
+          <div style={selectWrap}>
+            <select value={f?.nationality ?? ""} onChange={(e) => set({ nationality: e.target.value })} style={selectEl}>
+              <option value="" disabled>Selecione a nacionalidade</option>
+              {NATIONALITIES.map((n) => <option key={n} value={n}>{n}</option>)}
+            </select>
             <Chevron />
           </div>
         </Field>
 
-        {/* passport card */}
+        {/* passport card (introdução manual) */}
         <Field label="Passaporte">
           <div style={{ background: "#1A1814", borderRadius: 16, padding: 16, color: "#F8F5F0" }}>
-            <div style={{ display: "flex", justifyContent: "space-between", alignItems: "center" }}>
-              <span style={{ font: "700 11px Inter", letterSpacing: ".12em", color: "#A99E8C" }}>PASSAPORTE</span>
-              <span style={{ display: "inline-flex", alignItems: "center", gap: 5, font: "700 9px Inter", color: "#7FD3A6", background: "#2F7A5733", border: "1px solid #2F7A5766", borderRadius: 7, padding: "3px 8px" }}>
-                <svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="#7FD3A6" strokeWidth="2.6" strokeLinecap="round" strokeLinejoin="round"><path d="M5 12l5 5L20 7" /></svg>
-                MRZ LIDO
-              </span>
-            </div>
-            <div style={{ font: "700 18px 'Space Mono'", marginTop: 12, letterSpacing: ".06em" }}>P&lt;PRT CA928374</div>
-            <div style={{ font: "400 12px Inter", color: "#A99E8C", marginTop: 8 }}>Válido até 03/2029</div>
+            <span style={{ font: "700 11px Inter", letterSpacing: ".12em", color: "#A99E8C" }}>PASSAPORTE</span>
+            <input
+              value={f?.passportNumber ?? ""}
+              onChange={(e) => set({ passportNumber: e.target.value.toUpperCase() })}
+              placeholder="Nº do passaporte"
+              style={{ ...darkInput, marginTop: 10, font: "700 18px 'Space Mono'", letterSpacing: ".06em" }}
+            />
+            <div style={{ font: "500 10px Inter", color: "#A99E8C", textTransform: "uppercase", letterSpacing: ".04em", margin: "12px 0 5px" }}>Válido até</div>
+            <input
+              type="month"
+              value={f?.passportExpiry ?? ""}
+              onChange={(e) => set({ passportExpiry: e.target.value })}
+              style={{ ...darkInput, font: "600 14px Inter", colorScheme: "dark" }}
+            />
           </div>
         </Field>
 
         {/* residence permit */}
         <Field label="Autorização de residência">
-          <div style={{ background: "#FFFDF9", border: "1px solid #EAE3D7", borderRadius: 14, padding: "14px 16px" }}>
-            <div style={{ font: "700 14px Inter", color: "#1A1814" }}>Visto de trabalho · nº 2026-44871</div>
-            <div style={{ display: "inline-flex", alignItems: "center", gap: 6, marginTop: 8, background: "#F4EAD6", borderRadius: 18, padding: "5px 11px" }}>
-              <span style={{ width: 6, height: 6, borderRadius: "50%", background: "#D99A3A" }} />
-              <span style={{ font: "600 11.5px Inter", color: "#B98421" }}>Validade: 12 Jan 2027</span>
+          <div style={{ background: "#FFFDF9", border: "1px solid #EAE3D7", borderRadius: 14, padding: "14px 16px", display: "flex", flexDirection: "column", gap: 12 }}>
+            <div style={selectWrap}>
+              <select value={f?.permitType ?? ""} onChange={(e) => set({ permitType: e.target.value })} style={selectEl}>
+                <option value="" disabled>Tipo de autorização</option>
+                {PERMIT_TYPES.map((t) => <option key={t} value={t}>{t}</option>)}
+              </select>
+              <Chevron />
+            </div>
+            <input
+              value={f?.permitNumber ?? ""}
+              onChange={(e) => set({ permitNumber: e.target.value.toUpperCase() })}
+              placeholder="Nº da autorização"
+              style={lightInput}
+            />
+            <div>
+              <div style={{ font: "500 10px Inter", color: "#8A8073", textTransform: "uppercase", letterSpacing: ".04em", marginBottom: 5 }}>Validade</div>
+              <input
+                type="date"
+                value={f?.permitValidUntil ?? ""}
+                onChange={(e) => set({ permitValidUntil: e.target.value })}
+                style={lightInput}
+              />
             </div>
           </div>
         </Field>
@@ -55,7 +102,7 @@ export function ForeignerScreen() {
         </p>
 
         <div style={{ marginTop: "auto", paddingTop: 16, paddingBottom: 6 }}>
-          <PrimaryButton onClick={() => navigate("/lease")}>Continuar</PrimaryButton>
+          <PrimaryButton onClick={() => complete && navigate("/lease")} disabled={!complete}>Continuar</PrimaryButton>
         </div>
       </div>
     </PhoneChrome>
@@ -73,16 +120,44 @@ function Field({ label, children }: { label: string; children: React.ReactNode }
 
 function Chevron() {
   return (
-    <svg width="14" height="14" viewBox="0 0 24 24" fill="none"><path d="M6 9l6 6 6-6" stroke="#A99E8C" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" /></svg>
+    <svg width="14" height="14" viewBox="0 0 24 24" fill="none" style={{ position: "absolute", right: 14, top: "50%", transform: "translateY(-50%)", pointerEvents: "none" }}>
+      <path d="M6 9l6 6 6-6" stroke="#A99E8C" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" />
+    </svg>
   );
 }
 
-const fieldBox = {
+const selectWrap = { position: "relative" } as const;
+const selectEl = {
+  appearance: "none" as const,
+  WebkitAppearance: "none" as const,
+  width: "100%",
   background: "#FFFDF9",
   border: "1.5px solid #EAE3D7",
   borderRadius: 13,
-  padding: "14px 14px",
-  display: "flex",
-  alignItems: "center",
-  justifyContent: "space-between",
+  padding: "14px 38px 14px 14px",
+  font: "700 14px Inter",
+  color: "#1A1814",
+  outline: "none",
+  cursor: "pointer",
+} as const;
+const lightInput = {
+  width: "100%",
+  boxSizing: "border-box" as const,
+  background: "#FFFFFF",
+  border: "1.5px solid #EAE3D7",
+  borderRadius: 12,
+  padding: "12px 14px",
+  font: "600 14px Inter",
+  color: "#1A1814",
+  outline: "none",
+} as const;
+const darkInput = {
+  width: "100%",
+  boxSizing: "border-box" as const,
+  background: "transparent",
+  border: "none",
+  borderBottom: "1px solid #3A342B",
+  padding: "4px 0",
+  color: "#F8F5F0",
+  outline: "none",
 } as const;

@@ -42,7 +42,7 @@ export function ReverifyScreen() {
         <div style={{ position: "relative" }}>
           <LiveMap lat={-8.899} lng={13.205} accuracy={4} cell={cell} height={150} />
           <div style={{ position: "absolute", left: 12, top: 12, zIndex: 500 }}>
-            <Pill label="GPS recapturado · ±4m" tone="green" />
+            <Pill label="Ponto recapturado · ±4m" tone="green" />
           </div>
         </div>
 

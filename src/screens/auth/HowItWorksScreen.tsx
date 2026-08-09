@@ -2,7 +2,7 @@ import { useNavigate } from "react-router-dom";
 import { PhoneChrome } from "../../components/ui/PhoneChrome";
 
 const STEPS = [
-  { n: 1, title: "Marque o local", desc: "O GPS e a grelha QGSQ dão à sua casa um código único e permanente.", icon: pinIcon },
+  { n: 1, title: "Marque o local", desc: "A grelha QGSQ dá à sua casa um código único e permanente.", icon: pinIcon },
   { n: 2, title: "Os vizinhos confirmam", desc: "A validação comunitária dispensa cadastro oficial — quem vive ali atesta.", icon: peopleIcon },
   { n: 3, title: "Use em todo o lado", desc: "Entregas, banca, serviços e emergência — a partir de um só código.", icon: gridIcon },
 ];

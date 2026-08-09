@@ -1,5 +1,9 @@
+import { useState } from "react";
 import { useNavigate } from "react-router-dom";
+import AfrolocRadar from "../../shared/AfrolocRadar";
+import { MAPBOX_TOKEN } from "../../lib/mapbox";
 import { PhoneChrome } from "../../components/ui/PhoneChrome";
+import { TabBar } from "../../components/ui/TabBar";
 import { AtsRing } from "../../components/ui/AtsRing";
 import { Qr } from "../../components/ui/Qr";
 import { primaryAddress, addressUrl } from "../../data/account";
@@ -14,6 +18,12 @@ export function DetailScreen() {
   const navigate = useNavigate();
   const { configured, primary } = useCitizenData();
   const a = configured && primary ? rowToPrimary(primary) : primaryAddress;
+  const [radar, setRadar] = useState(false);
+  // Ponto de destino do Radar: coordenadas reais da morada do titular (é o dono
+  // a chegar à SUA morada — sem exposição pública). Recurso: ponto de referência.
+  const radarTarget = configured && primary && primary.latitude != null && primary.longitude != null
+    ? { lat: primary.latitude, lng: primary.longitude }
+    : { lat: -8.899, lng: 13.205 };
   const { draft } = useCreateFlow();
   const gen = draft.generated;
   // Posição no ciclo de verificação (documento Score de Risco §5–§6).
@@ -21,7 +31,7 @@ export function DetailScreen() {
   const cycleMeta = cycle ? CYCLE_STATE_META[cycle.state] : null;
 
   return (
-    <PhoneChrome bg="#F0EADE">
+    <PhoneChrome bg="#F0EADE" tabBar={<TabBar active="addresses" />}>
       <div style={{ padding: "0 22px", display: "flex", alignItems: "center", justifyContent: "space-between" }}>
         <button onClick={() => navigate(-1)} aria-label="Voltar" style={iconBtn}>
           <svg width="20" height="20" viewBox="0 0 24 24" fill="none">
@@ -59,7 +69,7 @@ export function DetailScreen() {
               <div>
                 <span style={{ font: "700 11px Inter", color: "#D14B3A" }}>CRIAÇÃO BLOQUEADA POR SEGURANÇA</span>
                 <div style={{ font: "400 12px Inter", color: "#9c3a2d", marginTop: 5, lineHeight: 1.4 }}>
-                  {(gen.flags && gen.flags.length ? gen.flags.map(describeGpsCode) : ["Validação de GPS falhou"]).join("; ")}
+                  {(gen.flags && gen.flags.length ? gen.flags.map(describeGpsCode) : ["Validação do ponto falhou"]).join("; ")}
                 </div>
               </div>
             )}
@@ -91,6 +101,18 @@ export function DetailScreen() {
             <span style={{ font: "400 12.5px Inter", color: "#A99E8C" }}>{a.addressLine}</span>
           </div>
         </div>
+
+        {/* como chegar — a AFROLOC não tem rua nem número: o Radar leva-te ao ponto */}
+        <button onClick={() => setRadar(true)} style={{ all: "unset", cursor: "pointer", display: "flex", alignItems: "center", gap: 13, background: "var(--afl-grad-glow)", borderRadius: 16, padding: "14px 16px" }}>
+          <span style={{ width: 40, height: 40, borderRadius: 11, background: "#1A181418", display: "flex", alignItems: "center", justifyContent: "center", flex: "none" }}>
+            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#2D2519" strokeWidth="1.9" strokeLinecap="round" strokeLinejoin="round"><circle cx="12" cy="12" r="9" /><circle cx="12" cy="12" r="2.5" fill="#2D2519" stroke="none" /><path d="M12 3v3M12 18v3M3 12h3M18 12h3" /></svg>
+          </span>
+          <div style={{ flex: 1 }}>
+            <div style={{ font: "700 14px Inter", color: "#2D2519" }}>Como chegar</div>
+            <div style={{ font: "500 12px Inter", color: "#5A4B2E", marginTop: 2 }}>Radar · RA · Mapa — chegar sem rua nem número</div>
+          </div>
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#2D2519" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><path d="M9 6l6 6-6 6" /></svg>
+        </button>
 
         {/* ATS breakdown */}
         <div style={{ background: "#FFFDF9", borderRadius: 20, padding: 18, border: "1px solid #EAE3D7" }}>
@@ -169,12 +191,30 @@ export function DetailScreen() {
             <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#B98421" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round"><path d="M3 21h18M5 21V8l7-4 7 4v13M9 21v-5h6v5" /></svg>
           </span>
           <div style={{ flex: 1 }}>
-            <div style={{ font: "700 13.5px Inter", color: "#1A1814" }}>Vínculo de ocupação · Inquilino</div>
-            <div style={{ font: "400 12px Inter", color: "#8A8073", marginTop: 2 }}>Senhorio confirmado · obrigações tributárias registadas</div>
+            <div style={{ font: "700 13.5px Inter", color: "#1A1814" }}>
+              {configured ? "Vínculo de ocupação" : "Vínculo de ocupação · Inquilino"}
+            </div>
+            <div style={{ font: "400 12px Inter", color: "#8A8073", marginTop: 2 }}>
+              {configured ? "Registar senhorio, arrendamento e obrigações" : "Senhorio confirmado · obrigações tributárias registadas"}
+            </div>
           </div>
           <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#A99E8C" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><path d="M9 6l6 6-6 6" /></svg>
         </button>
+
       </div>
+
+      {/* Radar (Radar · RA · Mapa) — distância real e meio de locomoção */}
+      {radar && (
+        <div style={{ position: "fixed", inset: 0, zIndex: 60, background: "#0C0B0A", display: "flex", flexDirection: "column" }}>
+          <AfrolocRadar
+            target={radarTarget}
+            title={a.code}
+            subtitle={a.label}
+            onClose={() => setRadar(false)}
+            mapboxToken={MAPBOX_TOKEN}
+          />
+        </div>
+      )}
     </PhoneChrome>
   );
 }

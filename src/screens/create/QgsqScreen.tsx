@@ -29,7 +29,7 @@ export function QgsqScreen() {
           </svg>
         </button>
         <span style={{ font: "700 16px Inter", color: "#1A1814" }}>A sua célula</span>
-        <Pill label={`GPS · ±${draft.coords.accuracy}m`} tone="green" />
+        <Pill label={`Precisão · ±${draft.coords.accuracy}m`} tone="green" />
       </div>
 
       <div style={{ padding: "16px 22px 0", flex: 1, display: "flex", flexDirection: "column" }}>

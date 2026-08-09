@@ -98,17 +98,17 @@ export function describeGpsCode(code: string): string {
   const nums = rest.match(/-?\d+(\.\d+)?/g) || [];
   switch (key.trim()) {
     case "gps_accuracy_too_low":
-      return `Precisão de GPS insuficiente (${nums[0] ?? "?"} m · máx. ${GPS_MAX_ACCURACY_METERS} m)`;
+      return `Precisão insuficiente (${nums[0] ?? "?"} m · máx. ${GPS_MAX_ACCURACY_METERS} m)`;
     case "exif_gps_divergence":
-      return `Foto distante do ponto GPS (${nums[0] ?? "?"} m · máx. ${EXIF_GPS_MAX_DIVERGENCE_M} m)`;
+      return `Foto distante do ponto (${nums[0] ?? "?"} m · máx. ${EXIF_GPS_MAX_DIVERGENCE_M} m)`;
     case "exif_gps_distance":
-      return `Foto a ${nums[0] ?? "?"} m do ponto GPS`;
+      return `Foto a ${nums[0] ?? "?"} m do ponto`;
     case "exif_timestamp_stale":
       return `Foto demasiado antiga (${nums[0] ?? "?"} min · máx. ${EXIF_MAX_AGE_MINUTES} min)`;
     case "exif_timestamp_future":
       return "Data da foto está no futuro";
     case "low_coordinate_precision":
-      return `Precisão de coordenadas baixa (lat ${nums[0] ?? "?"} · lon ${nums[1] ?? "?"} casas)`;
+      return `Precisão do ponto baixa (${nums[0] ?? "?"} · ${nums[1] ?? "?"} casas)`;
     default:
       return code;
   }

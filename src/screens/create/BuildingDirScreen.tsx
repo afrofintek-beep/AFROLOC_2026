@@ -34,7 +34,7 @@ export function BuildingDirScreen() {
       <div style={{ padding: "14px 22px 18px", display: "flex", flexDirection: "column", gap: 14 }}>
         <div style={{ background: "#1A1814", borderRadius: 16, padding: "14px 16px", color: "#F8F5F0" }}>
           <div style={{ font: "700 16px 'Space Mono'", color: "#E8C97A" }}>AO-ZU-G10-X6AUQ-Y49HV</div>
-          <div style={{ font: "400 12px Inter", color: "#A99E8C", marginTop: 3 }}>1 ponto GPS · 24 moradas</div>
+          <div style={{ font: "400 12px Inter", color: "#A99E8C", marginTop: 3 }}>1 ponto · 24 moradas</div>
         </div>
 
         <div style={{ display: "flex", gap: 10 }}>

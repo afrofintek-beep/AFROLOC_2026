@@ -97,7 +97,7 @@ export const primaryAddress: PrimaryAddress = {
   qgsqCell: PRIMARY_CELL,
   issued: "24 Out 2026",
   factors: [
-    { label: "GPS verificado", value: 92, tone: "green" },
+    { label: "Ponto verificado", value: 92, tone: "green" },
     { label: "Testemunhas 2/2", value: 100, tone: "green" },
     { label: "Histórico estável", value: 64, tone: "gold" },
     { label: "Operadora confirmada", value: 88, tone: "green" },

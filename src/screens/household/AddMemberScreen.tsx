@@ -3,6 +3,9 @@ import { useNavigate } from "react-router-dom";
 import { PhoneChrome } from "../../components/ui/PhoneChrome";
 import { PrimaryButton } from "../../components/ui/primitives";
 import { HOUSEHOLD_MAX, RELATIONSHIP_LABEL, members, type Relationship } from "../../data/household";
+import { useAuth } from "../../state/auth";
+import { useCitizenData } from "../../state/citizenData";
+import { addResident } from "../../lib/supabase/residents";
 
 const CHIPS: Relationship[] = ["conjuge", "filho", "progenitor", "irmao", "outro"];
 
@@ -21,15 +24,38 @@ function ageFromDob(dob: string, today = new Date("2026-06-23")): number | null 
 
 export function AddMemberScreen() {
   const navigate = useNavigate();
+  const { configured } = useAuth();
+  const { primary } = useCitizenData();
   const [rel, setRel] = useState<Relationship>("filho");
-  const [name, setName] = useState("Lúcia Cardoso");
+  const [name, setName] = useState(configured ? "" : "Lúcia Cardoso");
   const [dob, setDob] = useState("14/03/2014");
   const [doc, setDoc] = useState("Cédula pessoal");
   const [minor, setMinor] = useState(true);
+  const [saving, setSaving] = useState(false);
+  const [err, setErr] = useState<string | null>(null);
 
   const age = useMemo(() => ageFromDob(dob), [dob]);
   const full = members.length >= HOUSEHOLD_MAX;
-  const valid = !!name.trim() && age != null && !full;
+  // Modo real: guarda só nome + parentesco (como o app oficial); precisa de
+  // uma morada do titular. Modo demo: valida os campos ilustrativos.
+  const valid = configured
+    ? !!name.trim() && !!primary && !saving
+    : !!name.trim() && age != null && !full;
+
+  async function save() {
+    if (!primary) return;
+    setSaving(true);
+    setErr(null);
+    try {
+      const r = await addResident(primary.id, name, rel);
+      if (!r.ok) { setErr(r.message); return; }
+      navigate("/household");
+    } catch (e) {
+      setErr((e as Error).message ?? "Ocorreu um erro.");
+    } finally {
+      setSaving(false);
+    }
+  }
 
   return (
     <PhoneChrome bg="#F0EADE">
@@ -65,6 +91,8 @@ export function AddMemberScreen() {
           <input value={name} onChange={(e) => setName(e.target.value)} style={inputStyle} />
         </Field>
 
+        {!configured && (
+        <>
         <div style={{ display: "flex", gap: 12 }}>
           <div style={{ flex: 2 }}>
             <Field label="Data de nascimento">
@@ -88,14 +116,28 @@ export function AddMemberScreen() {
           <span style={{ font: "600 14px Inter", color: "#1A1814" }}>Menor / dependente</span>
           <Switch on={minor} onClick={() => setMinor((v) => !v)} />
         </label>
+        </>
+        )}
+
+        {configured && !primary && (
+          <p style={{ font: "400 13px Inter", color: "#B23A2A", lineHeight: 1.45, margin: 0 }}>
+            Crie primeiro uma morada — o agregado liga-se a uma morada sua.
+          </p>
+        )}
 
         <p style={{ font: "400 12px Inter", color: "#8A8073", lineHeight: 1.45, margin: 0 }}>
-          Agregado: <strong style={{ color: "#1A1814" }}>1–{HOUSEHOLD_MAX} membros</strong>. Atual: {members.length}. Menores são ligados ao titular até terem documento próprio.
+          {configured
+            ? "Guarda o nome e o parentesco. A prova documental (certidão, etc.) submete-se depois; o membro fica pendente até validação."
+            : <>Agregado: <strong style={{ color: "#1A1814" }}>1–{HOUSEHOLD_MAX} membros</strong>. Atual: {members.length}. Menores são ligados ao titular até terem documento próprio.</>}
         </p>
 
+        {err && (
+          <div style={{ font: "600 12.5px Inter", color: "#B23A2A", background: "#FBEAE7", border: "1px solid #F0C9C1", borderRadius: 12, padding: "10px 12px" }}>{err}</div>
+        )}
+
         <div style={{ paddingTop: 2 }}>
-          <PrimaryButton disabled={!valid} onClick={() => navigate("/householdCensus")}>
-            {full ? "Limite de 15 atingido" : "Adicionar ao agregado"}
+          <PrimaryButton disabled={!valid} onClick={() => (configured ? save() : navigate("/householdCensus"))}>
+            {configured ? (saving ? "A adicionar…" : "Adicionar ao agregado") : full ? "Limite de 15 atingido" : "Adicionar ao agregado"}
           </PrimaryButton>
         </div>
       </div>

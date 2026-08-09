@@ -4,7 +4,7 @@ import { PhoneChrome } from "../../components/ui/PhoneChrome";
 
 const CHECKS = [
   "testemunhas < 1km",
-  "GPS verificado · sem indícios de spoofing · ±4m",
+  "Ponto verificado · sem indícios de manipulação · ±4m",
 ];
 
 const WITNESSES = [

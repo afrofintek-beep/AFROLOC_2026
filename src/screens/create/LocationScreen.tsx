@@ -1,4 +1,4 @@
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { PhoneChrome } from "../../components/ui/PhoneChrome";
 import { FlowHeader, PrimaryButton, Pill, CellPlate } from "../../components/ui/primitives";
@@ -7,6 +7,8 @@ import { useCreateFlow } from "../../state/createFlow";
 import { countryByIso } from "../../data/africaAdmin";
 import { provinces as angolaProvinces, municipiosOf, comunasOf } from "../../data/angolaDivisions";
 import { useGeolocation } from "../../lib/useGeolocation";
+import { useAuth } from "../../state/auth";
+import { listDivisions, type DivOption } from "../../lib/supabase/divisions";
 import { cellForCoords } from "../../lib/qgsq";
 import { adminCodesFor } from "../../lib/afroloc/admin";
 import { validateGpsIntegrity, describeGpsCode } from "../../lib/afroloc/gps";
@@ -19,12 +21,47 @@ export function LocationScreen() {
   const country = countryByIso(draft.division.countryIso);
   const { status, fix, error, locate } = useGeolocation();
 
-  // Cascata administrativa. Para Angola usamos a árvore completa
-  // (província → município → comuna); para outros países, só nível 1.
+  // Cascata administrativa. Com sessão iniciada, os seletores usam as divisões
+  // REAIS de produção (administrative_divisions) — a MESMA estrutura do app
+  // AFROLOC (ex.: Luanda → Belas → comuna). Sem sessão (demo), usa a lista local.
   const isAngola = draft.division.countryIso === "AO";
-  const provinceOptions = isAngola ? angolaProvinces() : (country?.nivel1 ?? []).map((p) => p.nome);
-  const municipioOptions = isAngola ? municipiosOf(draft.division.province) : [];
-  const comunaOptions = isAngola ? comunasOf(draft.division.province, draft.division.municipio) : [];
+  const { configured } = useAuth();
+  const iso = draft.division.countryIso;
+  const [provOpts, setProvOpts] = useState<DivOption[]>([]);
+  const [munOpts, setMunOpts] = useState<DivOption[]>([]);
+  const [comOpts, setComOpts] = useState<DivOption[]>([]);
+
+  // Carrega províncias (nível 1) do país.
+  useEffect(() => {
+    if (!configured) return;
+    listDivisions(iso, 1).then(setProvOpts);
+  }, [configured, iso]);
+  // Carrega municípios (nível 2) da província escolhida.
+  useEffect(() => {
+    if (!configured || !draft.division.level1Code) { setMunOpts([]); return; }
+    listDivisions(iso, 2, draft.division.level1Code).then(setMunOpts);
+  }, [configured, iso, draft.division.level1Code]);
+  // Carrega comunas (nível 3) do município escolhido.
+  useEffect(() => {
+    if (!configured || !draft.division.level2Code) { setComOpts([]); return; }
+    listDivisions(iso, 3, draft.division.level2Code).then(setComOpts);
+  }, [configured, iso, draft.division.level2Code]);
+  // Se o nome da província já vem preenchido (default), associa o código real.
+  useEffect(() => {
+    if (!configured || draft.division.level1Code || !draft.division.province) return;
+    const m = provOpts.find((o) => o.name === draft.division.province);
+    if (m) dispatch({ type: "setDivision", value: { level1Code: m.code } });
+  }, [configured, provOpts, draft.division.province, draft.division.level1Code, dispatch]);
+
+  const provinceOptions = configured
+    ? provOpts.map((o) => o.name)
+    : isAngola ? angolaProvinces() : (country?.nivel1 ?? []).map((p) => p.nome);
+  const municipioOptions = configured
+    ? munOpts.map((o) => o.name)
+    : isAngola ? municipiosOf(draft.division.province) : [];
+  const comunaOptions = configured
+    ? comOpts.map((o) => o.name)
+    : isAngola ? comunasOf(draft.division.province, draft.division.municipio) : [];
 
   // Capture real GPS on mount.
   useEffect(() => {
@@ -49,10 +86,10 @@ export function LocationScreen() {
   });
   const gpsLabel =
     status === "locating"
-      ? "GPS · a localizar…"
+      ? "A localizar…"
       : status === "denied" || status === "unavailable"
-        ? "GPS · indisponível"
-        : `GPS · ±${draft.coords.accuracy}m`;
+        ? "Sinal indisponível"
+        : `Precisão · ±${draft.coords.accuracy}m`;
 
   return (
     <PhoneChrome>
@@ -75,7 +112,7 @@ export function LocationScreen() {
           <button
             onClick={locate}
             disabled={status === "locating"}
-            aria-label="Recapturar GPS"
+            aria-label="Recentrar no ponto"
             style={{
               position: "absolute",
               right: 12,
@@ -106,17 +143,17 @@ export function LocationScreen() {
         {!integrity.valid ? (
           <div style={{ display: "flex", gap: 8, alignItems: "center", background: "#FBE3DE", borderRadius: 12, padding: "9px 12px", marginTop: 8 }}>
             <span style={{ width: 7, height: 7, borderRadius: "50%", background: "#D14B3A", flex: "none" }} />
-            <span style={{ font: "600 11.5px Inter", color: "#9c3a2d" }}>GPS bloqueado: {integrity.flags.map(describeGpsCode).join("; ")}</span>
+            <span style={{ font: "600 11.5px Inter", color: "#9c3a2d" }}>Ponto bloqueado: {integrity.flags.map(describeGpsCode).join("; ")}</span>
           </div>
         ) : integrity.warnings.length > 0 ? (
           <div style={{ display: "flex", gap: 8, alignItems: "center", background: "#F4EAD6", borderRadius: 12, padding: "9px 12px", marginTop: 8 }}>
             <span style={{ width: 7, height: 7, borderRadius: "50%", background: "#D99A3A", flex: "none" }} />
-            <span style={{ font: "600 11.5px Inter", color: "#7C6A4A" }}>Aviso GPS: {integrity.warnings.map(describeGpsCode).join("; ")}</span>
+            <span style={{ font: "600 11.5px Inter", color: "#7C6A4A" }}>Aviso: {integrity.warnings.map(describeGpsCode).join("; ")}</span>
           </div>
         ) : (
           <div style={{ display: "flex", gap: 8, alignItems: "center", background: "#EBF1ED", borderRadius: 12, padding: "9px 12px", marginTop: 8 }}>
             <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="#2F7A57" strokeWidth="2.6" strokeLinecap="round" strokeLinejoin="round"><path d="M5 12l5 5L20 7" /></svg>
-            <span style={{ font: "600 11.5px Inter", color: "#2F7A57" }}>Integridade GPS verificada · sem indícios de spoofing</span>
+            <span style={{ font: "600 11.5px Inter", color: "#2F7A57" }}>Ponto verificado · sem indícios de manipulação</span>
           </div>
         )}
 
@@ -131,21 +168,21 @@ export function LocationScreen() {
             value={draft.division.province ?? ""}
             placeholder="Seleccionar"
             options={provinceOptions}
-            onChange={(v) => dispatch({ type: "setDivision", value: { province: v, municipio: undefined, comuna: undefined } })}
+            onChange={(v) => dispatch({ type: "setDivision", value: { province: v, level1Code: provOpts.find((o) => o.name === v)?.code, municipio: undefined, level2Code: undefined, comuna: undefined, level3Code: undefined } })}
           />
           <SelectField
             label="Município"
             value={draft.division.municipio ?? ""}
             placeholder={draft.division.province ? "Seleccionar" : "Escolha a província"}
             options={municipioOptions}
-            onChange={(v) => dispatch({ type: "setDivision", value: { municipio: v, comuna: undefined } })}
+            onChange={(v) => dispatch({ type: "setDivision", value: { municipio: v, level2Code: munOpts.find((o) => o.name === v)?.code, comuna: undefined, level3Code: undefined } })}
           />
           <SelectField
             label="Comuna"
             value={draft.division.comuna ?? ""}
             placeholder={!draft.division.municipio ? "Escolha o município" : comunaOptions.length ? "Seleccionar" : "Sem comunas"}
             options={comunaOptions}
-            onChange={(v) => dispatch({ type: "setDivision", value: { comuna: v } })}
+            onChange={(v) => dispatch({ type: "setDivision", value: { comuna: v, level3Code: comOpts.find((o) => o.name === v)?.code } })}
           />
         </div>
 

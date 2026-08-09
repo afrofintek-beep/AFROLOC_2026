@@ -4,17 +4,25 @@ import { PhoneChrome } from "../../components/ui/PhoneChrome";
 import { Qr } from "../../components/ui/Qr";
 import { currentUser, primaryAddress, addressUrl } from "../../data/account";
 import { generateCertificatePdf } from "../../lib/certificatePdf";
+import { useAuth } from "../../state/auth";
+import { useCitizenData } from "../../state/citizenData";
+import { rowToPrimary } from "../../lib/afroloc/addressMap";
 
-const USE_CASES = [
-  { title: "Entregas & encomendas", desc: "Estafetas chegam mesmo sem rua.", icon: boxIcon },
-  { title: "Banca & inclusão financeira", desc: "Comprovativo de morada para abrir conta.", icon: bankIcon },
-  { title: "Serviços públicos", desc: "Água, energia, saúde e censos.", icon: civicIcon },
-  { title: "Emergência", desc: "Ambulância e bombeiros encontram-no.", icon: sosIcon },
+type UseKey = "delivery" | "bank" | "public" | "emergency";
+const USE_CASES: { key: UseKey; title: string; desc: string; cta: string; icon: () => JSX.Element; danger?: boolean }[] = [
+  { key: "delivery", title: "Entregas & encomendas", desc: "Estafetas chegam mesmo sem rua.", cta: "Partilhar com estafeta", icon: boxIcon },
+  { key: "bank", title: "Banca & inclusão financeira", desc: "Comprovativo de morada para abrir conta.", cta: "Gerar comprovativo (PDF)", icon: bankIcon },
+  { key: "public", title: "Serviços públicos", desc: "Água, energia, saúde e censos.", cta: "Gerar comprovativo (PDF)", icon: civicIcon },
+  { key: "emergency", title: "Emergência", desc: "Ambulância e bombeiros encontram-no.", cta: "Enviar localização", icon: sosIcon, danger: true },
 ];
 
 export function ShareScreen() {
   const navigate = useNavigate();
-  const a = primaryAddress;
+  const { configured, profile } = useAuth();
+  const { primary } = useCitizenData();
+  // Morada e titular reais quando há sessão; senão, exemplo de demonstração.
+  const a = configured && primary ? rowToPrimary(primary) : primaryAddress;
+  const titular = configured ? profile?.name ?? "Cidadão" : currentUser.name;
   const verifyUrl = addressUrl(a.code);
   const [toast, setToast] = useState<string | null>(null);
 
@@ -27,7 +35,7 @@ export function ShareScreen() {
     flash("A gerar cartão…");
     await generateCertificatePdf({
       code: a.code,
-      titular: currentUser.name,
+      titular,
       morada: a.addressLine,
       qgsqCell: a.qgsqCell,
       validator: a.validator,
@@ -54,6 +62,48 @@ export function ShareScreen() {
     } else {
       await navigator.clipboard?.writeText(`${text}\n${verifyUrl}`);
       flash("Link copiado");
+    }
+  }
+
+  // Envia uma mensagem (partilha nativa → WhatsApp → SMS → copiar) com um texto.
+  async function shareMessage(title: string, text: string) {
+    if (navigator.share) {
+      try { await navigator.share({ title, text, url: verifyUrl }); return; } catch { /* cancelado ou sem suporte */ }
+    }
+    const full = `${text} ${verifyUrl}`;
+    // WhatsApp (o canal mais usado em Angola); fallback para SMS/copiar.
+    const wa = `https://wa.me/?text=${encodeURIComponent(full)}`;
+    const win = window.open(wa, "_blank");
+    if (!win) {
+      try { await navigator.clipboard?.writeText(full); flash("Mensagem copiada"); }
+      catch { window.location.href = `sms:?&body=${encodeURIComponent(full)}`; }
+    }
+  }
+
+  const coordsStr =
+    configured && primary && primary.latitude != null && primary.longitude != null
+      ? ` Coordenadas: ${primary.latitude.toFixed(5)}, ${primary.longitude.toFixed(5)}.`
+      : "";
+
+  // Ação de cada caso de uso.
+  function onUseCase(key: UseKey) {
+    switch (key) {
+      case "delivery":
+        void shareMessage(
+          "Entrega · AFROLOC",
+          `📦 Entrega para a minha AFROLOC ${a.code} (${a.locationLine}). Chega mesmo sem rua — siga o guia até ao ponto:`,
+        );
+        break;
+      case "bank":
+      case "public":
+        void pdf(); // comprovativo de morada (o mesmo documento verificável)
+        break;
+      case "emergency":
+        void shareMessage(
+          "Emergência · AFROLOC",
+          `🚨 EMERGÊNCIA — localização AFROLOC ${a.code} (${a.locationLine}).${coordsStr} Cheguem por aqui:`,
+        );
+        break;
     }
   }
 
@@ -84,15 +134,20 @@ export function ShareScreen() {
           <div style={{ font: "700 14px Inter", color: "#1A1814", marginBottom: 10 }}>Usar a morada para</div>
           <div style={{ display: "flex", flexDirection: "column", gap: 9 }}>
             {USE_CASES.map((u) => (
-              <div key={u.title} style={{ display: "flex", alignItems: "center", gap: 12, background: "#FFFDF9", border: "1px solid #EAE3D7", borderRadius: 14, padding: "12px 14px" }}>
-                <span style={{ width: 40, height: 40, borderRadius: 11, background: "#FBF2DC", display: "flex", alignItems: "center", justifyContent: "center", flex: "none" }}>
+              <button
+                key={u.key}
+                onClick={() => onUseCase(u.key)}
+                style={{ all: "unset", cursor: "pointer", display: "flex", alignItems: "center", gap: 12, background: "#FFFDF9", border: `1px solid ${u.danger ? "#F0C9C1" : "#EAE3D7"}`, borderRadius: 14, padding: "12px 14px", boxSizing: "border-box" }}
+              >
+                <span style={{ width: 40, height: 40, borderRadius: 11, background: u.danger ? "#FBEAE7" : "#FBF2DC", display: "flex", alignItems: "center", justifyContent: "center", flex: "none" }}>
                   {u.icon()}
                 </span>
-                <div>
+                <div style={{ flex: 1, minWidth: 0 }}>
                   <div style={{ font: "700 13.5px Inter", color: "#1A1814" }}>{u.title}</div>
                   <div style={{ font: "400 12px Inter", color: "#8A8073", marginTop: 1 }}>{u.desc}</div>
+                  <div style={{ font: "700 11px Inter", color: u.danger ? "#D14B3A" : "#B0831F", marginTop: 5 }}>{u.cta} ›</div>
                 </div>
-              </div>
+              </button>
             ))}
           </div>
         </div>

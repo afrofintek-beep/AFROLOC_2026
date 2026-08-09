@@ -15,3 +15,7 @@ node_modules
 
 # TypeScript build cache
 *.tsbuildinfo
+
+# Ferramentas locais / deploy (específicos da máquina/conta, não versionar)
+.vercel
+.claude/

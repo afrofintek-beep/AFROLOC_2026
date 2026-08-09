@@ -6,6 +6,8 @@ import "leaflet/dist/leaflet.css";
 import { PhoneChrome } from "../../components/ui/PhoneChrome";
 import { TabBar } from "../../components/ui/TabBar";
 import { ADDRESSES, STATUS_COLOR, type AddressStatus, type AddressSummary } from "../../data/addresses";
+import { useCitizenData } from "../../state/citizenData";
+import { rowToSummary } from "../../lib/afroloc/addressMap";
 
 type Filter = "todas" | "activas" | "pendentes";
 
@@ -43,12 +45,19 @@ function FitBounds({ items }: { items: AddressSummary[] }) {
 export function IdentitiesMapScreen() {
   const navigate = useNavigate();
   const [filter, setFilter] = useState<Filter>("todas");
+  const { configured, addresses: rows } = useCitizenData();
+
+  // Moradas reais (só as geolocalizadas) quando há sessão; senão, demonstração.
+  const all = useMemo<AddressSummary[]>(
+    () => (configured ? rows.map(rowToSummary).filter((a) => a.lat && a.lng) : ADDRESSES),
+    [configured, rows]
+  );
 
   const items = useMemo(() => {
-    if (filter === "activas") return ADDRESSES.filter((a) => a.status === "ACTIVO");
-    if (filter === "pendentes") return ADDRESSES.filter((a) => a.status === "PENDENTE");
-    return ADDRESSES;
-  }, [filter]);
+    if (filter === "activas") return all.filter((a) => a.status === "ACTIVO");
+    if (filter === "pendentes") return all.filter((a) => a.status === "PENDENTE");
+    return all;
+  }, [filter, all]);
 
   return (
     <PhoneChrome bg="#F0EADE" tabBar={<TabBar active="identitiesMap" />}>
@@ -85,7 +94,7 @@ export function IdentitiesMapScreen() {
               boxShadow: "0 4px 10px -3px rgba(28,24,21,.5)",
             }}
           >
-            {ADDRESSES.length}
+            {all.length}
           </span>
           <div style={{ display: "flex", gap: 7 }}>
             {FILTERS.map((f) => {

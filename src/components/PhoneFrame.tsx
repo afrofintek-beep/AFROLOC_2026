@@ -1,4 +1,5 @@
 import { useLayoutEffect, useRef, useState, type ReactNode } from "react";
+import { usePhoneMode } from "../lib/usePhoneMode";
 
 /**
  * Scales a screen (which carries its own 390×844 phone / 1180×760 web frame)
@@ -11,6 +12,7 @@ export function PhoneFrame({
   format: "phone" | "web";
   children: ReactNode;
 }) {
+  const phone = usePhoneMode();
   const w = format === "web" ? 1180 : 390;
   const h = format === "web" ? 760 : 844;
   const [scale, setScale] = useState(1);
@@ -29,6 +31,11 @@ export function PhoneFrame({
     window.addEventListener("resize", fit);
     return () => window.removeEventListener("resize", fit);
   }, [w, h]);
+
+  // Instalada / ecrã de telemóvel: preenche o ecrã, sem escalar a moldura fixa.
+  if (phone && format === "phone") {
+    return <div style={{ width: "100%", height: "100dvh" }}>{children}</div>;
+  }
 
   // Outer box reserves the scaled footprint; inner box renders at design size.
   return (

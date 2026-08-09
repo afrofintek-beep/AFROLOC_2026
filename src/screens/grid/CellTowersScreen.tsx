@@ -63,7 +63,7 @@ export function CellTowersScreen() {
         </div>
 
         <p style={{ font: "400 12px Inter", color: DARK.muted, lineHeight: 1.5, margin: 0 }}>
-          A triangulação reforça o GPS e deteta spoofing quando a posição não bate com as antenas servidoras.
+          A triangulação reforça o ponto e deteta manipulação quando a posição não bate com as antenas servidoras.
         </p>
       </div>
     </PhoneChrome>
