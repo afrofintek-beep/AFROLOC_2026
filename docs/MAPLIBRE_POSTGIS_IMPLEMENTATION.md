@@ -12,6 +12,15 @@ Modernize the existing `AFROLOC_2026` project whose official public reference is
 
 The public site and operational app must share the same AFROLOC identity, design system, terminology and domain logic. Preserve `/landing` and its public navigation while integrating authenticated capabilities behind the app surface.
 
+## Product separation
+
+| Product | Responsibility | Domain |
+| --- | --- | --- |
+| AFROLOC | Place identity, canonical address, verification, privacy, consent and LOCACCESS | `www.afroloc.ao` / `app.afroloc.ao` |
+| NJILA | Maps, wayfinding, routing and circulation where conventional toponymy is weak or absent | `njilamaps.com` |
+
+AFROLOC consumes NJILA as a mapping/navigation capability. NJILA can resolve or route to an AFROLOC destination only through authorized interfaces; it does not own the address, verification or private coordinates. MapLibre/OSM and optional HERE/TomTom routing belong to NJILA's technical boundary.
+
 ## Product boundary
 
 AFROLOC owns:
@@ -58,7 +67,7 @@ This exact value is a mandatory fixture. Segment meanings beyond what is formall
 - Feature-flag v2 issuance until segment semantics and collision/check rules are signed off.
 - Remove user-facing hard-coded legacy examples.
 
-### WP2 — MapLibre provider layer
+### WP2 — NJILA MapLibre provider layer
 
 Suggested interface:
 
@@ -71,7 +80,8 @@ interface MapProviderConfig {
 }
 ```
 
-- Add MapLibre GL.
+- Define the AFROLOC ↔ NJILA adapter contract before adding UI dependencies.
+- Add MapLibre GL behind the NJILA provider boundary.
 - Implement an AFROLOC map component with marker, accuracy radius, QG/SQ polygon and privacy-safe layers.
 - Read style URL from `VITE_MAP_STYLE_URL`.
 - Add a development-only safe fallback.
