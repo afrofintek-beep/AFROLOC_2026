@@ -13,6 +13,14 @@ Source-of-truth hierarchy:
 
 Preserve the official landing experience, brand, public navigation and working routes. New map, address, privacy and institutional capabilities must integrate into the existing product. Do not replace the official landing page with a generic dashboard.
 
+## Product separation: AFROLOC and NJILA
+
+- **AFROLOC** is the sovereign identity, addressing, verification, privacy and access-control layer.
+- **NJILA** is the mapping, wayfinding, routing and circulation product for places with weak or absent conventional toponymy.
+- Official NJILA domain: `https://njilamaps.com`.
+- MapLibre, OpenStreetMap-derived basemaps and optional HERE/TomTom routing adapters belong behind the NJILA capability boundary.
+- AFROLOC may embed or consume NJILA maps through a provider-neutral internal SDK/API, but AFROLOC must not be renamed to NJILA and NJILA must not issue or own AFROLOC identities.
+
 AFROLOC is not a generic map or a Google/Apple Maps clone. It is a sovereign territorial identity system that turns a real place into a verifiable, privacy-controlled and economically useful digital address.
 
 Core principle:
@@ -65,7 +73,9 @@ Before making changes:
 
 ## Target architecture
 
-### Map rendering
+### NJILA map rendering boundary
+
+Create a provider-neutral NJILA map adapter inside the current integration phase, with the extraction path to the `njilamaps.com` product/repository documented. Avoid hard coupling AFROLOC domain logic to a map vendor or to NJILA UI components.
 
 Migrate the application map renderer from Leaflet to MapLibre GL JS / MapLibre Native-compatible patterns.
 
