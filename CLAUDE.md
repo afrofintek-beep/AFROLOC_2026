@@ -15,6 +15,8 @@ Preserve the official landing experience, brand, public navigation and working r
 
 ## Product separation: AFROLOC and NJILA
 
+The approved brand source is **NJILA Brand Identity Manual 2026 — Master Edition 1.0, August 2026**. Read `docs/NJILA_BRAND_IMPLEMENTATION.md` before implementing any NJILA UI. The PDF/manual and approved vector assets outrank developer-created visual interpretations.
+
 - **AFROLOC** is the sovereign identity, addressing, verification, privacy and access-control layer.
 - **NJILA** is the mapping, wayfinding, routing and circulation product for places with weak or absent conventional toponymy.
 - Official NJILA domain: `https://njilamaps.com`.
