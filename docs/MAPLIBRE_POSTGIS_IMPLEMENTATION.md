@@ -2,7 +2,15 @@
 
 ## Outcome
 
-Modernize the existing `AFROLOC_2026` application behind `app.afroloc.ao` without discarding its working screens. The result is a sovereign, provider-portable, offline-first territorial identity platform.
+Modernize the existing `AFROLOC_2026` project whose official public reference is `https://www.afroloc.ao/landing`. Build `app.afroloc.ao` as its operational application surface without creating a disconnected product or discarding the existing landing experience and working screens. The result is a sovereign, provider-portable, offline-first territorial identity platform.
+
+## Official product reference
+
+- Official project/public experience: `https://www.afroloc.ao/landing`
+- Operational application surface: `https://app.afroloc.ao`
+- Codebase: `afrofintek-beep/AFROLOC_2026`
+
+The public site and operational app must share the same AFROLOC identity, design system, terminology and domain logic. Preserve `/landing` and its public navigation while integrating authenticated capabilities behind the app surface.
 
 ## Product boundary
 
