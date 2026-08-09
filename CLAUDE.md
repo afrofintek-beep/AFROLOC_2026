@@ -2,7 +2,16 @@
 
 ## Mission
 
-Evolve this repository into the production application served at `app.afroloc.ao`.
+Maintain and evolve the official AFROLOC product currently represented by `https://www.afroloc.ao/landing`. Build `app.afroloc.ao` as the operational application surface of this same product and repository, not as a separate greenfield product.
+
+Source-of-truth hierarchy:
+
+1. Founder-approved AFROLOC domain decisions and canonical nomenclature.
+2. Existing official product behavior and visual identity at `https://www.afroloc.ao/landing`.
+3. The working implementation in this repository.
+4. This implementation plan.
+
+Preserve the official landing experience, brand, public navigation and working routes. New map, address, privacy and institutional capabilities must integrate into the existing product. Do not replace the official landing page with a generic dashboard.
 
 AFROLOC is not a generic map or a Google/Apple Maps clone. It is a sovereign territorial identity system that turns a real place into a verifiable, privacy-controlled and economically useful digital address.
 
