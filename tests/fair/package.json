@@ -1,0 +1,11 @@
+{
+  "name": "afroloc-witness-confirmation-tests",
+  "private": true,
+  "type": "module",
+  "scripts": {
+    "test": "node --experimental-strip-types handler.test.mjs && node database.test.mjs"
+  },
+  "dependencies": {
+    "@electric-sql/pglite": "0.5.15"
+  }
+}

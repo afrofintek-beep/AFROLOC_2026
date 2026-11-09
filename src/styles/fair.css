@@ -1,0 +1,293 @@
+.fair-app {
+  max-width: 880px;
+  margin: auto;
+  min-height: 100vh;
+  background: #f6f2e9;
+  color: #242019;
+}
+.fair-app header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 24px 32px;
+  background: #1a1814;
+  color: #f6f2e9;
+  gap: 20px;
+}
+.fair-app a {
+  color: inherit;
+  text-underline-offset: 4px;
+}
+.fair-app header a {
+  font-size: 13px;
+  color: #e8c97a;
+}
+.fair-hero {
+  background: #1a1814;
+  color: #f6f2e9;
+  padding: 24px 40px 40px;
+}
+.fair-eyebrow {
+  color: #d4a853;
+  font-size: 11px;
+  font-weight: 800;
+  letter-spacing: 0.14em;
+}
+.fair-hero h1 {
+  font-family: "Playfair Display", Georgia, serif;
+  font-weight: 600;
+  font-size: clamp(32px, 6vw, 48px);
+  line-height: 1.14;
+  margin: 22px 0 16px;
+}
+.fair-hero p {
+  max-width: 560px;
+  line-height: 1.65;
+  color: #c8bfae;
+}
+.fair-rule {
+  border-left: 3px solid #d4a853;
+  padding-left: 16px;
+  display: grid;
+  gap: 6px;
+  margin-top: 26px;
+}
+.fair-rule span {
+  font-size: 13px;
+  color: #c8bfae;
+}
+.fair-content {
+  padding: 24px 32px;
+}
+.fair-card {
+  padding: 24px;
+  background: #fffdf9;
+  border: 1px solid #e5ddcf;
+  border-radius: 18px;
+  margin-bottom: 20px;
+}
+.fair-card h2 {
+  margin: 0 0 12px;
+  font-size: 21px;
+}
+.fair-card h3 {
+  font-size: 18px;
+}
+.fair-card p {
+  font-size: 14px;
+  line-height: 1.6;
+  color: #665d4e;
+}
+.fair-app form {
+  display: grid;
+  gap: 16px;
+}
+.fair-app label {
+  display: grid;
+  gap: 7px;
+  font-size: 13px;
+  font-weight: 650;
+  margin: 12px 0;
+}
+.fair-app input,
+.fair-app textarea,
+.fair-app select {
+  width: 100%;
+  border: 1px solid #cfc3af;
+  border-radius: 9px;
+  background: white;
+  color: #242019;
+  font: inherit;
+  font-size: 16px;
+  padding: 12px;
+}
+.fair-app textarea {
+  min-height: 100px;
+}
+.fair-app button,
+.fair-link-button {
+  display: inline-block;
+  border: 0;
+  border-radius: 10px;
+  padding: 13px 18px;
+  background: #e2bb6a;
+  color: #211b11;
+  font:
+    700 14px Inter,
+    sans-serif;
+  cursor: pointer;
+  text-decoration: none;
+  text-align: center;
+  margin: 4px 4px 4px 0;
+}
+.fair-app button:disabled {
+  opacity: 0.48;
+  cursor: not-allowed;
+}
+.fair-app button.secondary {
+  background: #f0eadf;
+  border: 1px solid #d8cdbb;
+}
+.fair-app button.fair-address {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  width: 100%;
+  text-align: left;
+  background: #f6f2e9;
+  border: 1px solid #ded3c0;
+  padding: 16px;
+  margin: 12px 0;
+  color: #332a1c;
+}
+.fair-app button.fair-address.selected {
+  border: 2px solid #b5842f;
+  background: #fff7e7;
+}
+.fair-address span {
+  font-weight: 400;
+  font-size: 13px;
+  line-height: 1.5;
+}
+.fair-app code {
+  overflow-wrap: anywhere;
+  font:
+    600 13px "Space Mono",
+    monospace;
+}
+.fair-code {
+  display: block;
+  padding: 14px;
+  background: #f2ecdf;
+  margin: 16px 0;
+  border-radius: 9px;
+}
+.fair-toolbar {
+  display: flex;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 8px;
+  margin: 0 0 20px;
+}
+.fair-toolbar span {
+  flex: 1;
+  font-size: 13px;
+  overflow-wrap: anywhere;
+}
+.fair-check {
+  display: flex !important;
+  align-items: flex-start;
+  gap: 10px !important;
+  line-height: 1.6;
+  font-weight: 400 !important;
+}
+.fair-check input {
+  width: 18px;
+  height: 18px;
+  flex-shrink: 0;
+  accent-color: #9a7024;
+  margin-top: 3px;
+}
+.fair-status-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 10px;
+  margin: 18px 0;
+}
+.fair-status-grid div {
+  background: #f1ebdf;
+  padding: 14px;
+  border-radius: 10px;
+  display: grid;
+  gap: 7px;
+}
+.fair-status-grid strong {
+  font-size: 17px;
+}
+.fair-status-grid span {
+  font-size: 12px;
+  color: #6c6150;
+}
+.fair-witness {
+  display: grid;
+  gap: 8px;
+  border-bottom: 1px solid #e5ddcf;
+  padding: 16px 0;
+  font-size: 13px;
+}
+.fair-small {
+  font-size: 12px !important;
+}
+.fair-error,
+.fair-message {
+  padding: 16px;
+  border-radius: 10px;
+  line-height: 1.6;
+  font-size: 14px;
+}
+.fair-error {
+  background: #fce8df;
+  color: #873b26;
+}
+.fair-message {
+  background: #e7efe7;
+  color: #285b3c;
+}
+.fair-contact {
+  display: flex;
+  gap: 16px;
+  justify-content: space-between;
+  padding: 14px 0;
+  border-bottom: 1px solid #e5ddcf;
+  font-size: 14px;
+}
+.fair-invitation {
+  margin-top: 22px;
+  border-top: 1px solid #e5ddcf;
+  padding-top: 12px;
+}
+.fair-links {
+  margin-top: 18px;
+  font-size: 13px;
+}
+.fair-app footer {
+  text-align: center;
+  font-size: 12px;
+  line-height: 2;
+  color: #766b59;
+  padding: 15px;
+}
+.fair-app summary {
+  font-size: 13px;
+  cursor: pointer;
+  margin: 16px 0;
+}
+.fair-app :focus-visible {
+  outline: 3px solid #aa7925;
+  outline-offset: 3px;
+}
+@media (max-width: 560px) {
+  .fair-app header {
+    padding: 20px;
+  }
+  .fair-hero {
+    padding: 20px 24px 30px;
+  }
+  .fair-content {
+    padding: 16px;
+  }
+  .fair-card {
+    padding: 20px;
+  }
+  .fair-status-grid {
+    grid-template-columns: 1fr;
+  }
+  .fair-status-grid div {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+  }
+  .fair-contact {
+    flex-wrap: wrap;
+  }
+}
