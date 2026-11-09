@@ -10,6 +10,7 @@ const TABS: Tab[] = [
   { id: "home", label: "Início", icon: homeIcon },
   { id: "addresses", label: "Moradas", icon: listIcon },
   { id: "identitiesMap", label: "Mapa", icon: mapIcon },
+  { id: "services", label: "Serviços", icon: listIcon },
   { id: "profile", label: "Perfil", icon: userIcon },
 ];
 

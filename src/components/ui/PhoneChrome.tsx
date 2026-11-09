@@ -1,54 +1,13 @@
-import type { CSSProperties, ReactNode } from "react";
+import { useEffect, useState, type CSSProperties, type ReactNode } from "react";
 
-/** iOS-style status bar (9:41, signal, 5G, battery) as in the design mocks. */
-export function StatusBar({
-  dark = false,
-  offline = false,
-  offlineLabel = "OFFLINE",
-}: {
-  dark?: boolean;
-  offline?: boolean;
-  offlineLabel?: string;
-}) {
-  const ink = dark ? "#F5F0E8" : "#1A1814";
-  return (
-    <div
-      style={{
-        height: 54,
-        flex: "none",
-        display: "flex",
-        alignItems: "center",
-        justifyContent: "space-between",
-        padding: "0 30px 0 34px",
-      }}
-    >
-      <span style={{ font: "600 15px Inter", color: ink }}>9:41</span>
-      <div style={{ display: "flex", alignItems: "center", gap: 8 }}>
-        <div style={{ display: "flex", alignItems: "flex-end", gap: 2, height: 11 }}>
-          {[4, 6, 8, 11].map((h) => (
-            <div key={h} style={{ width: 3, height: h, background: ink, borderRadius: 1 }} />
-          ))}
-        </div>
-        <span style={{ font: "700 11px Inter", color: offline ? "#D99A3A" : ink }}>
-          {offline ? offlineLabel : "5G"}
-        </span>
-        <div style={{ display: "flex", alignItems: "center", gap: 2 }}>
-          <div
-            style={{
-              width: 23,
-              height: 12,
-              border: `1.5px solid ${ink}`,
-              borderRadius: 3,
-              padding: 1.5,
-            }}
-          >
-            <div style={{ width: "72%", height: "100%", background: ink, borderRadius: 1 }} />
-          </div>
-          <div style={{ width: 2, height: 5, background: ink, borderRadius: "0 2px 2px 0" }} />
-        </div>
-      </div>
-    </div>
-  );
+/** Brand bar: actual device time, without fabricated signal or battery readings. */
+export function StatusBar({ dark = false, offline = false, offlineLabel = "OFFLINE" }: { dark?: boolean; offline?: boolean; offlineLabel?: string }) {
+  const [now, setNow] = useState(() => new Date());
+  useEffect(() => { const id = setInterval(() => setNow(new Date()), 60000); return () => clearInterval(id); }, []);
+  return <div style={{ height: 54, flex: "none", display: "flex", alignItems: "center", justifyContent: "space-between", padding: "0 30px", color: dark ? "#F5F0E8" : "#1A1814" }}>
+    <span style={{ font: "600 13px Inter" }}>{now.toLocaleTimeString("pt-AO", { hour: "2-digit", minute: "2-digit" })}</span>
+    <span style={{ font: "700 10px Inter", letterSpacing: ".12em" }}>{offline ? offlineLabel : "AFROLOC"}</span>
+  </div>;
 }
 
 /**

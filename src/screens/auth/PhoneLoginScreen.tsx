@@ -19,7 +19,7 @@ export function PhoneLoginScreen() {
   async function handleSend() {
     setError(null);
     if (!configured) {
-      navigate("/otp"); // modo demo
+      setError("Ligação AFROLOC indisponível.");
       return;
     }
     setBusy(true);

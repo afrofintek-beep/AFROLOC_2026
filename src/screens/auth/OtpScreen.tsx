@@ -40,7 +40,7 @@ export function OtpScreen() {
   async function verify() {
     setError(null);
     if (!configured) {
-      navigate("/home"); // modo demo
+      setError("Ligação AFROLOC indisponível.");
       return;
     }
     setBusy(true);

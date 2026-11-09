@@ -22,7 +22,7 @@ export function RegisterScreen() {
   async function handleRegister() {
     setError(null);
     if (!configured) {
-      navigate("/home"); // modo demo
+      setError("Ligação AFROLOC indisponível.");
       return;
     }
     setBusy(true);
