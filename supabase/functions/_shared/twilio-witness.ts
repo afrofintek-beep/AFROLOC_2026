@@ -7,6 +7,7 @@ export const twilioAccount = (env: Env) => env.get('FAIR_TWILIO_ACCOUNT_SID') ||
 export const twilioNumber = (env: Env) => env.get('FAIR_TWILIO_NUMBER') || TWILIO_NUMBER;
 export const twilioToken = (env: Env) => env.get('FAIR_TWILIO_AUTH_TOKEN');
 export const twilioConfigured = (env: Env) => /^AC[a-f0-9]{32}$/i.test(twilioAccount(env)) && /^\+[1-9][0-9]{7,14}$/.test(twilioNumber(env)) && !!twilioToken(env);
+const reject = (stage: string) => { console.warn(JSON.stringify({event:'afroloc_twilio_rejected',stage})); return xml(undefined,403); };
 const xml = (message?: string, status = 200) => new Response('<?xml version="1.0" encoding="UTF-8"?><Response>' + (message ? '<Message>' + message.replace(/[<>&"']/g, c => ({'<':'&lt;','>':'&gt;','&':'&amp;','"':'&quot;',"'":'&apos;'}[c]!)) + '</Message>' : '') + '</Response>', {status, headers:{'Content-Type':'text/xml; charset=utf-8','Cache-Control':'no-store'}});
 export async function validTwilioSignature(url: string, form: URLSearchParams, signature: string, token: string) {
   const keys = [...new Set(form.keys())].sort();
@@ -40,16 +41,16 @@ export async function handleTwilioWitness(req: Request, env: Env, transport: typ
   if(new URL(req.url).search) return xml(undefined,400);
   const raw = await req.text(); if(raw.length>20000)return xml(undefined,413);
   const form = new URLSearchParams(raw);
-  if(!await validTwilioSignature(publicUrl,form,req.headers.get('X-Twilio-Signature')||'',twilioToken(env)!))return xml(undefined,403);
+  if(!await validTwilioSignature(publicUrl,form,req.headers.get('X-Twilio-Signature')||'',twilioToken(env)!))return reject('signature');
   for(const key of ['AccountSid','MessageSid','From','To','Body']) if(form.getAll(key).length!==1)return xml(undefined,400);
   const account=twilioAccount(env), sid=form.get('MessageSid')!,from=form.get('From')!,to=form.get('To')!,body=form.get('Body')!;
-  if(form.get('AccountSid')!==account || to!==twilioNumber(env) || !/^\+[1-9][0-9]{7,14}$/.test(from) || !sidPattern.test(sid))return xml(undefined,403);
+  if(form.get('AccountSid')!==account || to!==twilioNumber(env) || !/^\+[1-9][0-9]{7,14}$/.test(from) || !sidPattern.test(sid))return reject('envelope');
   try {
     // Retrieve provider evidence for the original receipt time (webhook has no timestamp).
     const receipt = await transport(`https://api.twilio.com/2010-04-01/Accounts/${account}/Messages/${sid}.json`,{headers:{Authorization:'Basic '+btoa(account+':'+twilioToken(env))},signal:AbortSignal.timeout(10000)});
     if(!receipt.ok)return xml(undefined,503);
     const actual=await receipt.json();const received=new Date(actual.date_created);
-    if(actual.sid!==sid || actual.account_sid!==account || actual.direction!=='inbound' || actual.from!==from || actual.to!==to || actual.body!==body || !['received','receiving'].includes(actual.status) || !Number.isFinite(received.getTime()))return xml(undefined,403);
+    if(actual.sid!==sid || actual.account_sid!==account || actual.direction!=='inbound' || actual.from!==from || actual.to!==to || actual.body!==body || !['received','receiving'].includes(actual.status) || !Number.isFinite(received.getTime()))return reject('provider_evidence');
     const age=Date.now()-received.getTime();if(age < -300000 || age>48*3600000)return xml();
     if(body.trim().toUpperCase()==='TESTE-RETORNO' && from===TEST_PHONE) {
       console.info(JSON.stringify({event:'afroloc_twilio_return_test',message_sid:sid,received_at:received.toISOString(),test_only:true}));
