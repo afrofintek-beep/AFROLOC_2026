@@ -35,3 +35,7 @@ As mensagens ACEITO/RECUSO têm de incluir a referência do pedido. São regista
 Nove testes Twilio cobrem o vetor de assinatura publicado na documentação oficial, adulteração, parâmetros adicionais, conta/destinatário incorretos, confronto com o fornecedor, horário real, bloqueio por configuração incompleta, falhas de persistência, diagnóstico restrito, duplicados e transporte de saída sem aprovação fictícia. As suites anteriores continuam aplicáveis.
 
 Fontes: https://www.twilio.com/docs/usage/security e https://www.twilio.com/docs/messaging/api/message-resource .
+
+## Estado da publicação
+
+O recetor `fair-witness-twilio` foi publicado na AFROLOC, versão 1. O teste HTTP real devolveu 503 com `configured=false`, e recusou um POST sem credencial. Esta resposta é intencional enquanto faltarem os secrets. O webhook Twilio mantém a configuração anterior até a credencial ser guardada e o teste autenticado poder começar. A migração e ativação do processo completo de testemunhas continuam pendentes.

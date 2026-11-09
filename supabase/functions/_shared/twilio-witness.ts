@@ -1,4 +1,4 @@
-import type { Env } from './witness-confirmation.ts';
+type Env = { get(name: string): string | undefined };
 // The sender number was verified in the user's console. Account identifiers stay in server configuration.
 export const TWILIO_NUMBER = '+19843145245';
 export const TEST_PHONE = '+244923828282';
