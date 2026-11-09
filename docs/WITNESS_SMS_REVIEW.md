@@ -1,5 +1,7 @@
 # Identificação, aceitação por SMS e revisão das testemunhas
 
+Atualização de 9 de novembro: o utilizador confirmou Twilio como fornecedor. A configuração atual e os passos de ativação estão em `TWILIO_CONNECTION.md`; a configuração Infobip abaixo é apenas a alternativa explícita.
+
 ## Âmbito e comportamento
 
 Esta alteração aplica o processo de três testemunhas aos endereços inscritos na feira. Usa os códigos e titulares dos registos canónicos de afroloc.ao. Não altera o protocolo de testemunhas de endereços que não estejam inscritos na feira.

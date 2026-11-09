@@ -1,7 +1,7 @@
 import test from 'node:test';
 import assert from 'node:assert/strict';
 import { handleInboundSms, dispatchWitness, normalizePhone, smsReady } from '../../supabase/functions/_shared/fair-witness-sms.ts';
-const values={SUPABASE_URL:'https://test.supabase.co',SUPABASE_SERVICE_ROLE_KEY:'server-only',INFOBIP_INBOUND_USER:'test-provider',INFOBIP_INBOUND_PASS:'test-password',FAIR_SMS_NUMBER:'+244900999999',FAIR_SMS_INBOUND_READY:'true',INFOBIP_BASE_URL:'https://test.api.infobip.com',INFOBIP_API_KEY:'test-api-key'};
+const values={FAIR_SMS_PROVIDER:'infobip',SUPABASE_URL:'https://test.supabase.co',SUPABASE_SERVICE_ROLE_KEY:'server-only',INFOBIP_INBOUND_USER:'test-provider',INFOBIP_INBOUND_PASS:'test-password',FAIR_SMS_NUMBER:'+244900999999',FAIR_SMS_INBOUND_READY:'true',INFOBIP_BASE_URL:'https://test.api.infobip.com',INFOBIP_API_KEY:'test-api-key'};
 const env={get:k=>values[k]}; const auth='Basic '+btoa('test-provider:test-password');
 const wid='00000000-0000-0000-0000-000000000001';
 const message={from:'244900000002',to:'244900999999',text:'ACEITO 0123456789ABCDEF',messageId:'msg-1',receivedAt:'2026-11-09T14:00:00.000+0000'};

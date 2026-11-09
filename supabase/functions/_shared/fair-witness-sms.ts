@@ -1,3 +1,4 @@
+import { twilioConfigured, twilioNumber, sendTwilioSms } from "./twilio-witness.ts";
 import type { Env } from "./witness-confirmation.ts";
 export const normalizePhone = (value: unknown): string | null => {
   if (typeof value !== "string" || value.length > 30 || !/^[+0-9 ()-]+$/.test(value)) return null;
@@ -5,7 +6,8 @@ export const normalizePhone = (value: unknown): string | null => {
   if (digits.startsWith("00")) digits = digits.slice(2);
   return /^[1-9][0-9]{7,14}$/.test(digits) ? "+" + digits : null;
 };
-export const smsReady = (env: Env) => env.get("FAIR_SMS_INBOUND_READY") === "true" && !!normalizePhone(env.get("FAIR_SMS_NUMBER")) && !!env.get("INFOBIP_INBOUND_USER") && !!env.get("INFOBIP_INBOUND_PASS") && !!env.get("INFOBIP_API_KEY") && !!env.get("INFOBIP_BASE_URL");
+const provider = (env: Env) => env.get("FAIR_SMS_PROVIDER") || "twilio";
+export const smsReady = (env: Env) => env.get("FAIR_SMS_INBOUND_READY") === "true" && (provider(env) === "twilio" ? twilioConfigured(env) : provider(env) === "infobip" && !!normalizePhone(env.get("FAIR_SMS_NUMBER")) && !!env.get("INFOBIP_INBOUND_USER") && !!env.get("INFOBIP_INBOUND_PASS") && !!env.get("INFOBIP_API_KEY") && !!env.get("INFOBIP_BASE_URL"));
 export async function witnessRpc(env: Env, actor: string | null, action: string, payload: unknown, transport: typeof fetch) {
   const base = env.get("SUPABASE_URL"), secret = env.get("SUPABASE_SERVICE_ROLE_KEY");
   if (!base || !secret) throw new Error("Serviço indisponível.");
@@ -27,20 +29,28 @@ export async function dispatchWitness(p: Record<string, unknown>, actor: string,
   if (action === "witness_decide") return witnessRpc(env, actor, "decide", { witness_id: p.witness_id, decision: p.decision, notes: p.notes, consent: p.consent, identity_checked: p.identity_checked }, transport);
   if (action !== "witness_send") return { ok: false, error: "Operação desconhecida." };
   if (!smsReady(env)) return { ok: false, error: "A identificação está registada. O envio aguarda um número institucional com receção de SMS configurada e testada." };
-  let url: URL;
+  const useTwilio = provider(env) === "twilio";
+  let url: URL | undefined;
+  if (!useTwilio) {
   try { url = new URL(env.get("INFOBIP_BASE_URL")!); } catch { return { ok: false, error: "Configuração do fornecedor indisponível." }; }
   if (url.protocol !== "https:" || !url.hostname.endsWith(".api.infobip.com")) return { ok: false, error: "Configuração do fornecedor inválida." };
-  const prepared = await witnessRpc(env, actor, "prepare_sms", { witness_id: p.witness_id, reply_to: normalizePhone(env.get("FAIR_SMS_NUMBER")) }, transport);
+  }
+  const prepared = await witnessRpc(env, actor, "prepare_sms", { witness_id: p.witness_id, reply_to: useTwilio ? twilioNumber(env) : normalizePhone(env.get("FAIR_SMS_NUMBER")) }, transport);
   if (!prepared.ok) return prepared;
   let accepted = false, messageId: string | null = null;
   try {
     // A named requester, an exact target and an explicit declaration, not just consent to receive SMS.
     const requesterName = String(prepared.requester_name || "O titular").replace(/\s+/g, " ").slice(0, 160);
     const text = `AFROLOC: ${requesterName} pede que confirme que o conhece e que reside em ${prepared.target_code}. Se confirma, envie ACEITO ${prepared.reference} para ${prepared.reply_to}. Caso contrario, envie RECUSO ${prepared.reference}. Prazo: 48h. Sujeito a revisao do validador.`;
-    const r = await transport(url.origin + "/sms/2/text/advanced", { method: "POST", headers: { Authorization: "App " + env.get("INFOBIP_API_KEY"), "Content-Type": "application/json", Accept: "application/json" }, body: JSON.stringify({ messages: [{ from: env.get("INFOBIP_SENDER") || "AFROLOC", destinations: [{ to: prepared.phone.slice(1) }], text }] }), signal: AbortSignal.timeout(15000) });
+    if (useTwilio) {
+      const result = await sendTwilioSms(env, prepared.phone, text, transport);
+      accepted = result.accepted; messageId = result.messageId;
+    } else {
+    const r = await transport(url!.origin + "/sms/2/text/advanced", { method: "POST", headers: { Authorization: "App " + env.get("INFOBIP_API_KEY"), "Content-Type": "application/json", Accept: "application/json" }, body: JSON.stringify({ messages: [{ from: env.get("INFOBIP_SENDER") || "AFROLOC", destinations: [{ to: prepared.phone.slice(1) }], text }] }), signal: AbortSignal.timeout(15000) });
     const data = await r.json().catch(() => null); const message = data?.messages?.[0];
     accepted = r.ok && !!message?.messageId && [1, 3].includes(message.status?.groupId);
     messageId = message?.messageId || null;
+    }
   } catch { /* Timeout is not proof of failed delivery. The reference remains valid. */ }
   await witnessRpc(env, actor, "delivery", { witness_id: p.witness_id, send_token: prepared.send_token, accepted, message_id: messageId }, transport);
   return { ok: true, notification_sent: accepted, message: accepted ? "O fornecedor aceitou o envio. Aguarda-se a resposta da testemunha e depois a decisão do validador." : "O fornecedor não confirmou o envio. Consulte o estado antes de reenviar; aguarde pelo menos cinco minutos." };
@@ -50,6 +60,7 @@ export async function dispatchWitness(p: Record<string, unknown>, actor: string,
 export async function handleInboundSms(req: Request, env: Env, transport: typeof fetch = fetch): Promise<Response> {
   const reply = (body: unknown, status = 200) => Response.json(body, { status, headers: { "Cache-Control": "no-store" } });
   if (req.method !== "POST") return reply({ error: "method_not_allowed" }, 405);
+  if (provider(env) !== "infobip") return reply({ error: "provider_disabled" }, 503);
   const user = env.get("INFOBIP_INBOUND_USER"), password = env.get("INFOBIP_INBOUND_PASS"), recipient = normalizePhone(env.get("FAIR_SMS_NUMBER"));
   if (!user || !password || !recipient || env.get("FAIR_SMS_INBOUND_READY") !== "true") return reply({ error: "inbound_not_configured" }, 503);
   const actual = new TextEncoder().encode(req.headers.get("Authorization") || "");
