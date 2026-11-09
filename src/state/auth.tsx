@@ -1,4 +1,4 @@
-import { createContext, useContext, useEffect, useState, type ReactNode } from "react";
+import { createContext, useContext, useEffect, useRef, useState, type ReactNode } from "react";
 import type { Session, User } from "@supabase/supabase-js";
 import { supabase, isSupabaseConfigured } from "../lib/supabase/client";
 import { fetchProfile } from "../lib/supabase/profiles";
@@ -29,16 +29,19 @@ export function AuthProvider({ children }: { children: ReactNode }) {
   const [session, setSession] = useState<Session | null>(null);
   const [profile, setProfile] = useState<ProfileRow | null>(null);
   const [pendingPhone, setPendingPhone] = useState<string | null>(null);
+  const profileRequest = useRef(0);
 
   const loadProfile = async (uid: string | undefined) => {
+    const request = ++profileRequest.current;
     if (!uid || !isSupabaseConfigured) {
       setProfile(null);
       return;
     }
     try {
-      setProfile(await fetchProfile(uid));
+      const result = await fetchProfile(uid);
+      if (request === profileRequest.current) setProfile(result);
     } catch {
-      setProfile(null);
+      if (request === profileRequest.current) setProfile(null);
     }
   };
 
@@ -53,7 +56,10 @@ export function AuthProvider({ children }: { children: ReactNode }) {
     });
     const { data: sub } = supabase.auth.onAuthStateChange((_e, s) => {
       setSession(s);
-      loadProfile(s?.user.id);
+      ++profileRequest.current;
+      setProfile(null);
+      // Avoid issuing Supabase requests inside the auth callback's lock.
+      setTimeout(() => { void loadProfile(s?.user.id); }, 0);
     });
     return () => sub.subscription.unsubscribe();
   }, []);
@@ -63,14 +69,14 @@ export function AuthProvider({ children }: { children: ReactNode }) {
     configured: isSupabaseConfigured,
     session,
     user: session?.user ?? null,
-    profile,
+    profile: profile?.id === session?.user.id ? profile : null,
     refreshProfile: () => loadProfile(session?.user.id),
     pendingPhone,
     async signUpEmail(email, password, name) {
       const { data, error } = await supabase.auth.signUp({
         email,
         password,
-        options: { data: name ? { name } : undefined },
+        options: { data: name ? { full_name: name } : undefined },
       });
       if (error) throw error;
       // Sem sessão => o Supabase exige confirmação por email antes de entrar.
@@ -91,7 +97,8 @@ export function AuthProvider({ children }: { children: ReactNode }) {
       setPendingPhone(null);
     },
     async signOut() {
-      await supabase.auth.signOut();
+      const { error } = await supabase.auth.signOut();
+      if (error) throw error;
     },
   };
 

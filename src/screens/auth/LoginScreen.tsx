@@ -8,8 +8,8 @@ import { useAuth } from "../../state/auth";
 export function LoginScreen() {
   const navigate = useNavigate();
   const { configured, signInEmail } = useAuth();
-  const [email, setEmail] = useState(configured ? "" : "ana.cardoso@email.ao");
-  const [pw, setPw] = useState(configured ? "" : "12345678");
+  const [email, setEmail] = useState("");
+  const [pw, setPw] = useState("");
   const [show, setShow] = useState(false);
   const [busy, setBusy] = useState(false);
   const [error, setError] = useState<string | null>(null);
@@ -18,7 +18,7 @@ export function LoginScreen() {
   async function handleLogin() {
     setError(null);
     if (!configured) {
-      navigate("/home"); // modo demo
+      setError("Ligação AFROLOC indisponível.");
       return;
     }
     setBusy(true);

@@ -1,6 +1,7 @@
 // Tipos da base de dados AFROLOC (espelham supabase/migrations/0001_init.sql).
 
 export interface ProfileRow {
+  approval_status?: string;
   id: string;
   name: string | null;
   phone: string | null;
