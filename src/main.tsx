@@ -1,9 +1,7 @@
-import { StrictMode } from "react";
-import { createRoot } from "react-dom/client";
-import App from "./App";
-import "./styles/global.css";
-createRoot(document.getElementById("root")!).render(
-  <StrictMode>
-    <App />
-  </StrictMode>,
-);
+import { applicationRoute } from "./lib/applicationRoute";
+
+if (applicationRoute(window.location.pathname, window.location.search) === "fair") {
+  void import("./fair-entry");
+} else {
+  void import("./original-entry");
+}
