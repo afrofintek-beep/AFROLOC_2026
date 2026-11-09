@@ -38,4 +38,8 @@ Fontes: https://www.twilio.com/docs/usage/security e https://www.twilio.com/docs
 
 ## Estado da publicação
 
-O recetor `fair-witness-twilio` foi publicado na AFROLOC, versão 1. O teste HTTP real devolveu 503 com `configured=false`, e recusou um POST sem credencial. Esta resposta é intencional enquanto faltarem os secrets. O webhook Twilio mantém a configuração anterior até a credencial ser guardada e o teste autenticado poder começar. A migração e ativação do processo completo de testemunhas continuam pendentes.
+O recetor `fair-witness-twilio` está publicado na AFROLOC, versão 1. Após o utilizador guardar a configuração privada, o GET passou a devolver 200 com `configured=true` e `witness_workflow_enabled=false`. Um POST sem assinatura foi rejeitado com 403. Isto comprova configuração presente e bloqueio de pedidos não autenticados; ainda não comprova a validade da credencial num callback real.
+
+O webhook SMS do número **+1 984 314 5245** foi alterado de `https://demo.twilio.com/welcome/sms/reply/` para o novo recetor AFROLOC, com método POST. A persistência foi confirmada após recarregar a página Twilio. Chamadas e associação ao serviço mantiveram-se inalteradas.
+
+Próximo passo necessário: enviar `TESTE-RETORNO` do telefone **+244 923 828 282** para o número Twilio e confirmar o callback assinado e o evento real nos logs. A migração e ativação do processo completo de testemunhas continuam pendentes.
