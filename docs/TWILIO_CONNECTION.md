@@ -4,7 +4,7 @@
 
 Na conta Twilio YAMIOO, o número ativo é **+1 984 314 5245**. O contacto institucional em Angola, **+244 923 828 282**, recebeu o teste `TESTE-0911` às 18h15 de Luanda. O registo Twilio `SM965f6a685c21541ea8693a10688e4650` passou a Delivered. Isto comprova a entrega reportada pelo fornecedor; não comprova a receção de uma resposta na AFROLOC.
 
-O número Twilio está associado ao serviço `yamioo- Search Engine`, SID `MGa2e3716da6f72c8a3bde5d6d18a28c0a`. A integração está em `Defer to sender’s webhook`. O webhook no número ainda é `https://demo.twilio.com/welcome/sms/reply/`.
+O número Twilio está associado ao serviço `yamioo- Search Engine`, SID `MGa2e3716da6f72c8a3bde5d6d18a28c0a`. A integração está em `Defer to sender’s webhook`. O webhook do número foi ligado ao recetor AFROLOC abaixo, com método POST; a persistência foi confirmada após recarregar a página. O endereço anterior era `https://demo.twilio.com/welcome/sms/reply/`.
 
 ## Novo recetor
 
@@ -12,7 +12,7 @@ O número Twilio está associado ao serviço `yamioo- Search Engine`, SID `MGa2e
 
 Aceita somente POST form-urlencoded assinado por Twilio. Verifica a assinatura HMAC-SHA1 sobre a URL pública fixa e todos os parâmetros, a conta, o destinatário e o MessageSid. Consulta também o Message Resource na Twilio e confronta remetente, destinatário, texto, sentido inbound e instante original de receção. Não confia num horário inventado pelo cliente. Rejeita mensagens alteradas, antigas ou sem credenciais. Responde em TwiML.
 
-Configuração privada obrigatória: **FAIR_TWILIO_ACCOUNT_SID**, com o identificador da conta YAMIOO, e **FAIR_TWILIO_AUTH_TOKEN**, com o Auth Token principal da conta YAMIOO, guardado exclusivamente nos secrets das Edge Functions. Nunca inserir no código, no frontend, numa URL ou em mensagens de chat. Não existe atualmente no projeto AFROLOC. O nome específico evita alterar credenciais de outros produtos.
+Configuração privada obrigatória: **FAIR_TWILIO_ACCOUNT_SID**, com o identificador da conta YAMIOO, e **FAIR_TWILIO_AUTH_TOKEN**, com o Auth Token principal da conta YAMIOO, guardado exclusivamente nos secrets das Edge Functions. Nunca inserir no código, no frontend, numa URL ou em mensagens de chat. Os dois secrets estão presentes; a comparação descrita abaixo identificou divergência no token. O nome específico evita alterar credenciais de outros produtos.
 
 O identificador da conta é obrigatório e só existe na configuração privada `FAIR_TWILIO_ACCOUNT_SID`. O número tem o valor acima como configuração inicial e pode ser substituído por `FAIR_TWILIO_NUMBER`. O contacto +244 não passa a ser um número Twilio com esta alteração: respostas automáticas devem ser enviadas para o número +1 até existir outro número ligado ao fornecedor.
 
@@ -38,8 +38,12 @@ Fontes: https://www.twilio.com/docs/usage/security e https://www.twilio.com/docs
 
 ## Estado da publicação
 
-O recetor `fair-witness-twilio` está publicado na AFROLOC, versão 1. Após o utilizador guardar a configuração privada, o GET passou a devolver 200 com `configured=true` e `witness_workflow_enabled=false`. Um POST sem assinatura foi rejeitado com 403. Isto comprova configuração presente e bloqueio de pedidos não autenticados; ainda não comprova a validade da credencial num callback real.
+O recetor `fair-witness-twilio` está publicado na AFROLOC, versão 3, com registo de etapas de rejeição sem credenciais ou corpo da mensagem. Após o utilizador guardar a configuração privada, o GET passou a devolver 200 com `configured=true` e `witness_workflow_enabled=false`. Um POST sem assinatura foi rejeitado com 403. Isto comprova configuração presente e bloqueio de pedidos não autenticados; ainda não comprova a validade da credencial num callback real.
 
 O webhook SMS do número **+1 984 314 5245** foi alterado de `https://demo.twilio.com/welcome/sms/reply/` para o novo recetor AFROLOC, com método POST. A persistência foi confirmada após recarregar a página Twilio. Chamadas e associação ao serviço mantiveram-se inalteradas.
 
-Próximo passo necessário: enviar `TESTE-RETORNO` do telefone **+244 923 828 282** para o número Twilio e confirmar o callback assinado e o evento real nos logs. A migração e ativação do processo completo de testemunhas continuam pendentes.
+O SMS real `TESTE-RETORNO`, SID `SM4ab3213f4a090d5cd69567b7621ede49`, chegou à Twilio em 9 de novembro de 2026 às 18:02:22 UTC (19:02:22 Luanda), de **+244 923 828 282** para **+1 984 314 5245**. O callback recebeu HTTP 403; a repetição através do Request Inspector produziu `afroloc_twilio_rejected` com etapa `signature`. Não houve confirmação automática da AFROLOC.
+
+A comparação local dos digests SHA256 apresentados pelo Supabase com os valores da conta YAMIOO confirmou que `FAIR_TWILIO_ACCOUNT_SID` corresponde à conta, mas `FAIR_TWILIO_AUTH_TOKEN` não corresponde ao Auth Token atual. Nenhum segredo ou digest foi acrescentado a este documento. O formulário de edição do token foi preparado para introdução e gravação pelo titular.
+
+Próximo passo necessário: substituir o token pelo Auth Token correto da conta YAMIOO e repetir a entrega do pedido já recebido, confirmando a assinatura, o registo real no fornecedor e a resposta automática. A migração e ativação do processo completo de testemunhas continuam pendentes.
