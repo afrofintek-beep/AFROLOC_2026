@@ -1,3 +1,4 @@
+import validatorPositions from "./data/fair-validator-positions.json";
 import { useCallback, useEffect, useState, type FormEvent } from "react";
 import type { Session } from "@supabase/supabase-js";
 import { supabase, isSupabaseConfigured } from "./lib/supabase/client";
@@ -222,6 +223,24 @@ export default function App() {
         </div>
       </section>
       <div className="fair-content">
+        <section className="fair-card" aria-labelledby="validator-positions-title">
+          <h2 id="validator-positions-title">Validadores da feira</h2>
+          <p>Posições criadas para designação. As pessoas e os contactos serão associados e verificados antes da ativação.</p>
+          <div className="fair-validator-positions">
+            {validatorPositions.map((position) => (
+              <article key={position.id} className="fair-validator-position">
+                <span className="fair-eyebrow">Designação pendente</span>
+                <h3>{position.title} · {position.area}</h3>
+                <dl>
+                  <dt>Nome</dt><dd>A designar</dd>
+                  <dt>Tel.</dt><dd>A indicar</dd>
+                  <dt>Email</dt><dd>A atribuir · @{position.email_domain}</dd>
+                </dl>
+              </article>
+            ))}
+          </div>
+          <p className="fair-muted">Estas posições ainda não têm titulares nem autorização para validar endereços. Os contactos habilitados aparecem após a confirmação oficial.</p>
+        </section>
         {error && (
           <p role="alert" className="fair-error">
             {error}

@@ -1,0 +1,32 @@
+[
+  {
+    "id": "talatona-sede",
+    "title": "Validador oficial",
+    "area": "Talatona Sede",
+    "name": null,
+    "phone": null,
+    "email": null,
+    "email_domain": "afroloc.ao",
+    "status": "pending_designation"
+  },
+  {
+    "id": "lar-do-patriota",
+    "title": "Validador oficial",
+    "area": "Lar do Patriota",
+    "name": null,
+    "phone": null,
+    "email": null,
+    "email_domain": "afroloc.ao",
+    "status": "pending_designation"
+  },
+  {
+    "id": "dangereux",
+    "title": "Validador oficial",
+    "area": "Dangereux",
+    "name": null,
+    "phone": null,
+    "email": null,
+    "email_domain": "afroloc.ao",
+    "status": "pending_designation"
+  }
+]
