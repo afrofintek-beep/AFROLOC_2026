@@ -6,7 +6,7 @@
   "description": "AFROLOC — Sistema Continental de Endereçamento Digital (React + Vite + Capacitor PWA)",
   "scripts": {
     "dev": "vite",
-    "build": "tsc -b && vite build",
+    "build": "tsc -b && vite build --config vite.config.ts",
     "preview": "vite preview",
     "cap:sync": "cap sync",
     "cap:android": "cap open android",
