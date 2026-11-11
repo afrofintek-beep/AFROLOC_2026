@@ -36,3 +36,21 @@ it('keeps permission denial on the same page with a retry action',async()=>{
  await start();await act(async()=>error());expect(host.querySelector('iframe')).toBeNull();expect(host.textContent).toContain('Permita o GPS e volte a tentar');
  expect([...host.querySelectorAll('button')].find(b=>b.textContent==='Activar localização e verificar proximidade')?.disabled).toBe(false);
 });
+it('delegates navigation sensors only to NJILA after proximity confirmation and removes access when it ends',async()=>{
+ const njila='https://www.njilamaps.com';
+ await start();expect(host.querySelector('iframe')).toBeNull();
+ await act(async()=>fix(position()));await tick(5000);
+ const frame=host.querySelector('iframe')!;
+ expect(frame.src).toBe(njila+'/?from=afroloc-app&purpose=visit&embedded=1');
+ expect(frame.src).not.toContain('a'.repeat(64));
+ expect(frame.getAttribute('allow')?.split('; ')).toEqual(['geolocation','camera','accelerometer','gyroscope','magnetometer'].map(feature=>feature+' '+njila));
+ expect(frame.getAttribute('sandbox')).toBe('allow-scripts allow-same-origin');
+ expect(frame.getAttribute('referrerpolicy')).toBe('no-referrer');
+ await act(async()=>window.dispatchEvent(new MessageEvent('message',{origin:'https://untrusted.example',source:frame.contentWindow,data:{type:'afroloc-visit-ended'}})));
+ expect(host.querySelector('iframe')).toBe(frame);
+ await act(async()=>window.dispatchEvent(new MessageEvent('message',{origin:njila,source:window,data:{type:'afroloc-visit-ended'}})));
+ expect(host.querySelector('iframe')).toBe(frame);
+ await act(async()=>window.dispatchEvent(new MessageEvent('message',{origin:njila,source:frame.contentWindow,data:{type:'afroloc-visit-ended'}})));
+ expect(host.querySelector('iframe')).toBeNull();
+ expect(navigator.geolocation.clearWatch).toHaveBeenCalledWith(42);
+});
