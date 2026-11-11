@@ -60,6 +60,32 @@
           "value": "no-store"
         }
       ]
+    },
+    {
+      "source": "/experiencia",
+      "headers": [
+        {
+          "key": "Referrer-Policy",
+          "value": "no-referrer"
+        },
+        {
+          "key": "Cache-Control",
+          "value": "no-store"
+        }
+      ]
+    },
+    {
+      "source": "/experiencia/",
+      "headers": [
+        {
+          "key": "Referrer-Policy",
+          "value": "no-referrer"
+        },
+        {
+          "key": "Cache-Control",
+          "value": "no-store"
+        }
+      ]
     }
   ],
   "rewrites": [
@@ -73,6 +99,10 @@
     },
     {
       "source": "/experiencia",
+      "destination": "/index.html"
+    },
+    {
+      "source": "/experiencia/",
       "destination": "/index.html"
     },
     {
