@@ -47,6 +47,19 @@
           "value": "public, max-age=31536000, immutable"
         }
       ]
+    },
+    {
+      "source": "/experiencia/:path*",
+      "headers": [
+        {
+          "key": "Referrer-Policy",
+          "value": "no-referrer"
+        },
+        {
+          "key": "Cache-Control",
+          "value": "no-store"
+        }
+      ]
     }
   ],
   "rewrites": [
@@ -56,6 +69,14 @@
     },
     {
       "source": "/feira/:path*",
+      "destination": "/index.html"
+    },
+    {
+      "source": "/experiencia",
+      "destination": "/index.html"
+    },
+    {
+      "source": "/experiencia/:path*",
       "destination": "/index.html"
     }
   ]
