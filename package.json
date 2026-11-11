@@ -10,7 +10,8 @@
     "preview": "vite preview",
     "cap:sync": "cap sync",
     "cap:android": "cap open android",
-    "cap:ios": "cap open ios"
+    "cap:ios": "cap open ios",
+    "test:experience": "vitest run --config vitest.config.mjs"
   },
   "dependencies": {
     "@capacitor/android": "^6.2.1",
@@ -35,9 +36,11 @@
     "@types/react": "^18.3.5",
     "@types/react-dom": "^18.3.0",
     "@vitejs/plugin-react": "^4.3.1",
+    "jsdom": "25.0.1",
     "sharp": "^0.35.2",
     "typescript": "^5.5.4",
     "vite": "^5.4.6",
-    "vite-plugin-pwa": "^0.20.5"
+    "vite-plugin-pwa": "^0.20.5",
+    "vitest": "4.1.12"
   }
 }
