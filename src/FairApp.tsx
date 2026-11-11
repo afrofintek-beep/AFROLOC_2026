@@ -1,4 +1,3 @@
-import validatorPositions from "./data/fair-validator-positions.json";
 import { useCallback, useEffect, useState, type FormEvent } from "react";
 import type { Session } from "@supabase/supabase-js";
 import { supabase, isSupabaseConfigured } from "./lib/supabase/client";
@@ -224,32 +223,18 @@ export default function App() {
           <br />A confiança dos seus vizinhos.
         </h1>
         <p>
-          Associe o seu endereço AFROLOC à feira e acompanhe as confirmações e a
-          validação oficial.
+          Experimente o endereço AFROLOC com revisão pela organização da Feira e partilha autorizada pelo titular.
         </p>
-        <div className="fair-rule">
-          <strong>3 testemunhas · até 500 m</strong>
-          <span>No mesmo condomínio, quando aplicável.</span>
-        </div>
+
       </section>
       <div className="fair-content">
-        <section className="fair-card" aria-labelledby="validator-positions-title">
-          <h2 id="validator-positions-title">Validadores da feira</h2>
-          <p>Posições criadas para designação. As pessoas e os contactos serão associados e verificados antes da ativação.</p>
-          <div className="fair-validator-positions">
-            {validatorPositions.map((position) => (
-              <article key={position.id} className="fair-validator-position">
-                <span className="fair-eyebrow">Designação pendente</span>
-                <h3>{position.title} · {position.area}</h3>
-                <dl>
-                  <dt>Nome</dt><dd>A designar</dd>
-                  <dt>Tel.</dt><dd>A indicar</dd>
-                  <dt>Email</dt><dd>A atribuir · @{position.email_domain}</dd>
-                </dl>
-              </article>
-            ))}
-          </div>
-          <p className="fair-muted">Estas posições ainda não têm titulares nem autorização para validar endereços. Os contactos habilitados aparecem após a confirmação oficial.</p>
+        <section className="fair-card" aria-labelledby="fair-review-title">
+          <h2 id="fair-review-title">Revisão pela organização da Feira</h2>
+          <p>Os pedidos de endereço temporário são revistos pelos integrantes autorizados da organização da Feira de Natal Solidário, através dos acessos atribuídos à equipa.</p>
+          <p>A equipa analisa o pedido e regista a sua decisão. Após a aprovação, o titular pode autorizar a partilha temporária do seu endereço através do LOCACCESS.</p>
+          <p className="fair-muted">Esta revisão destina-se à experiência da Feira e não constitui certificação oficial de residência.</p>
+          <p><a href="/experiencia/">Criar ou acompanhar o meu endereço temporário</a></p>
+          <p><a href="https://natal.yamilook.com/organizacao">Área da organização da Feira</a></p>
         </section>
         {error && (
           <p role="alert" className="fair-error">
