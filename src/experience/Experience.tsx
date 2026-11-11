@@ -7,8 +7,9 @@ type Grant={id:string;address_id:string;expires_at:string;revoked:number;recipie
 type Division={level:number;code:string;name:string;parent_code:string|null};
 const status:Record<string,string>={pending:'A aguardar revisão',approved:'Pronto para partilhar',rejected:'Revisão não aprovada',suspended:'Acesso suspenso',closed:'Experiência encerrada'};
 const purposes:Record<string,string>={visit:'Visita',delivery:'Entrega',service:'Prestação de serviço'};
-const shareToken=new URLSearchParams(location.hash.slice(1)).get('acesso')||'';
+const readShareToken=()=>new URLSearchParams(location.hash.slice(1)).get('acesso')||'';
 export function Experience(){
+ const [shareToken,setShareToken]=useState(readShareToken);
  const [key,setKey]=useState(()=>savedKey()),[recover,setRecover]=useState(''),[tab,setTab]=useState('address');
  const [addresses,setAddresses]=useState<Address[]>([]),[grants,setGrants]=useState<Grant[]>([]),[divisions,setDivisions]=useState<Division[]>([]);
  const [message,setMessage]=useState(''),[busy,setBusy]=useState(false),[loading,setLoading]=useState(false),[showKey,setShowKey]=useState(false),[map,setMap]=useState('');
@@ -16,9 +17,10 @@ export function Experience(){
  const [form,setForm]=useState({name:'',contact:'',label:'Casa',level1_code:'',level2_code:'',level3_code:'',level4_name:'Talatona Sede',property_type:'house'});
  const [point,setPoint]=useState<{lat:number;lon:number}|null>(null),[gps,setGps]=useState(false),[consent,setConsent]=useState(false);
  const [grantForm,setGrantForm]=useState({id:'',recipient:'',purpose:'visit',hours:1}),[shareConsent,setShareConsent]=useState(false);
+ useEffect(()=>{const navigate=()=>{setShareToken(readShareToken());setMap('')};window.addEventListener('hashchange',navigate);return()=>window.removeEventListener('hashchange',navigate)},[]);
  const load=useCallback(async(k=key)=>{if(!validKey(k))return;setLoading(true);try{const d=await request('list',{},k);setAddresses(d.addresses);setGrants(d.grants)}catch(e){setMessage((e as Error).message)}finally{setLoading(false)}},[key]);
- useEffect(()=>{if(shareToken)return;void request('catalog').then(d=>setDivisions(d.divisions)).catch(e=>setMessage(e.message))},[]);
- useEffect(()=>{if(shareToken||!validKey(key))return;void load();const timer=setInterval(()=>{if(!document.hidden)void load()},20000);return()=>clearInterval(timer)},[key,load]);
+ useEffect(()=>{if(shareToken)return;void request('catalog').then(d=>setDivisions(d.divisions)).catch(e=>setMessage(e.message))},[shareToken]);
+ useEffect(()=>{if(shareToken||!validKey(key))return;void load();const timer=setInterval(()=>{if(!document.hidden)void load()},20000);return()=>clearInterval(timer)},[key,load,shareToken]);
  const action=async(fn:()=>Promise<void>)=>{if(busy)return;setBusy(true);setMessage('');try{await fn()}catch(e){setMessage((e as Error).message)}finally{setBusy(false)}};
  const copy=async(text:string)=>{try{await navigator.clipboard.writeText(text);setMessage('Copiado.')}catch{setMessage('Seleccione o texto e escolha Copiar.')}};
  const start=()=>{const k=randomKey();setKey(k);if(!storeKey(k))setMessage('Guarde a chave: este navegador não permite a recuperação automática.');setShowKey(true)};
