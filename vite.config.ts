@@ -33,6 +33,9 @@ export default defineConfig({
       },
       workbox: {
         globPatterns: ["**/*.{js,css,html,svg,png,woff2,json}"],
+        // The participant flow requires live authorisation and current form code.
+        // Keep the main PWA offline shell, but never serve it for this entry.
+        navigateFallbackDenylist: [/^\/experiencia(?:\/|$)/],
       },
       // Allow installing/testing the PWA during `npm run dev` too.
       devOptions: { enabled: true, type: "module" },

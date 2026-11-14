@@ -3,7 +3,7 @@
   "private": true,
   "type": "module",
   "scripts": {
-    "test": "node --experimental-strip-types handler.test.mjs && node database.test.mjs"
+    "test": "node --experimental-strip-types handler.test.mjs && node --test sms-handler.test.mjs twilio-handler.test.mjs && node database.test.mjs && node sms-review-database.test.mjs"
   },
   "dependencies": {
     "@electric-sql/pglite": "0.5.15"

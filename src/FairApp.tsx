@@ -1,4 +1,3 @@
-import validatorPositions from "./data/fair-validator-positions.json";
 import { useCallback, useEffect, useState, type FormEvent } from "react";
 import type { Session } from "@supabase/supabase-js";
 import { supabase, isSupabaseConfigured } from "./lib/supabase/client";
@@ -10,6 +9,11 @@ type Witness = {
   status: string;
   eligible: boolean;
   distance_m: number | null;
+  full_name: string; phone: string; target_code: string; target_name: string | null;
+  reference: string; reply_to: string | null; expires_at: string | null; expired: boolean;
+  delivery_state: string; accepted_at: string | null; reviewed_at: string | null;
+  review_notes: string | null; is_witness: boolean; can_review: boolean;
+  identity_matches: boolean; canonical_name: string | null;
 };
 type Address = {
   id: string;
@@ -30,23 +34,19 @@ type Address = {
 };
 type State = {
   addresses: Address[];
-  invitations: { id: string; code: string; status: string }[];
+  invitations: Witness[];
+  witness_queue: Witness[];
+  sms_ready: boolean;
   contacts: { phone: string; area: string }[];
   condominiums: { id: string; name: string; municipality: string }[];
   is_validator: boolean;
 };
-type Info = {
-  afroloc_code: string;
-  municipality: string;
-  street: string;
-  number: string;
-  unit: string;
-  is_witness: boolean;
-  status: string;
-};
+type Info = Witness;
 const empty: State = {
   addresses: [],
   invitations: [],
+  witness_queue: [],
+  sms_ready: false,
   contacts: [],
   condominiums: [],
   is_validator: false,
@@ -61,6 +61,11 @@ const statusName = (s: string) =>
     rejected: "Recusado",
     revoked: "Revogado",
     expired: "Expirado",
+    identified: "Identificação registada",
+    awaiting_sms: "Aguarda resposta por SMS",
+    accepted_sms: "Aceite por SMS — aguarda validador",
+    refused_sms: "Recusado pela testemunha",
+    approved: "Aprovado pelo validador",
   })[s] || s;
 async function api(payload: Record<string, unknown>) {
   const { data, error } = await supabase.functions.invoke("fair-verification", {
@@ -90,14 +95,13 @@ export default function App() {
     [needsMfa, setNeedsMfa] = useState(false);
   const [selected, setSelected] = useState(""),
     [witnessCode, setWitnessCode] = useState(""),
+    [witnessName, setWitnessName] = useState(""),
+    [witnessPhone, setWitnessPhone] = useState(""),
     [consent, setConsent] = useState(false);
   const [invite, setInvite] = useState(
       new URLSearchParams(window.location.search).get("witness") || "",
     ),
     [info, setInfo] = useState<Info | null>(null);
-  const [otp, setOtp] = useState(""),
-    [name, setName] = useState(""),
-    [signature, setSignature] = useState("");
   const [reviewCode, setReviewCode] = useState(""),
     [inspection, setInspection] = useState<Address | null>(null),
     [housing, setHousing] = useState("neighbourhood"),
@@ -125,7 +129,13 @@ export default function App() {
     return () => data.subscription.unsubscribe();
   }, []);
   const refresh = useCallback(async () => {
-    setState(await api({ action: "list" }));
+    const response = await api({ action: "list" });
+    if (response.workflow_version !== 3) {
+      setState(empty);
+      setLoaded(false);
+      throw new Error("O serviço de testemunhas aguarda atualização. Tente novamente depois da ativação do novo processo.");
+    }
+    setState({ ...empty, ...response, witness_queue: response.witness_queue || [], sms_ready: response.sms_ready === true });
     setLoaded(true);
   }, []);
   useEffect(() => {
@@ -195,9 +205,8 @@ export default function App() {
     setInvite(id);
     setInfo(null);
     setConsent(false);
-    setOtp("");
     await run(async () =>
-      setInfo(await api({ action: "info", witness_id: id })),
+      setInfo(await api({ action: "witness_info", witness_id: id })),
     );
   }
   const signedIn = !!session && !needsMfa;
@@ -214,32 +223,18 @@ export default function App() {
           <br />A confiança dos seus vizinhos.
         </h1>
         <p>
-          Associe o seu endereço AFROLOC à feira e acompanhe as confirmações e a
-          validação oficial.
+          Experimente o endereço AFROLOC com revisão pela organização da Feira e partilha autorizada pelo titular.
         </p>
-        <div className="fair-rule">
-          <strong>3 testemunhas · até 500 m</strong>
-          <span>No mesmo condomínio, quando aplicável.</span>
-        </div>
+
       </section>
       <div className="fair-content">
-        <section className="fair-card" aria-labelledby="validator-positions-title">
-          <h2 id="validator-positions-title">Validadores da feira</h2>
-          <p>Posições criadas para designação. As pessoas e os contactos serão associados e verificados antes da ativação.</p>
-          <div className="fair-validator-positions">
-            {validatorPositions.map((position) => (
-              <article key={position.id} className="fair-validator-position">
-                <span className="fair-eyebrow">Designação pendente</span>
-                <h3>{position.title} · {position.area}</h3>
-                <dl>
-                  <dt>Nome</dt><dd>A designar</dd>
-                  <dt>Tel.</dt><dd>A indicar</dd>
-                  <dt>Email</dt><dd>A atribuir · @{position.email_domain}</dd>
-                </dl>
-              </article>
-            ))}
-          </div>
-          <p className="fair-muted">Estas posições ainda não têm titulares nem autorização para validar endereços. Os contactos habilitados aparecem após a confirmação oficial.</p>
+        <section className="fair-card" aria-labelledby="fair-review-title">
+          <h2 id="fair-review-title">Revisão pela organização da Feira</h2>
+          <p>Os pedidos de endereço temporário são revistos pelos integrantes autorizados da organização da Feira de Natal Solidário, através dos acessos atribuídos à equipa.</p>
+          <p>A equipa analisa o pedido e regista a sua decisão. Após a aprovação, o titular pode autorizar a partilha temporária do seu endereço através do LOCACCESS.</p>
+          <p className="fair-muted">Esta revisão destina-se à experiência da Feira e não constitui certificação oficial de residência.</p>
+          <p><a href="/experiencia/">Criar ou acompanhar o meu endereço temporário</a></p>
+          <p><a href="https://natal.yamilook.com/organizacao">Área da organização da Feira</a></p>
         </section>
         {error && (
           <p role="alert" className="fair-error">
@@ -455,6 +450,8 @@ export default function App() {
                     )}
                     {address.witnesses.map((w) => (
                       <div className="fair-witness" key={w.id}>
+                        <strong>{w.full_name}</strong>
+                        <span>{w.phone}</span>
                         <code>{w.code}</code>
                         <span>
                           {statusName(w.status)} ·{" "}
@@ -466,14 +463,14 @@ export default function App() {
                             {Number(w.distance_m).toFixed(1)} m
                           </span>
                         )}
-                        {w.status === "pending" && (
+                        {["identified", "awaiting_sms"].includes(w.status) && (
                           <button
                             className="secondary"
-                            disabled={busy}
+                            disabled={busy || !state.sms_ready || !w.eligible}
                             onClick={() =>
                               run(async () => {
                                 const r = await api({
-                                  action: "send",
+                                  action: "witness_send",
                                   witness_id: w.id,
                                 });
                                 setMessage(r.message);
@@ -481,7 +478,7 @@ export default function App() {
                               })
                             }
                           >
-                            Reenviar código
+                            {w.status === "identified" ? "Enviar pedido por SMS" : "Reenviar pedido por SMS"}
                           </button>
                         )}
                       </div>
@@ -492,18 +489,29 @@ export default function App() {
                           e.preventDefault();
                           run(async () => {
                             const r = await api({
-                              action: "request",
+                              action: "witness_identify",
+                              full_name: witnessName.trim(),
+                              phone: witnessPhone.trim(),
                               record_id: address.id,
                               code: witnessCode.trim(),
                               consent: true,
                             });
                             setMessage(r.message || "Pedido registado.");
                             setWitnessCode("");
+                            setWitnessName("");
+                            setWitnessPhone("");
                             setConsent(false);
                             await refresh();
                           });
                         }}
                       >
+                        <h3>1. Identificar a testemunha</h3>
+                        <label>Nome completo, como consta na conta AFROLOC
+                          <input value={witnessName} onChange={e => setWitnessName(e.target.value)} minLength={3} maxLength={160} autoComplete="off" required />
+                        </label>
+                        <label>Telefone confirmado da testemunha
+                          <input value={witnessPhone} onChange={e => setWitnessPhone(e.target.value)} type="tel" placeholder="+244…" maxLength={30} autoComplete="off" required />
+                        </label>
                         <label>
                           Endereço AFROLOC completo da testemunha
                           <input
@@ -521,31 +529,29 @@ export default function App() {
                             onChange={(e) => setConsent(e.target.checked)}
                             required
                           />
-                          Confirmo o envio do pedido à testemunha.
+                          Confirmo os dados indicados e solicito a validação desta testemunha. A aceitação será dada pela própria, por SMS.
                         </label>
                         <button
                           disabled={
                             busy ||
-                            !address.reviewed ||
                             !consent ||
                             address.witnesses.filter(
-                              (w) => w.status !== "rejected",
+                              (w) => !["rejected", "refused_sms"].includes(w.status),
                             ).length >= 3
                           }
                         >
-                          Pedir confirmação
+                          Registar identificação
                         </button>
                       </form>
                     )}
                     <p className="fair-small">
-                      Só a própria testemunha pode confirmar, na sua conta, com
-                      o código recebido por SMS. O pedido não equivale à
-                      confirmação.
+                      Depois da identificação e das verificações de residência, a testemunha recebe o pedido e responde ACEITO ou RECUSO com a referência. A aprovação cabe ao validador oficial.
                     </p>
                   </>
                 )}
               </section>
             )}
+            {!state.sms_ready && <section className="fair-card"><h2>Receção de SMS por ativar</h2><p>Pode identificar as testemunhas. O envio dos pedidos aguarda a configuração e o teste do número institucional que receberá as respostas.</p></section>}
             <section className="fair-card">
               <h2>Pedidos para eu testemunhar</h2>
               {invite && (
@@ -567,123 +573,36 @@ export default function App() {
                     disabled={busy}
                     onClick={() => inspectInvite(i.id)}
                   >
-                    <code>{i.code}</code>
+                    <code>{i.target_code}</code>
                     <span>{statusName(i.status)}</span>
                   </button>
                 ))
               )}
-              {info && (
-                <div className="fair-invitation">
-                  <h3>Confirmar a residência</h3>
-                  <code className="fair-code">{info.afroloc_code}</code>
-                  <p>
-                    {[info.street, info.number, info.unit, info.municipality]
-                      .filter(Boolean)
-                      .join(" · ")}
-                  </p>
-                  <p>Estado: {statusName(info.status)}</p>
-                  {info.is_witness && info.status === "pending" && (
-                    <form
-                      onSubmit={(e) => {
-                        e.preventDefault();
-                        run(async () => {
-                          await api({
-                            action: "verify",
-                            witness_id: invite,
-                            otp_code: otp,
-                            full_name: name,
-                            signature,
-                            consent: true,
-                            decision: "confirm",
-                          });
-                          setInfo(null);
-                          setOtp("");
-                          setConsent(false);
-                          await refresh();
-                          setMessage(
-                            "Confirmação registada. A aprovação oficial continua a ser uma etapa separada.",
-                          );
-                        });
-                      }}
-                    >
-                      <label>
-                        Nome completo
-                        <input
-                          value={name}
-                          onChange={(e) => setName(e.target.value)}
-                          minLength={3}
-                          maxLength={160}
-                          required
-                        />
-                      </label>
-                      <label>
-                        Assinatura — escreva o seu nome
-                        <input
-                          value={signature}
-                          onChange={(e) => setSignature(e.target.value)}
-                          minLength={3}
-                          maxLength={160}
-                          required
-                        />
-                      </label>
-                      <label>
-                        Código recebido por SMS
-                        <input
-                          inputMode="numeric"
-                          autoComplete="one-time-code"
-                          pattern="[0-9]{6}"
-                          maxLength={6}
-                          value={otp}
-                          onChange={(e) => setOtp(e.target.value)}
-                          required
-                        />
-                      </label>
-                      <label className="fair-check">
-                        <input
-                          type="checkbox"
-                          checked={consent}
-                          onChange={(e) => setConsent(e.target.checked)}
-                          required
-                        />
-                        Conheço o titular e confirmo que reside neste endereço.
-                        Autorizo o registo desta declaração.
-                      </label>
-                      <button disabled={busy || !consent}>
-                        Confirmar o testemunho
-                      </button>
-                      <button
-                        type="button"
-                        className="secondary"
-                        disabled={
-                          busy ||
-                          !otp ||
-                          name.trim().length < 3 ||
-                          signature.trim().length < 3
-                        }
-                        onClick={() =>
-                          run(async () => {
-                            await api({
-                              action: "verify",
-                              witness_id: invite,
-                              otp_code: otp,
-                              full_name: name,
-                              signature,
-                              consent: true,
-                              decision: "reject",
-                            });
-                            setInfo(null);
-                            await refresh();
-                            setMessage("Recusa registada.");
-                          })
-                        }
-                      >
-                        Não confirmo esta residência
-                      </button>
-                    </form>
-                  )}
-                </div>
-              )}
+              {info && <div className="fair-invitation">
+                <h3>Pedido de testemunho</h3>
+                <p>Requerente: {info.target_name || "Titular do endereço"}</p>
+                <code className="fair-code">{info.target_code}</code>
+                <p>Estado: {statusName(info.status)}</p>
+                {info.is_witness && info.status === "awaiting_sms" && !info.expired && info.reply_to && <>
+                  <p>Ao responder ACEITO, declara que conhece o titular e confirma que ele reside nesta morada. A aceitação fica sujeita à conferência e decisão do validador.</p>
+                  <p>Envie do seu telefone confirmado, {info.phone}, para {info.reply_to}:</p>
+                  <code>ACEITO {info.reference}</code>
+                  <a className="fair-address" href={`sms:${info.reply_to}?body=${encodeURIComponent("ACEITO " + info.reference)}`}>Preparar SMS de aceitação</a>
+                  <a className="fair-address" href={`sms:${info.reply_to}?body=${encodeURIComponent("RECUSO " + info.reference)}`}>Preparar SMS de recusa</a>
+                  <p>Prazo: {info.expires_at ? new Date(info.expires_at).toLocaleString("pt-AO") : "Não disponível"}. Abrir o SMS não o envia nem confirma o pedido.</p>
+                </>}
+                {info.expired && <p>Prazo expirado. Peça ao requerente que reenvie o pedido.</p>}
+                {info.status === "accepted_sms" && <p>A sua aceitação foi recebida. Aguarda a decisão do validador oficial.</p>}
+                {info.review_notes && <p>Decisão: {info.review_notes}</p>}
+              </div>}
             </section>
+            {state.is_validator && <section className="fair-card"><h2>Decidir testemunhos</h2>
+              {!state.witness_queue.length && <p>Não há pedidos atribuídos a si.</p>}
+              {state.witness_queue.map(w => <WitnessDecision key={w.id} witness={w} busy={busy} decide={(decision, notes) => run(async () => {
+                await api({action: "witness_decide", witness_id: w.id, decision, notes, consent: true, identity_checked: true});
+                await refresh(); setMessage(decision === "approve" ? "Testemunho aprovado e registado." : "Testemunho recusado e registado.");
+              })} />)}
+            </section>}
             <section className="fair-card">
               <h2>Validadores oficiais</h2>
               {state.contacts.length ? (
@@ -929,4 +848,20 @@ export default function App() {
       </div>
     </main>
   );
+}
+
+function WitnessDecision({ witness: w, busy, decide }: { witness: Witness; busy: boolean; decide: (decision: string, notes: string) => Promise<void> }) {
+  const [notes, setNotes] = useState(""); const [checked, setChecked] = useState(false);
+  const canDecide = w.status === "accepted_sms" && w.can_review;
+  return <div className="fair-invitation"><h3>{w.full_name}</h3><p>Nome no registo: {w.canonical_name || "Indisponível"}</p><p>Telefone: {w.phone}</p>
+    <p>AFROLOC da testemunha: <code>{w.code}</code></p><p>Morada a confirmar: <code>{w.target_code}</code></p>
+    <p>{statusName(w.status)}</p><p>Identidade e telefone: {w.identity_matches ? "Correspondem" : "Divergência a resolver"}.</p>
+    <p>Distância: {w.distance_m == null ? "Indisponível" : Number(w.distance_m).toFixed(1) + " m"}. Residência, proximidade e condomínio: {w.eligible ? "Requisitos satisfeitos" : "Verificação pendente ou requisitos não satisfeitos"}.</p>
+    {w.accepted_at && <p>SMS aceite em {new Date(w.accepted_at).toLocaleString("pt-AO")}.</p>}
+    {canDecide && <><label>Fundamentação da decisão<textarea value={notes} minLength={10} maxLength={2000} onChange={e => setNotes(e.target.value)} /></label>
+      <label className="fair-check"><input type="checkbox" checked={checked} onChange={e => setChecked(e.target.checked)} />Conferi a identificação, o telefone, a aceitação por SMS e o AFROLOC desta testemunha.</label>
+      <button disabled={busy || !checked || notes.trim().length < 10 || !w.identity_matches || !w.eligible} onClick={() => void decide("approve", notes)}>Aprovar testemunho</button>
+      <button className="secondary" disabled={busy || !checked || notes.trim().length < 10} onClick={() => void decide("reject", notes)}>Recusar testemunho</button></>}
+    {w.review_notes && <p>Decisão registada: {w.review_notes}</p>}
+  </div>;
 }
