@@ -7,7 +7,7 @@ export function OwnerMap({id,onClose}:{id:string;onClose:()=>void}){
   let active=true,busy=false,audience:string|null=null;
   const clear=()=>frame.current?.contentWindow?.postMessage({type:'yamilook-owner-clear'},NJILA_ORIGIN);
   const refresh=async()=>{
-   if(!active||busy||!audience||document.hidden||!navigator.onLine){clear();return}busy=true;
+   if(!active||busy||!audience)return;if(document.hidden||!navigator.onLine){clear();return}busy=true;
    try{const d=await request('position',{id});if(active&&!document.hidden){frame.current?.contentWindow?.postMessage({type:'yamilook-owner-position',audience,...d},NJILA_ORIGIN);setMessage('O seu local · endereço experimental, sem certificação de residência.')}}
    catch(e){if(active){clear();setMessage((e as Error).message)}}finally{busy=false}
   };
