@@ -6,6 +6,16 @@ import { VitePWA } from "vite-plugin-pwa";
 export default defineConfig({
   plugins: [
     react(),
+    {
+      name: "yamilook-static-entry",
+      enforce: "post",
+      generateBundle(_options, bundle) {
+        const entry = bundle["index.html"];
+        if (entry?.type === "asset") {
+          this.emitFile({ type: "asset", fileName: "experiencia/yamilook/index.html", source: entry.source });
+        }
+      },
+    },
     VitePWA({
       registerType: "autoUpdate",
       includeAssets: ["favicon.svg", "apple-touch-icon.png"],
@@ -33,6 +43,7 @@ export default defineConfig({
       },
       workbox: {
         globPatterns: ["**/*.{js,css,html,svg,png,woff2,json}"],
+        globIgnores: ["experiencia/**"],
         // The participant flow requires live authorisation and current form code.
         // Keep the main PWA offline shell, but never serve it for this entry.
         navigateFallbackDenylist: [/^\/experiencia(?:\/|$)/],
