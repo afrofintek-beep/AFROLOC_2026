@@ -19,12 +19,19 @@ it('keeps saved addresses when returning from the map and isolates review',async
  const frame=host.querySelector('iframe')!;
  expect(frame.getAttribute('allow')).toContain('geolocation '+NJILA_ORIGIN);
  await act(async()=>window.dispatchEvent(new MessageEvent('message',{origin:NJILA_ORIGIN,source:frame.contentWindow,data:{type:'yamilook-owner-resize',height:1800}})));
- expect(frame.style.height).toBe('1800px');
+ expect(frame.style.height).toBe('800px');
  await act(async()=>window.dispatchEvent(new MessageEvent('message',{origin:'https://invalid.example',source:frame.contentWindow,data:{type:'yamilook-owner-resize',height:9000}})));
- expect(frame.style.height).toBe('1800px');
+ expect(frame.style.height).toBe('800px');
  await click('Ecrã inteiro');expect(frame.closest('section')?.style.position).toBe('fixed');
  await act(async()=>window.dispatchEvent(new MessageEvent('message',{origin:YAMILOOK_ORIGIN,source:window.parent,data:{type:'yamilook-afroloc-navigation',action:'addresses'}})));
  expect(host.querySelector('iframe')).toBeNull();expect(host.textContent).toContain('AO-TEST');
  expect(vi.mocked(request).mock.calls.some(([action])=>action==='close')).toBe(false);
  await click('Área administrativa · Revisão de endereços');expect(host.textContent).toContain('Consultar pedidos pendentes');expect(host.textContent).not.toContain('Criar endereço temporário');
+});
+
+it('offers a fresh destination without forwarding the private owner position',async()=>{
+ await act(async()=>root.render(<YamilookExperience/>));await click('Ver o meu endereço no mapa NJILA');
+ const first=host.querySelector('iframe')!;expect(first.src).toContain('purpose=owner');expect(first.src).toContain('lang=pt');
+ await click('Escolher outro destino');const second=host.querySelector('iframe')!;expect(second).not.toBe(first);expect(second.src).toContain('purpose=explore');expect(second.src).not.toContain('AO-TEST');
+ await click('Chegar a este endereço');expect(host.querySelector('iframe')!.src).toContain('purpose=owner');
 });
