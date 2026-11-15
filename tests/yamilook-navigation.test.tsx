@@ -10,6 +10,10 @@ async function click(label:string){const b=Array.from(host.querySelectorAll('but
 it('keeps saved addresses when returning from the map and isolates review',async()=>{
  await act(async()=>root.render(<YamilookExperience/>));
  expect(host.querySelector('h2')?.textContent).toBe('Casa');
+ expect(host.textContent).toContain('Endereço temporário · Finalidade não indicada');
+ expect(host.textContent).toContain('Este endereço temporário expira em');
+ expect(host.textContent).not.toContain('Válido até');
+ expect(host.textContent).toContain('Por confirmar');
  await click('Ver o meu endereço no mapa NJILA');
  expect(host.textContent).not.toContain('Consultar pedidos pendentes');
  const frame=host.querySelector('iframe')!;
@@ -22,5 +26,5 @@ it('keeps saved addresses when returning from the map and isolates review',async
  await act(async()=>window.dispatchEvent(new MessageEvent('message',{origin:YAMILOOK_ORIGIN,source:window.parent,data:{type:'yamilook-afroloc-navigation',action:'addresses'}})));
  expect(host.querySelector('iframe')).toBeNull();expect(host.textContent).toContain('AO-TEST');
  expect(vi.mocked(request).mock.calls.some(([action])=>action==='close')).toBe(false);
- await click('Revisão de endereços');expect(host.textContent).toContain('Consultar pedidos pendentes');expect(host.textContent).not.toContain('Criar endereço temporário');
+ await click('Área administrativa · Revisão de endereços');expect(host.textContent).toContain('Consultar pedidos pendentes');expect(host.textContent).not.toContain('Criar endereço temporário');
 });

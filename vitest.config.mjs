@@ -1,1 +1,1 @@
-export default {test:{environment:'jsdom',include:['tests/experience-ui.test.tsx','tests/proximity-ui.test.tsx','tests/yamilook-experience.test.tsx','tests/yamilook-navigation.test.tsx'],globals:true}};
+export default {test:{environment:'jsdom',include:['tests/experience-ui.test.tsx','tests/proximity-ui.test.tsx','tests/yamilook-experience.test.tsx','tests/yamilook-navigation.test.tsx','tests/yamilook-address-details.test.ts'],globals:true}};
