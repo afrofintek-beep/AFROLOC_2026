@@ -2,9 +2,12 @@ import {useEffect,useRef,useState} from 'react';
 import {NJILA_ORIGIN,request} from './bridge';
 /** An owner-only view: each position is fetched under the current Yamilook session. */
 export function OwnerMap({id,onClose}:{id:string;onClose:()=>void}){
- const [expanded,setExpanded]=useState(false),[height,setHeight]=useState(950),[destination,setDestination]=useState('');
+ const [expanded,setExpanded]=useState(false),[height,setHeight]=useState(680),[destination,setDestination]=useState('');
+ const [scenario,setScenario]=useState<'owner'|'explore'>('owner');
+ const lang=new URLSearchParams(location.search).get('lang')||'pt';
  const frame=useRef<HTMLIFrameElement>(null);const [message,setMessage]=useState('A verificar o seu endereço…');
  useEffect(()=>{
+  if(scenario!=='owner')return;
   let active=true,busy=false,audience:string|null=null;
   const clear=()=>frame.current?.contentWindow?.postMessage({type:'yamilook-owner-clear'},NJILA_ORIGIN);
   const refresh=async()=>{
@@ -17,6 +20,6 @@ export function OwnerMap({id,onClose}:{id:string;onClose:()=>void}){
   window.addEventListener('message',receive);window.addEventListener('offline',clear);document.addEventListener('visibilitychange',hidden);
   const timer=setInterval(()=>void refresh(),10000);
   return()=>{active=false;clear();clearInterval(timer);window.removeEventListener('message',receive);window.removeEventListener('offline',clear);document.removeEventListener('visibilitychange',hidden)};
- },[id]);
- return <section className="xp-card" style={expanded?{position:"fixed",inset:0,zIndex:1000,margin:0,padding:12,display:"flex",flexDirection:"column",background:"#f5f1e7"}:{}}><nav style={{position:"sticky",top:0,zIndex:10,background:"#f5f1e7",padding:8,display:"flex",gap:8,flexWrap:"wrap"}}><button onClick={onClose}>Voltar aos endereços</button><button aria-pressed={expanded} onClick={()=>setExpanded(!expanded)}>{expanded?"Reduzir mapa":"Ecrã inteiro"}</button></nav><h2 style={{fontSize:20,overflowWrap:"anywhere"}}>{destination}</h2><p role="status">{message}</p><iframe ref={frame} title="NJILA — o meu endereço" src={NJILA_ORIGIN+'/?from=afroloc-app&purpose=owner&embedded=1'} referrerPolicy="no-referrer" sandbox="allow-scripts allow-same-origin" allow={`geolocation ${NJILA_ORIGIN}; camera ${NJILA_ORIGIN}; accelerometer ${NJILA_ORIGIN}; gyroscope ${NJILA_ORIGIN}`} style={{width:"100%",height:expanded?undefined:height,flex:expanded?1:undefined,minHeight:expanded?0:400,border:0}}/></section>;
+ },[id,scenario,lang]);
+ return <section className="xp-card xp-owner-map" style={expanded?{position:"fixed",inset:0,zIndex:1000,margin:0,padding:12,display:"flex",flexDirection:"column",background:"#f5f1e7"}:{}}><nav style={{position:"sticky",top:0,zIndex:10,background:"#f5f1e7",padding:8,display:"flex",gap:8,flexWrap:"wrap"}}><button onClick={onClose}>Voltar aos endereços</button><button aria-pressed={expanded} onClick={()=>setExpanded(!expanded)}>{expanded?"Reduzir mapa":"Ecrã inteiro"}</button></nav><div style={{display:"flex",gap:6,flexWrap:"wrap",marginBottom:8}}><button aria-pressed={scenario==='owner'} onClick={()=>setScenario('owner')}>Chegar a este endereço</button><button aria-pressed={scenario==='explore'} onClick={()=>setScenario('explore')}>Escolher outro destino</button></div><details style={{fontSize:13,marginBottom:8}}><summary>Detalhes do endereço</summary><p style={{overflowWrap:"anywhere"}}>{destination}</p><p role="status">{message}</p></details><iframe key={scenario+lang} ref={frame} title="NJILA — o meu endereço" src={NJILA_ORIGIN+'/?'+new URLSearchParams({from:'afroloc-app',purpose:scenario,embedded:'1',lang}).toString()} referrerPolicy="no-referrer" sandbox="allow-scripts allow-same-origin" allow={`geolocation ${NJILA_ORIGIN}; camera ${NJILA_ORIGIN}; accelerometer ${NJILA_ORIGIN}; gyroscope ${NJILA_ORIGIN}`} style={{width:"100%",height:expanded?undefined:Math.min(height,800),flex:expanded?1:undefined,minHeight:expanded?0:400,border:0}}/></section>;
 }
