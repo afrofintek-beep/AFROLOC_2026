@@ -4,7 +4,8 @@ import { MapContainer, TileLayer, CircleMarker, Popup } from "react-leaflet";
 import "leaflet/dist/leaflet.css";
 import { PhoneChrome } from "../../components/ui/PhoneChrome";
 import { TabBar } from "../../components/ui/TabBar";
-import { Qr } from "../../components/ui/Qr";
+import {AddressCard as StandardAddressCard} from "../../shared/afroloc-card/AddressCard";
+import {readCardReference} from "../../shared/afroloc-card/protocol";
 import { useAuth } from "../../state/auth";
 import { useRecords } from "../../state/records";
 import { canonical, errorText, placeLabel, statusLabel, type CanonicalAddress, type Country, type Division, type PublicAddress } from "../../lib/supabase/canonical";
@@ -59,6 +60,7 @@ export function LiveAddressesScreen() {
   </Page>;
 }
 export function LiveDetailScreen() {
+  const {profile}=useAuth();
   const { records, loading, error, refresh } = useRecords(); const [params] = useSearchParams();
   const a = params.get("id") ? records.find(r => r.id === params.get("id")) : records[0];
   const [name, setName] = useState(""); const [message, setMessage] = useState(""); const [failure, setFailure] = useState(""); const [busy, setBusy] = useState(false);
@@ -70,7 +72,7 @@ export function LiveDetailScreen() {
     {a && <><div className="live-card is-dark"><div className="live-code">{a.code}</div><span className="live-tag">{statusLabel(a.status)}</span><p>{placeLabel(a)}</p></div>
       <div className="live-card"><Row name="Rua / número" value={[a.street_name, a.number].filter(Boolean).join(" · ") || null} /><Row name="Fração" value={a.unit} /><Row name="Confiança (ATS)" value={a.ats_score} /><Row name="Última verificação" value={dateLabel(a.last_verified_at)} /><Row name="Próxima verificação" value={dateLabel(a.next_verification_due)} /><Row name="Criada em" value={dateLabel(a.created_at)} /></div>
       <form className="live-card" onSubmit={save}><label>Nome da morada<input value={name} maxLength={120} required onChange={e => setName(e.target.value)} /></label><button className="live-button" disabled={busy}>Guardar nome</button></form>
-      <div className="live-card"><h2>Partilhar código</h2><Qr value={publicUrl(a.code)} size={132} /><p>A consulta pública só apresenta registos aprovados, verificados ou certificados. O código não substitui a certificação da residência.</p><button className="live-button primary" onClick={() => void share()}>Partilhar ligação</button></div>
+      <div className="live-card"><h2>Partilhar código</h2><StandardAddressCard data={{code:a.code,name:profile?.name||undefined,label:a.property_name||undefined,type:a.address_type||undefined,country:a.country,province:a.level1_name,municipality:a.level2_name,commune:a.level3_name||undefined,neighborhood:a.level4_name||undefined,street:a.street_name||undefined,number:a.number||undefined,unit:a.unit||undefined,status:statusLabel(a.status),authority:'Registo AFROLOC',verifiedAt:a.last_verified_at||undefined,issuedAt:a.created_at}} brand="Yamilook · NJILA" link={publicUrl(a.code)}/><p>A consulta pública só apresenta registos aprovados, verificados ou certificados. O código não substitui a certificação da residência.</p><button className="live-button primary" onClick={() => void share()}>Partilhar ligação</button></div>
       <div className="live-card"><h2>Validação e documentos</h2><a className="live-button" href="/feira/">Validação para a feira</a><a className="live-button" href={`https://afroloc.ao/identity/${encodeURIComponent(a.id)}`}>Abrir este registo em afroloc.ao</a><p>Os documentos e atos da autoridade dependem do estado e das permissões registadas.</p></div>
     </>}{message && <div role="status" className="live-success">{message}</div>}{failure && <div role="alert" className="live-error">{failure}</div>}
   </Page>;
@@ -78,7 +80,7 @@ export function LiveDetailScreen() {
 export function LiveLookupScreen() {
   const [params] = useSearchParams(); const [code, setCode] = useState(params.get("code") || "");
   const [result, setResult] = useState<PublicAddress | null>(null); const [searched, setSearched] = useState(false); const [error, setError] = useState(""); const [busy, setBusy] = useState(false); const request = useRef(0);
-  async function lookup(e: FormEvent) { e.preventDefault(); const id = ++request.current; setBusy(true); setSearched(false); setResult(null); setError(""); try { const r = await canonical.lookup(code); if (id === request.current) { setResult(r); setSearched(true); } } catch(e) { if (id === request.current) setError(errorText(e)); } finally { if (id === request.current) setBusy(false); } }
+  async function lookup(e: FormEvent) { e.preventDefault(); const id = ++request.current; setBusy(true); setSearched(false); setResult(null); setError(""); try { const r = await canonical.lookup((()=>{const r=readCardReference(code);if(r?.kind==='access')throw new Error('Abra o passe LOCACCESS pela ligação privada.');if(/^https:/i.test(code.trim())&&!r)throw new Error('Ligação de cartão inválida.');return r?.kind==='address'?r.code:code})()); if (id === request.current) { setResult(r); setSearched(true); } } catch(e) { if (id === request.current) setError(errorText(e)); } finally { if (id === request.current) setBusy(false); } }
   return <Page title="Consultar AFROLOC"><p>Consulte o estado publicado de um código.</p><form className="live-card" onSubmit={lookup}><label>Código AFROLOC<input value={code} required onChange={e => { ++request.current; setBusy(false); setCode(e.target.value.toUpperCase()); setResult(null); setSearched(false); setError(""); }} /></label><button className="live-button primary" disabled={busy}>{busy ? "A consultar…" : "Consultar"}</button></form>
     {error && <div role="alert" className="live-error">{error}</div>}{searched && !result && <p role="status">Código não encontrado no registo público. Pode ainda estar pendente de validação.</p>}
     {result && <div className="live-card"><div className="live-code">{result.code}</div><span className="live-tag">{statusLabel(result.status)}</span><Row name="Localização" value={[result.municipio, result.provincia].filter(Boolean).join(" · ") || null} /><Row name="Confiança (ATS)" value={result.ats_score} /><Row name="Última verificação" value={dateLabel(result.last_verified_at)} /></div>}
