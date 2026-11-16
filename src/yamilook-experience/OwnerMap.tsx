@@ -6,6 +6,7 @@ type Position={point:{lat:number;lon:number};expiresAt:string;label?:string;code
 /** Owner-only coordinates remain in memory for the server-issued lease. */
 export function OwnerMap({id,onClose}:{id:string;onClose:()=>void}){
  const [expanded,setExpanded]=useState(false),[position,setPosition]=useState<Position|null>(null);
+ const [opening,setOpening]=useState(false);
  const [message,setMessage]=useState('A verificar o seu endereço…');
  useEffect(()=>{
   let active=true,busy=false,epoch=0,expiry:ReturnType<typeof setTimeout>|undefined;
@@ -28,6 +29,11 @@ export function OwnerMap({id,onClose}:{id:string;onClose:()=>void}){
   void refresh();const timer=setInterval(()=>void refresh(),10000);
   return()=>{active=false;epoch++;if(expiry)clearTimeout(expiry);clearInterval(timer);window.removeEventListener('offline',offline);window.removeEventListener('online',refresh);window.removeEventListener('pagehide',pagehide);document.removeEventListener('visibilitychange',hidden)};
  },[id]);
+ const openCard=async()=>{
+  if(opening||!position||Date.parse(position.expiresAt)<=Date.now()||document.hidden||!navigator.onLine)return;
+  setOpening(true);
+  try{await request('open-card',{id})}catch(e){setMessage((e as Error).message)}finally{setOpening(false)}
+ };
  return <section className="xp-card xp-owner-map" style={expanded?{position:'fixed',inset:0,zIndex:1000,margin:0,padding:12,overflowY:'auto',background:'#f5f1e7'}:{}}>
   <nav style={{display:'flex',gap:8,flexWrap:'wrap',marginBottom:12}}><button onClick={onClose}>Voltar aos endereços</button><button aria-pressed={expanded} onClick={()=>setExpanded(!expanded)}>{expanded?'Reduzir mapa':'Ecrã inteiro'}</button></nav>
   <h2>Localização AFROLOC</h2>
@@ -39,9 +45,10 @@ export function OwnerMap({id,onClose}:{id:string;onClose:()=>void}){
      <LayersControl.BaseLayer checked name="Mapa"><TileLayer url="https://tile.openstreetmap.org/{z}/{x}/{y}.png" maxZoom={19} attribution='&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a>'/></LayersControl.BaseLayer>
      <LayersControl.BaseLayer name="Satélite"><TileLayer url="https://server.arcgisonline.com/ArcGIS/rest/services/World_Imagery/MapServer/tile/{z}/{y}/{x}" maxZoom={19} attribution="Tiles &copy; Esri — Esri, Maxar, Earthstar Geographics, GIS User Community"/></LayersControl.BaseLayer>
     </LayersControl>
-    <CircleMarker center={[position.point.lat,position.point.lon]} radius={9} pathOptions={{color:'#fff',weight:3,fillColor:'#d2aa2e',fillOpacity:1}}><Tooltip>Endereço AFROLOC</Tooltip></CircleMarker>
+    <CircleMarker center={[position.point.lat,position.point.lon]} radius={12} eventHandlers={{click:()=>void openCard()}} pathOptions={{color:'#fff',weight:3,fillColor:'#d2aa2e',fillOpacity:1}}><Tooltip interactive><button type="button" disabled={opening} onClick={()=>void openCard()}>Ver cartão AFROLOC</button></Tooltip></CircleMarker>
    </MapContainer>
   </div>}
+  {position&&<button type="button" disabled={opening} onClick={()=>void openCard()}>{opening?'A abrir o cartão…':'Ver cartão deste endereço'}</button>}
   {position&&<details><summary>Detalhes do endereço</summary><p style={{overflowWrap:'anywhere'}}>{[position.label,position.code].filter(Boolean).join(' · ')}</p></details>}
   <p><a href={NJILA_ORIGIN} target="_blank" rel="noopener noreferrer">Abrir a versão paga da NJILA</a></p>
  </section>;
