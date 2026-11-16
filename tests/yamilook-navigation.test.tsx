@@ -1,8 +1,12 @@
 import {createRoot,Root} from 'react-dom/client';
 import {act} from 'react';
 import {YamilookExperience} from '../src/yamilook-experience/Experience';
-import {request,NJILA_ORIGIN,YAMILOOK_ORIGIN} from '../src/yamilook-experience/bridge';
+import {request,YAMILOOK_ORIGIN} from '../src/yamilook-experience/bridge';
 vi.mock('../src/yamilook-experience/bridge',()=>({NJILA_ORIGIN:'https://www.njilamaps.com',YAMILOOK_ORIGIN:'https://www.yamilook.com',request:vi.fn(async(action:string)=>action==='catalog'?{divisions:[]}:action==='list'?{canReview:true,addresses:[{id:'saved',label:'Casa',code:'AO-TEST',neighborhood:'Bairro',status:'pending',expires_at:'2099-01-01'}]}:action==='position'?{label:'Casa',code:'AO-TEST',point:{lat:-8,lon:13},expiresAt:new Date(Date.now()+30000).toISOString()}:{addresses:[]})}));
+vi.mock('react-leaflet',()=>{
+ const Wrapper=({children}:any)=><div>{children}</div>;
+ return {MapContainer:({children,center}:any)=><div data-map={JSON.stringify(center)}>{children}</div>,TileLayer:()=>null,CircleMarker:Wrapper,Tooltip:Wrapper,LayersControl:Object.assign(Wrapper,{BaseLayer:({name,children}:any)=><div>{name}{children}</div>})};
+});
 let root:Root,host:HTMLDivElement,parentFrame:HTMLIFrameElement;
 beforeEach(()=>{vi.clearAllMocks();vi.stubGlobal('IS_REACT_ACT_ENVIRONMENT',true);parentFrame=document.createElement('iframe');document.body.append(parentFrame);vi.stubGlobal('parent',parentFrame.contentWindow);host=document.createElement('div');document.body.append(host);root=createRoot(host)});
 afterEach(()=>{act(()=>root.unmount());host.remove();parentFrame.remove();vi.unstubAllGlobals()});
@@ -16,22 +20,17 @@ it('keeps saved addresses when returning from the map and isolates review',async
  expect(host.textContent).toContain('Por confirmar');
  await click('Ver o meu endereço no mapa NJILA');
  expect(host.textContent).not.toContain('Consultar pedidos pendentes');
- const frame=host.querySelector('iframe')!;
- expect(frame.getAttribute('allow')).toContain('geolocation '+NJILA_ORIGIN);
- await act(async()=>window.dispatchEvent(new MessageEvent('message',{origin:NJILA_ORIGIN,source:frame.contentWindow,data:{type:'yamilook-owner-resize',height:1800}})));
- expect(frame.style.height).toBe('800px');
- await act(async()=>window.dispatchEvent(new MessageEvent('message',{origin:'https://invalid.example',source:frame.contentWindow,data:{type:'yamilook-owner-resize',height:9000}})));
- expect(frame.style.height).toBe('800px');
- await click('Ecrã inteiro');expect(frame.closest('section')?.style.position).toBe('fixed');
+ expect(host.querySelector('[data-map]')).not.toBeNull();
+ await click('Ecrã inteiro');expect(host.querySelector('.xp-owner-map')?.getAttribute('style')).toContain('fixed');
  await act(async()=>window.dispatchEvent(new MessageEvent('message',{origin:YAMILOOK_ORIGIN,source:window.parent,data:{type:'yamilook-afroloc-navigation',action:'addresses'}})));
  expect(host.querySelector('iframe')).toBeNull();expect(host.textContent).toContain('AO-TEST');
  expect(vi.mocked(request).mock.calls.some(([action])=>action==='close')).toBe(false);
  await click('Área administrativa · Revisão de endereços');expect(host.textContent).toContain('Consultar pedidos pendentes');expect(host.textContent).not.toContain('Criar endereço temporário');
 });
 
-it('offers a fresh destination without forwarding the private owner position',async()=>{
+it('links to NJILA without forwarding the private owner position',async()=>{
  await act(async()=>root.render(<YamilookExperience/>));await click('Ver o meu endereço no mapa NJILA');
- const first=host.querySelector('iframe')!;expect(first.src).toContain('purpose=owner');expect(first.src).toContain('lang=pt');
- await click('Escolher outro destino');const second=host.querySelector('iframe')!;expect(second).not.toBe(first);expect(second.src).toContain('purpose=explore');expect(second.src).not.toContain('AO-TEST');
- await click('Chegar a este endereço');expect(host.querySelector('iframe')!.src).toContain('purpose=owner');
+ const link=Array.from(host.querySelectorAll('a')).find(a=>a.textContent?.includes('versão paga'))!;
+ expect(link.href).toBe('https://www.njilamaps.com/');
+ expect(link.href).not.toContain('AO-TEST');expect(host.querySelector('iframe')).toBeNull();
 });

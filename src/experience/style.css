@@ -9,3 +9,9 @@
 .xp-owner-map button[aria-pressed="true"] { background: #e7dbb9; border-color: #6b5c38; }
 .xp-owner-map nav { border-bottom: 0; margin-bottom: 4px; }
 .xp-owner-map details summary { min-height: 32px; cursor: pointer; }
+
+/* Keep Leaflet controls compact despite the surrounding form styles. */
+.xp-owner-map .leaflet-control-layers label { display:block; font:14px/1.7 Inter,Arial,sans-serif; }
+.xp-owner-map .leaflet-control-layers input { width:auto; padding:0; margin:0 5px 0 0; }
+.xp-owner-map .leaflet-control-layers { color:#222; background:#fff; }
+.xp-owner-map .leaflet-control-zoom a { color:#111; background:#fff; }
