@@ -34,3 +34,14 @@ it('links to NJILA without forwarding the private owner position',async()=>{
  expect(link.href).toBe('https://www.njilamaps.com/');
  expect(link.href).not.toContain('AO-TEST');expect(host.querySelector('iframe')).toBeNull();
 });
+
+it('opens a saved map from the trusted parent and keeps administration collapsed',async()=>{
+ await act(async()=>root.render(<YamilookExperience/>));
+ const admin=Array.from(host.querySelectorAll('summary')).find(s=>s.textContent==='Área administrativa')!.parentElement as HTMLDetailsElement;
+ expect(admin.open).toBe(false);expect(host.textContent).not.toContain('Use «Ver o meu cartão AFROLOC» no topo');
+ const data={type:'yamilook-afroloc-navigation',action:'map',id:'saved'};
+ await act(async()=>window.dispatchEvent(new MessageEvent('message',{origin:'https://invalid.example',source:window.parent,data})));
+ expect(host.querySelector('[data-map]')).toBeNull();
+ await act(async()=>window.dispatchEvent(new MessageEvent('message',{origin:YAMILOOK_ORIGIN,source:window.parent,data})));
+ expect(host.querySelector('[data-map]')).not.toBeNull();expect(request).toHaveBeenCalledWith('position',{id:'saved'});
+});
