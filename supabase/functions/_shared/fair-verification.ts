@@ -1,4 +1,5 @@
 import { handleWitness, type Env } from "./witness-confirmation.ts";
+import { dispatchWitness } from "./fair-witness-sms.ts";
 const origins = ["https://app.afroloc.ao", "https://natal.yamilook.com"];
 const actions = [
   "list",
@@ -7,6 +8,7 @@ const actions = [
   "review",
   "certify",
   "condominium",
+  "witness_identify", "witness_send", "witness_info", "witness_decide",
 ];
 export async function handleFair(
   req: Request,
@@ -98,6 +100,10 @@ export async function handleFair(
           { error: "Conclua a autenticação adicional na sua conta AFROLOC." },
           403,
         );
+    }
+    if (p.action === "list" || p.action.startsWith("witness_")) {
+      const data = await dispatchWitness(p, user.id, env, transport);
+      return reply(data, data.ok ? 200 : 400);
     }
     const result = await transport(base + "/rest/v1/rpc/fair_verification", {
       method: "POST",

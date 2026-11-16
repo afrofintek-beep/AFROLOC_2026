@@ -3,7 +3,7 @@ import {handleFair} from '../../supabase/functions/_shared/fair-verification.ts'
 const env={get:k=>({SUPABASE_URL:'https://test.supabase.co',SUPABASE_ANON_KEY:'public',SUPABASE_SERVICE_ROLE_KEY:'private'})[k]};
 let calls=[];
 const user={id:'00000000-0000-0000-0000-000000000001',is_anonymous:false};
-const transport=async(url,init)=>{calls.push([url,init]);if(url.endsWith('/auth/v1/user'))return Response.json(user);if(url.endsWith('/rpc/fair_verification'))return Response.json({ok:true,addresses:[]});throw Error('unexpected request')};
+const transport=async(url,init)=>{calls.push([url,init]);if(url.endsWith('/auth/v1/user'))return Response.json(user);if((url.endsWith('/rpc/fair_verification')||url.endsWith('/rpc/fair_witness_process')))return Response.json({ok:true,addresses:[]});throw Error('unexpected request')};
 const req=(body,origin='https://app.afroloc.ao',auth='Bearer token')=>new Request('https://test/fair-verification',{method:'POST',headers:{Origin:origin,Authorization:auth},body:JSON.stringify(body)});
 assert.equal((await handleFair(req({action:'list'},'https://attacker.invalid'),env,transport)).status,403);
 assert.equal(calls.length,0);
