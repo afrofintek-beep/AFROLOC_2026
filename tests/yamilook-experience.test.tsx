@@ -9,7 +9,7 @@ it('direct opening returns to Yamilook without credentials or event references',
  await act(async()=>root.render(<YamilookExperience/>));
  expect(host.textContent).toContain('Entre com a sua conta Yamilook');
  expect(host.textContent).not.toMatch(/feira|natal|chave privada/i);
- expect(host.querySelector('a')?.href).toBe('https://www.yamilook.com/afroloc');
+ expect(host.querySelector('a')?.href).toBe('https://www.yamilook.com/afroloc?lang=pt');
  expect(host.querySelector('input[type=password]')).toBeNull();
 });
 it('refuses credentialless standalone calls',async()=>{

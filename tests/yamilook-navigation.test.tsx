@@ -5,7 +5,7 @@ import {request,YAMILOOK_ORIGIN} from '../src/yamilook-experience/bridge';
 vi.mock('../src/yamilook-experience/bridge',()=>({NJILA_ORIGIN:'https://www.njilamaps.com',YAMILOOK_ORIGIN:'https://www.yamilook.com',request:vi.fn(async(action:string)=>action==='catalog'?{divisions:[]}:action==='list'?{canReview:true,addresses:[{id:'saved',label:'Casa',code:'AO-TEST',neighborhood:'Bairro',status:'pending',expires_at:'2099-01-01'}]}:action==='position'?{label:'Casa',code:'AO-TEST',point:{lat:-8,lon:13},expiresAt:new Date(Date.now()+30000).toISOString()}:{addresses:[]})}));
 vi.mock('react-leaflet',()=>{
  const Wrapper=({children}:any)=><div>{children}</div>;
- return {MapContainer:({children,center}:any)=><div data-map={JSON.stringify(center)}>{children}</div>,TileLayer:()=>null,CircleMarker:Wrapper,Tooltip:Wrapper,LayersControl:Object.assign(Wrapper,{BaseLayer:({name,children}:any)=><div>{name}{children}</div>})};
+ return {MapContainer:({children,center}:any)=><div data-map={JSON.stringify(center)}>{children}</div>,TileLayer:()=>null,ZoomControl:()=>null,CircleMarker:Wrapper,Tooltip:Wrapper,LayersControl:Object.assign(Wrapper,{BaseLayer:({name,children}:any)=><div>{name}{children}</div>})};
 });
 let root:Root,host:HTMLDivElement,parentFrame:HTMLIFrameElement;
 beforeEach(()=>{vi.clearAllMocks();vi.stubGlobal('IS_REACT_ACT_ENVIRONMENT',true);parentFrame=document.createElement('iframe');document.body.append(parentFrame);vi.stubGlobal('parent',parentFrame.contentWindow);host=document.createElement('div');document.body.append(host);root=createRoot(host)});
@@ -31,7 +31,7 @@ it('keeps saved addresses when returning from the map and isolates review',async
 it('links to NJILA without forwarding the private owner position',async()=>{
  await act(async()=>root.render(<YamilookExperience/>));await click('Ver o meu endereço no mapa NJILA');
  const link=Array.from(host.querySelectorAll('a')).find(a=>a.textContent?.includes('versão paga'))!;
- expect(link.href).toBe('https://www.njilamaps.com/');
+ expect(link.href).toBe('https://www.njilamaps.com/?from=afroloc-app&lang=pt');
  expect(link.href).not.toContain('AO-TEST');expect(host.querySelector('iframe')).toBeNull();
 });
 

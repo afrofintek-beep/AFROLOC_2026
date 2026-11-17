@@ -1,3 +1,4 @@
+import {t} from './i18n';
 type Division={level:number;code:string;name:string;parent_code:string|null};
 /** Short code segments can collide; never guess an administrative hierarchy. */
 export function resolveDivisions(code:string,divisions:Division[]){
@@ -15,5 +16,5 @@ export function resolveDivisions(code:string,divisions:Division[]){
 }
 export function AddressDetails({code,neighborhood,divisions}:{code:string;neighborhood:string;divisions:Division[]}){
  const admin=resolveDivisions(code,divisions);
- return <dl><dt>País</dt><dd>Angola</dd><dt>Província</dt><dd>{admin?.province.name||'Por confirmar'}</dd><dt>Município</dt><dd>{admin?.municipality.name||'Por confirmar'}</dd><dt>Comuna</dt><dd>{admin?admin.commune?.name||'Sem comuna indicada no catálogo':'Por confirmar'}</dd><dt>Bairro / zona declarado</dt><dd>{neighborhood||'Não indicado'}</dd><dt>Complemento do endereço</dt><dd>Não indicado</dd></dl>;
+ return <dl><dt>{t("País")}</dt><dd>{t("Angola")}</dd><dt>{t("Província")}</dt><dd>{admin?.province.name||t('Por confirmar')}</dd><dt>{t("Município")}</dt><dd>{admin?.municipality.name||t('Por confirmar')}</dd><dt>{t("Comuna")}</dt><dd>{admin?admin.commune?.name||t('Sem comuna indicada no catálogo'):t('Por confirmar')}</dd><dt>{t("Bairro / zona declarado")}</dt><dd>{neighborhood||t('Não indicado')}</dd><dt>{t("Complemento do endereço")}</dt><dd>{t("Não indicado")}</dd></dl>;
 }

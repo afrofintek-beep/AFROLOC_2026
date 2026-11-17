@@ -5,7 +5,7 @@ import {request} from '../src/yamilook-experience/bridge';
 vi.mock('../src/yamilook-experience/bridge',()=>({NJILA_ORIGIN:'https://www.njilamaps.com',request:vi.fn()}));
 vi.mock('react-leaflet',()=>{
  const Wrapper=({children}:any)=><div>{children}</div>;
- return {MapContainer:({children,center}:any)=><div data-map={JSON.stringify(center)}>{children}</div>,TileLayer:()=>null,CircleMarker:({children,eventHandlers}:any)=><div><button data-marker onClick={eventHandlers?.click}>Ponto</button>{children}</div>,Tooltip:Wrapper,LayersControl:Object.assign(Wrapper,{BaseLayer:({name,children}:any)=><div>{name}{children}</div>})};
+ return {MapContainer:({children,center}:any)=><div data-map={JSON.stringify(center)}>{children}</div>,TileLayer:()=>null,ZoomControl:()=>null,CircleMarker:({children,eventHandlers}:any)=><div><button data-marker onClick={eventHandlers?.click}>Ponto</button>{children}</div>,Tooltip:Wrapper,LayersControl:Object.assign(Wrapper,{BaseLayer:({name,children}:any)=><div>{name}{children}</div>})};
 });
 let root:Root,host:HTMLDivElement;
 beforeEach(()=>{vi.useFakeTimers();vi.stubGlobal('IS_REACT_ACT_ENVIRONMENT',true);host=document.createElement('div');document.body.append(host);root=createRoot(host);vi.mocked(request).mockReset()});
